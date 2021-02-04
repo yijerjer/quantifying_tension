@@ -43,6 +43,7 @@ class BayesFactor(nn.Module):
         cum_weights_B = cum_weights_B.sum(1)
 
         R = (cum_weights_A * cum_weights_B) / weights_prior
+        R[R != R] = 0
         return R.sum()
 
     def binned_weights(self, X, n_bins):
@@ -124,7 +125,6 @@ class LogSuspiciousness(nn.Module):
         weights_A, bins_A = binned_weights(XA_1d, self.n_bins, self.steepness)
         weights_B, bins_B = binned_weights(XB_1d, self.n_bins, self.steepness)
         XAB_1d = torch.cat((XA_1d, XB_1d))
-        # weights_AB, bins_AB = binned_weights(XAB_1d, self.n_bins, self.steepness)
         weights_AB = torch.cat((weights_A, weights_B)) / (weights_A.sum() + weights_B.sum())
         bins_AB = torch.cat((bins_A, bins_B))
 
@@ -137,7 +137,7 @@ class LogSuspiciousness(nn.Module):
 
     def log_likelihood_function(self, bins, X):
         dist = dists.Normal(bins, self.likelihood_cov)
-        return dist.log_prob(X).sum(0)
+        return dist.log_prob(bins.unsqueeze(1)).sum(0)
 
 
 def kl_divergence(post_weights, post_bins, X_prior):
