@@ -1,7 +1,6 @@
 import torch
 import torch.distributions as dists
-import matplotlib.pyplot as plt
-from anesthetic.plot import kde_plot_1d, kde_contour_plot_2d
+from anesthetic.plot import kde_contour_plot_2d
 
 
 def get_limits(points):
@@ -10,7 +9,9 @@ def get_limits(points):
         min_val = torch.min(row)  
         max_val = torch.max(row)
         padding = (max_val - min_val) / 100
-        min_max = torch.cat((min_max, torch.tensor([[min_val - padding, max_val + padding]])))
+        min_max = torch.cat(
+            (min_max, torch.tensor([[min_val - padding, max_val + padding]]))
+        )
 
     return min_max
 
@@ -42,10 +43,10 @@ def visualise_tension(fig, axs, tension_net, XA, XB):
     z_llhd = likelihood_f(z, X_combine)
     grid_z_llhd = z_llhd.reshape(grid_x.shape)
 
-    contour_plot = axs.contour(grid_x.detach().numpy(), grid_y.detach().numpy(), grid_z_llhd.detach().numpy(), levels=30)
+    axs.contour(grid_x.detach().numpy(), grid_y.detach().numpy(),
+                grid_z_llhd.detach().numpy(), levels=30)
     kde_contour_plot_2d(axs, XA[:, 0], XA[:, 1])
     kde_contour_plot_2d(axs, XB[:, 0], XB[:, 1])
-    # fig.colorbar(contour_plot)
 
 
 def visualise_coordinate(fig, axs, tension_net, XA, XB):
@@ -65,7 +66,7 @@ def visualise_coordinate(fig, axs, tension_net, XA, XB):
 
     grid_z = tension_net(grid_xy).squeeze(2)
 
-    contour_plot = axs.contour(grid_x.detach().numpy(), grid_y.detach().numpy(), grid_z.detach().numpy(), levels=30)
+    axs.contour(grid_x.detach().numpy(), grid_y.detach().numpy(),
+                grid_z.detach().numpy(), levels=30)
     kde_contour_plot_2d(axs, XA[:, 0], XA[:, 1])
     kde_contour_plot_2d(axs, XB[:, 0], XB[:, 1])
-    # fig.colorbar(contour_plot, ax=axs)

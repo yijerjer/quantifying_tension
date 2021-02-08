@@ -9,7 +9,6 @@ class TensionNet(nn.Module):
 
     def forward(self, input):
         output = self.linear(input)
-        
         return output
 
 
