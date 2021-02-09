@@ -73,7 +73,7 @@ class BayesFactor(nn.Module):
         R = (cum_weights_A * cum_weights_B) / weights_prior
         R[R == float('inf')] = 0
         R[R != R] = 0
-        return R.sum()
+        return torch.log(R.sum())
 
     def activation_bins(self, s_bins, l_centres, l_bin_width,
                         envelope="gaussian"):
@@ -115,6 +115,8 @@ class SuspiciousnessKLDiv(nn.Module):
         cum_weights_B = cum_weights_B.sum(1)
 
         R = (cum_weights_A * cum_weights_B) / weights_prior
+        R[R == float('inf')] = 0
+        R[R != R] = 0
         R = R.sum()
 
         kl_div_A = self.kl_divergence(weights_A, bins_A, X_prior_1d)
@@ -140,16 +142,22 @@ class SuspiciousnessKLDiv(nn.Module):
 
         post_div_prior = post_weights / prior_weights
         kl_div = post_weights * torch.log(post_div_prior)
+        kl_div[kl_div == float('inf')] = 0
         kl_div[kl_div != kl_div] = 0
         kl_div = kl_div.sum()
 
         return kl_div
 
-    def activation_bins(self, s_bins, l_centres, l_bin_width):
+    def activation_bins(self, s_bins, l_centres, l_bin_width,
+                        envelope="gaussian"):
         x = s_bins.unsqueeze(0) - l_centres.unsqueeze(1)
-        activation = (torch.sigmoid(self.steepness * (x + l_bin_width / 2))
-                      - torch.sigmoid(self.steepness * (x - l_bin_width / 2)))
-        return activation
+        if self.hist_type == "sigmoid":
+            return (torch.sigmoid(self.hist_param * (x + l_bin_width / 2))
+                    - torch.sigmoid(self.hist_param * (x - l_bin_width / 2)))
+        elif self.hist_type == "gaussian":
+            std = self.hist_param * l_bin_width / 2
+            return ((torch.exp(-torch.square(x) / (2 * torch.square(std))))
+                    / (np.sqrt(2 * np.pi) * std) * l_bin_width)
 
 
 class LogSuspiciousness(nn.Module):
