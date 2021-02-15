@@ -18,20 +18,18 @@ def simple_data(size=10000):
     return X0, X1, X_prior
 
 
-def curved_data(size=10000):
+def curved_data(size=10000, radius=8):
     mu0 = np.array([1, 1])
     Sigma0 = np.array([[1, 0], [0, 1]])
-
-    thetas = np.linspace(np.pi / 24, 11 * np.pi / 24, 5)
-    mu1s = np.array([[5 * np.cos(t), 5 * np.sin(t)] for t in thetas])
-    # mu1 = np.array([5, 5])
-    Sigma1 = np.array([[0.2, 0], [0.2, 1]])
-
     X0 = np.random.multivariate_normal(mu0, Sigma0, size=(size))
-    X1 = np.empty((0, 2))
-    for mu in mu1s:
-        X1 = np.concatenate((X1, np.random.multivariate_normal(mu, Sigma1, size=(int(size / 5)))))
-    # X1 = np.random.multivariate_normal(mu1, Sigma1, size=(size))
+
+    mu1 = np.array([0, 0])
+    Sigma1 = np.array([[1, 0], [0, 1]])
+    thetas = np.random.uniform(low=(np.pi / 24), high=(11 * np.pi / 24), size=size)
+    thetas_xy = np.transpose(np.vstack((np.cos(thetas), np.sin(thetas))))
+    thetas_xy *= radius
+    X1 = np.random.multivariate_normal(mu1, Sigma1, size=(size))
+    X1 += thetas_xy
 
     X_all = torch.tensor(np.concatenate((X0, X1)))
     prior_limits = get_limits(X_all)

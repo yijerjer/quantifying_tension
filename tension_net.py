@@ -20,5 +20,5 @@ class TensionNet1(nn.Module):
 
     def forward(self, input):
         output = F.relu(self.linear1(input))
-        output = F.relu(self.linear2(output))
+        output = self.linear2(output)
         return output

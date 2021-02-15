@@ -8,7 +8,7 @@ from torch_utils import get_limits
 # https://discuss.pytorch.org/t/differentiable-torch-histc/25865/3
 class SoftHistogram(nn.Module):
     def __init__(self, n_bins, min, max, param=None,
-                 envelope="gaussian"):
+                 envelope="gaussian", device=None):
         super(SoftHistogram, self).__init__()
         self.n_bins = n_bins
         if param:
@@ -20,8 +20,12 @@ class SoftHistogram(nn.Module):
                 self.param = 1
 
         self.envelope = envelope
+        if not device:
+            self.device = torch.device("cuda" if torch.cuda.is_available() 
+                                  else "cpu")
         self.bin_width = (max - min) / n_bins
         self.centres = min + self.bin_width * (torch.arange(n_bins) + 1/2)
+        self.centres = self.centres.to(self.device)
 
     def forward(self, x):
         x = x.squeeze(1)
@@ -95,6 +99,7 @@ class SuspiciousnessKLDiv(nn.Module):
         self.hist_param = hist_param
         self.n_dist_bins = n_dist_bins
         self.n_prior_bins = n_prior_bins
+        self.kldiv = nn.KLDivLoss()
 
     def forward(self, XA_1d, XB_1d, X_prior_1d):
         weights_A, bins_A = binned_weights(XA_1d, self.n_dist_bins,
@@ -140,12 +145,12 @@ class SuspiciousnessKLDiv(nn.Module):
             low_lim=low_lim, high_lim=high_lim
         )
 
-        post_div_prior = post_weights / prior_weights
-        kl_div = post_weights * torch.log(post_div_prior)
-        kl_div[kl_div == float('inf')] = 0
-        kl_div[kl_div != kl_div] = 0
-        kl_div = kl_div.sum()
+        # post_div_prior = post_weights / prior_weights
+        # kl_div = post_weights * torch.log(post_div_prior)
+        # kl_div[kl_div != kl_div] = 0
+        # kl_div = kl_div.sum()
 
+        kl_div = self.kldiv(post_bins, post_weights)
         return kl_div
 
     def activation_bins(self, s_bins, l_centres, l_bin_width,
