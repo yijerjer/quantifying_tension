@@ -93,13 +93,14 @@ class BayesFactor(nn.Module):
 
 class SuspiciousnessKLDiv(nn.Module):
     def __init__(self, hist_type="gaussian", hist_param=1,
-                 n_dist_bins=500, n_prior_bins=50):
+                 n_dist_bins=500, n_prior_bins=50, return_extras=False):
         super(SuspiciousnessKLDiv, self).__init__()
         self.hist_type = hist_type
         self.hist_param = hist_param
         self.n_dist_bins = n_dist_bins
         self.n_prior_bins = n_prior_bins
         self.kldiv = nn.KLDivLoss()
+        self.return_extras = return_extras
 
     def forward(self, XA_1d, XB_1d, X_prior_1d):
         weights_A, bins_A = binned_weights(XA_1d, self.n_dist_bins,
@@ -134,7 +135,10 @@ class SuspiciousnessKLDiv(nn.Module):
         log_I = kl_div_A + kl_div_B - kl_div_AB
 
         log_S = torch.log(R) - log_I
-        return log_S
+        if self.return_extras:
+            return log_S, torch.log(R), log_I
+        else:
+            return log_S
 
     def kl_divergence(self, post_weights, post_bins, X_prior):
         bin_width = post_bins[1] - post_bins[0]

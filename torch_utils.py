@@ -53,6 +53,8 @@ def visualise_tension(fig, axs, tension_net, XA, XB):
                 grid_z_llhd.detach().numpy(), levels=30)
     kde_contour_plot_2d(axs, XA[:, 0], XA[:, 1])
     kde_contour_plot_2d(axs, XB[:, 0], XB[:, 1])
+    axs.set_xlim([low_lims[0].item(), up_lims[0]])
+    axs.set_ylim([low_lims[1].item(), up_lims[1]])
 
 
 def visualise_coordinate(fig, axs, tension_net, XA, XB):
@@ -78,6 +80,8 @@ def visualise_coordinate(fig, axs, tension_net, XA, XB):
                 grid_z.detach().numpy(), levels=30)
     kde_contour_plot_2d(axs, XA[:, 0], XA[:, 1])
     kde_contour_plot_2d(axs, XB[:, 0], XB[:, 1])
+    axs.set_xlim([low_lims[0].item(), up_lims[0]])
+    axs.set_ylim([low_lims[1].item(), up_lims[1]])
 
 
 def plot_marginalised_dists(fig, axs, XA_1d, XB_1d, X_prior_1d,
