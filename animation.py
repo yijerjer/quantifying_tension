@@ -1,91 +1,67 @@
 import torch
-import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.stats import gaussian_kde
+from scipy.interpolate import interp1d
 from matplotlib.animation import FuncAnimation
-from anesthetic.plot import kde_plot_1d, kde_contour_plot_2d
-from torch_utils import (get_limits, visualise_tension, visualise_coordinate,
-                         plot_marginalised_dists)
-from np_utils import simple_data, curved_data, uniform_prior_samples
-from tension_net import TensionNet1
-from tension_quantify import BayesFactor, SuspiciousnessKLDiv
-
-
-def get_xy_points(XA_tensor, XB_tensor):
-    bounds_A = get_limits(XA_tensor)
-    bounds_B = get_limits(XB_tensor)
-    bounds = torch.cat((bounds_A, bounds_B), dim=1)
-    low_lims = bounds.min(1).values
-    up_lims = bounds.max(1).values
-
-    x = torch.linspace(low_lims[0], up_lims[0], 100)
-    y = torch.linspace(low_lims[0], up_lims[1], 100)
-    grid_x, grid_y = torch.meshgrid(x, y)
-    grid_xy = torch.cat((grid_x.unsqueeze(2), grid_y.unsqueeze(2)), dim=2)
-    points_xy = grid_xy.view(-1, 2)
-
-    return points_xy
+from np_utils import simple_data, curved_data
+from anesthetic.plot import kde_contour_plot_2d
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 X0, X1, X_prior = simple_data()
-X0_tensor = torch.tensor(X0).float().to(device)
-X1_tensor = torch.tensor(X1).float().to(device)
-X_prior_tensor = torch.tensor(X_prior).float().to(device)
+data = np.load("suss_simple_exploding.npz")
+losses = data['losses']
+coords = data['coords']
+dists = data['kdes']
 
-tension_R = TensionNet1(2).to(device)
-criterion = BayesFactor(hist_type="gaussian", hist_param=1, n_dist_bins=100,
-                        n_prior_bins=50).to(device)
-optimizer = optim.SGD(tension_R.parameters(), lr=0.0005)
+grids_x = coords[:, 0, :, :]
+grids_y = coords[:, 1, :, :]
+grids_z = coords[:, 2, :, :]
 
-losses_R = []
-points_xy = get_xy_points(X0_tensor, X1_tensor)
-grid_xy = points_xy.view(100, 100, 2)
-grid_x = grid_xy[:, :, 0].detach().numpy()
-grid_y = grid_xy[:, :, 1].detach().numpy()
-grids_z = np.empty((0, 100, 100))
+dists_A = dists[:, 0, :, :]
+dists_B = dists[:, 1, :, :]
+dists_prior = dists[:, 2, :, :]
+maxes_A = np.max(dists_A[:, :, 1], axis=1)
+maxes_B = np.max(dists_B[:, :, 1], axis=1)
+maxes_prior = np.max(dists_prior[:, :, 1], axis=1)
+dists_A[:, :, 1] /= maxes_A[:, None]
+dists_B[:, :, 1] /= maxes_B[:, None]
+dists_prior[:, :, 1] /= maxes_prior[:, None]
 
-iter = 100
 
-for i in range(iter):
-    z = tension_R(points_xy).view(100, 100)
-    grids_z = np.concatenate((grids_z, np.array([z.detach().numpy()])))
-
-    optimizer.zero_grad()
-    X0_1d = tension_R(X0_tensor)
-    X1_1d = tension_R(X1_tensor)
-    X_prior_1d = tension_R(X_prior_tensor)
-
-    loss = criterion(X0_1d, X1_1d, X_prior_1d)
-    losses_R.append(loss.item())
-    loss.backward()
-    optimizer.step()
-
-fig, axs = plt.subplots(1, 2, figsize=(10, 5))
-# axs[0].set_xlim([0, len(losses_R)])
-axs[1].set_xlim((points_xy[0][0], points_xy[-1][0]))
-axs[1].set_ylim((points_xy[0][1], points_xy[-1][1]))
-
+fig, axs = plt.subplots(1, 3, figsize=(15, 5))
 kde_contour_plot_2d(axs[1], X0[:, 0], X0[:, 1])
 kde_contour_plot_2d(axs[1], X1[:, 0], X1[:, 1])
+contour = axs[1].contour(grids_x[0], grids_y[0], grids_z[0], levels=30)
 
-contour = axs[1].contour(grid_x, grid_y, grids_z[0], levels=30)
-line, = axs[0].plot([], [])
+line_A, = axs[2].plot(dists_A[0][:, 0], dists_A[0][:, 1])
+line_B, = axs[2].plot(dists_B[0][:, 0], dists_B[0][:, 1])
+line_prior, = axs[2].plot(dists_prior[0][:, 0], dists_prior[0][:, 1])
+axs[2].set_xlim([np.min(dists[:, :, :, 0]), np.max(dists[:, :, :, 0])])
 
+iter = len(losses)
 
 def animate(i):
     global contour, line
     for c in contour.collections:
         c.remove()
-    axs[0].plot(np.arange(len(losses_R[:i])), losses_R[:i], color='tab:blue')
+    axs[0].plot(np.arange(len(losses[:i])), losses[:i], color='tab:blue')
     axs[0].set_xlim([0, iter])
-    axs[0].set_ylim([-10, 2])
-    contour = axs[1].contour(grid_x, grid_y, grids_z[i], levels=30)
-    axs[1].set_xlim((points_xy[0][0], points_xy[-1][0]))
-    axs[1].set_ylim((points_xy[0][1], points_xy[-1][1]))
+    # axs[0].set_ylim([-10, 2])
+    axs[0].set_title(f"Current loss = {round(losses[i], 4)}")
+
+    contour = axs[1].contour(grids_x[0], grids_y[0], grids_z[i], levels=30)
+    axs[1].set_xlim((np.min(grids_x), np.max(grids_x)))
+    axs[1].set_ylim((np.min(grids_y), np.max(grids_y)))
     axs[1].set_title(f"{i}")
+
+    line_A.set_data(dists_A[i][:, 0], dists_A[i][:, 1])
+    line_B.set_data(dists_B[i][:, 0], dists_B[i][:, 1])
+    line_prior.set_data(dists_prior[i][:, 0], dists_prior[i][:, 1])
     return contour
 
-anim = FuncAnimation(fig, animate, iter, repeat=False, interval=100)
+anim = FuncAnimation(fig, animate, iter, repeat=False, interval=20)
+# anim.save("suss_simple_exploding.mp4")
 
 plt.show()

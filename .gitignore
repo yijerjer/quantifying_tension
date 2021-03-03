@@ -1,1 +1,4 @@
 lcdm/*
+runs_default/*
+*.mp4
+*.npz
