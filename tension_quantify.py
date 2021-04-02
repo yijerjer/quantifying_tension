@@ -55,9 +55,15 @@ class SoftHistogram(nn.Module):
                     / (np.sqrt(2 * np.pi) * std) * self.bin_width)
 
 
-def cov(X):
-    M = X - X.mean(dim=0)
-    return torch.matmul(M.T, M) / (M.shape[0] - 1)
+def cov(X, weights=None):
+    if weights is None:
+        M = X - X.mean(dim=0)
+        return torch.matmul(M.T, M) / (M.shape[0] - 1)
+    else:
+        w_sum = weights.sum()
+        M = X - (X * weights[:, None]).sum() / w_sum
+        return (torch.matmul((M * weights[:, None]).T, M)
+                / (w_sum - (weights**2).sum() / w_sum))
 
 
 class GaussianKDE(Distribution):
@@ -73,11 +79,13 @@ class GaussianKDE(Distribution):
 
         if weights is None:
             self.weights = torch.ones(self.n, device=device) / self.n
+        else:
+            self.weights = weights / weights.sum()
         self.neff = 1 / (self.weights**2).sum()
         # Scott's rule
-        self.bw = (self.n ** (-1 / (self.dims + 4)))
+        self.bw = (self.neff ** (-1 / (self.dims + 4)))
 
-        self.covar = torch.atleast_2d(cov(X)) * self.bw**2
+        self.covar = torch.atleast_2d(cov(X, weights=self.weights)) * self.bw**2
         self.inv_cov = torch.inverse(self.covar)
         L = torch.cholesky(self.covar * 2 * np.pi)
         self.log_det = 2 * torch.log(torch.diag(L)).sum()
@@ -93,21 +101,11 @@ class GaussianKDE(Distribution):
         if self.dims == 1:
             y = y[:, None]
 
-        # y_n = y.shape[0]
-
         diffs = (self.X[:, None, :] - y)
-        tdiffs = (diffs[:, :, None, :] * self.inv_cov.T).sum(3) # matmul
+        tdiffs = (diffs[:, :, None, :] * self.inv_cov.T).sum(3)  # matmul
         energies = torch.sum(diffs * tdiffs, dim=2).T
         log_to_sums = (2.0 * torch.log(self.weights) - self.log_det) - energies
         results = torch.logsumexp(0.5 * log_to_sums, dim=1)
-
-        # results = torch.empty((y_n, ), dtype=torch.float, device=self.device)
-        # for i in range(y_n):
-        #     diff = self.X - y[i, :]
-        #     tdiff = torch.matmul(diff, self.inv_cov)
-        #     energy = torch.sum(diff * tdiff, dim=1)
-        #     log_to_sum = 2.0 * torch.log(self.weights) - self.log_det - energy
-        #     results[i] = torch.logsumexp(0.5 * log_to_sum, 0)
 
         return results
 
@@ -124,76 +122,103 @@ class GaussianKDE(Distribution):
 
 
 class BayesFactorKDE(nn.Module):
-    def __init__(self, device, n_points=1000, flatten_prior=False,
-                 prior_division=True, return_extras=False, logsumexp=False):
+    def __init__(self, device, n_points=1000):
         super(BayesFactorKDE, self).__init__()
         self.device = device
         self.n_points = n_points
-        self.flatten_prior = flatten_prior
-        self.prior_division = prior_division
-        self.return_extras = return_extras
-        self.logsumexp = logsumexp
 
-    def forward(self, XA_1d, XB_1d, X_prior_1d, weights={}):
-        if self.flatten_prior:
+    def forward(self, XA_1d, XB_1d, X_prior_1d, weights=None):
+        if weights is not None:
+            kdeA = GaussianKDE(XA_1d, self.device, weights=weights["XA"])
+            kdeB = GaussianKDE(XB_1d, self.device, weights=weights["XB"])
+            kde_prior = GaussianKDE(X_prior_1d, self.device,
+                                    weights=weights["X_prior"])
+        else:
+            kdeA = GaussianKDE(XA_1d, self.device)
+            kdeB = GaussianKDE(XB_1d, self.device)
             kde_prior = GaussianKDE(X_prior_1d, self.device)
-            XA_1d = kde_prior.cdf(XA_1d.squeeze())
-            XB_1d = kde_prior.cdf(XB_1d.squeeze())
-            X_prior_1d = kde_prior.cdf(X_prior_1d.squeeze())
-            XA_1d = XA_1d.unsqueeze(1)
-            XB_1d = XB_1d.unsqueeze(1)
-            X_prior_1d = X_prior_1d.unsqueeze(1)
-        kdeA = GaussianKDE(XA_1d, self.device)
-        kdeB = GaussianKDE(XB_1d, self.device)
-        kde_prior = GaussianKDE(X_prior_1d, self.device)
 
-        X = torch.cat((XA_1d, XB_1d, X_prior_1d), dim=1)
+        X = torch.cat((XA_1d, XB_1d, X_prior_1d), dim=0)
         lims = get_limits(X)[0]
         y = torch.linspace(lims[0], lims[1], self.n_points, device=self.device)
         interval = y[1] - y[0]
         del XA_1d, XB_1d, X_prior_1d
 
-        if self.logsumexp:
-            log_dist_A = kdeA.log_prob(y)
-            log_dist_B = kdeB.log_prob(y)
-            log_dist_prior = kde_prior.log_prob(y)
-            del kdeA, kdeB, kde_prior
+        log_dist_A = kdeA.log_prob(y)
+        log_dist_B = kdeB.log_prob(y)
+        log_dist_prior = kde_prior.log_prob(y)
+        del kdeA, kdeB, kde_prior
 
-            if self.prior_division:
-                log_to_sum = log_dist_A + log_dist_B
-            else:
-                log_to_sum = log_dist_A + log_dist_B - log_dist_prior
-            log_to_sum = log_to_sum
-            logR = torch.logsumexp(log_to_sum + torch.log(interval), dim=0)
+        log_to_sum_prior = log_dist_A + log_dist_B - log_dist_prior
+        logR = torch.logsumexp(
+            log_to_sum_prior + torch.log(interval),
+            dim=0
+        )
+        return logR
+
+
+class SuspiciousnessKDE(nn.Module):
+    def __init__(self, device, n_points=1000, logsumexp=False):
+        super(SuspiciousnessKDE, self).__init__()
+        self.device = device
+        self.n_points = n_points
+        self.logsumexp = logsumexp
+
+    def forward(self, XA_1d, XB_1d, X_prior_1d, weights={}):
+        XAB_1d = torch.cat((XA_1d, XB_1d))
+        if weights:
+            kdeA = GaussianKDE(XA_1d, self.device, weights=weights["XA"])
+            kdeB = GaussianKDE(XB_1d, self.device, weights=weights["XB"])
+            XAB_weights = torch.cat((weights["XA"], weights["XB"]))
+            kdeAB = GaussianKDE(XAB_1d, self.device, weights=XAB_weights)
+            kde_prior = GaussianKDE(X_prior_1d, self.device,
+                                    weights=weights["X_prior"])
         else:
-            dist_A = kdeA.prob(y)
-            dist_B = kdeB.prob(y)
-            dist_prior = kde_prior.prob(y)
-            del kdeA, kdeB, kde_prior
+            kdeA = GaussianKDE(XA_1d, self.device)
+            kdeB = GaussianKDE(XB_1d, self.device)
+            kdeAB = GaussianKDE(XAB_1d, self.device)
+            kde_prior = GaussianKDE(X_prior_1d, self.device)
 
-            if self.prior_division:
-                R = (dist_A * dist_B) / dist_prior
-            else:
-                R = dist_A * dist_B
-            R = R.sum() * interval
-            logR = torch.log(R)
+        X = torch.cat((XAB_1d, X_prior_1d), dim=0)
+        lims = get_limits(X)[0]
+        y = torch.linspace(lims[0], lims[1], self.n_points, device=self.device)
+        interval = y[1] - y[0]
+        del XA_1d, XB_1d, XAB_1d, X_prior_1d
 
-        if self.return_extras:
-            return logR, dist_A, dist_B, dist_prior, y
-        else:
-            return logR
+        log_dist_A = kdeA.log_prob(y)
+        log_dist_B = kdeB.log_prob(y)
+        log_dist_AB = kdeAB.log_prob(y)
+        log_dist_prior = kde_prior.log_prob(y)
+        del kdeA, kdeB, kdeAB, kde_prior
+
+        log_to_sum_prior = log_dist_A + log_dist_B - log_dist_prior
+        logR = torch.logsumexp(
+            log_to_sum_prior + torch.log(interval), dim=0
+        )
+
+        kldiv_A = self.kl_divergence(log_dist_A, log_dist_prior, interval)
+        kldiv_B = self.kl_divergence(log_dist_B, log_dist_prior, interval)
+        kldiv_AB = self.kl_divergence(log_dist_AB, log_dist_prior, interval)
+        # logI = torch.log(kldiv_A) + torch.log(kldiv_B) - torch.log(kldiv_AB)
+        logI = torch.log(kldiv_A * kldiv_B / kldiv_AB)
+
+        logS = logR - logI
+        return logS, logS
+
+    def kl_divergence(self, log_dist_post, log_dist_prior, interval):
+        # return F.kl_div(log_dist_prior, log_dist_post, log_target=True)
+        to_sum = torch.exp(log_dist_post) * (log_dist_post - log_dist_prior)
+        return (to_sum * interval).sum()
 
 
 class BayesFactor(nn.Module):
     def __init__(self, hist_type="gaussian", hist_param=1, n_dist_bins=500,
-                 n_prior_bins=50, logsumexp=False, extra=False):
+                 n_prior_bins=50):
         super(BayesFactor, self).__init__()
         self.hist_type = hist_type
         self.hist_param = hist_param
         self.n_dist_bins = n_dist_bins
         self.n_prior_bins = n_prior_bins
-        self.logsumexp = logsumexp
-        self.extra = extra
 
     def forward(self, XA_1d, XB_1d, X_prior_1d, weights={}):
         # https://discuss.pytorch.org/t/kernel-density-estimation-as-loss-function/62261/6 
@@ -204,15 +229,18 @@ class BayesFactor(nn.Module):
             weights_B, bins_B = binned_weights(XB_1d, self.n_dist_bins,
                                                self.hist_type, self.hist_param,
                                                weights=weights["XB"])
+            weights_prior, bins_prior = binned_weights(
+                X_prior_1d, self.n_prior_bins, self.hist_type, self.hist_param,
+                weights=weights["X_prior"]
+            )
         else:
             weights_A, bins_A = binned_weights(XA_1d, self.n_dist_bins,
                                                self.hist_type, self.hist_param)
             weights_B, bins_B = binned_weights(XB_1d, self.n_dist_bins,
                                                self.hist_type, self.hist_param)
-
-        weights_prior, bins_prior = binned_weights(
-            X_prior_1d, self.n_prior_bins, self.hist_type, self.hist_param
-        )
+            weights_prior, bins_prior = binned_weights(
+                X_prior_1d, self.n_prior_bins, self.hist_type, self.hist_param
+            )
 
         bin_width_prior = bins_prior[1] - bins_prior[0]
         cum_weights_A = self.activation_bins(bins_A, bins_prior,
@@ -226,14 +254,7 @@ class BayesFactor(nn.Module):
         R = (cum_weights_A * cum_weights_B) / weights_prior
         R[R == float('inf')] = 0
         R[R != R] = 0
-        if self.logsumexp:
-            return R.logsumexp(0)
-        else:
-            if self.extra == True:
-                return (torch.log(R.sum()), weights_A, bins_A, weights_B, bins_B,
-                        cum_weights_A, cum_weights_B, weights_prior, bins_prior)
-            else:
-                return torch.log(R.sum())
+        return torch.log(R.sum())
 
     def activation_bins(self, s_bins, l_centres, l_bin_width,
                         envelope="gaussian"):
@@ -248,7 +269,7 @@ class BayesFactor(nn.Module):
 
 
 class SuspiciousnessKLDiv(nn.Module):
-    def __init__(self, hist_type="gaussian", hist_param=1,
+    def __init__(self, hist_type="gaussian", hist_param=1, log_kldiv=False,
                  n_dist_bins=500, n_prior_bins=50, return_extras=False):
         super(SuspiciousnessKLDiv, self).__init__()
         self.hist_type = hist_type
@@ -256,6 +277,7 @@ class SuspiciousnessKLDiv(nn.Module):
         self.n_dist_bins = n_dist_bins
         self.n_prior_bins = n_prior_bins
         self.return_extras = return_extras
+        self.log_kldiv = log_kldiv
 
     def forward(self, XA_1d, XB_1d, X_prior_1d, weights={}):
         if weights:
@@ -302,6 +324,10 @@ class SuspiciousnessKLDiv(nn.Module):
                 XAB_1d, self.n_dist_bins, self.hist_type, self.hist_param
             )
         kl_div_AB = self.kl_divergence(weights_AB, bins_AB, X_prior_1d)
+        if self.log_kldiv:
+            kl_div_A = torch.log(kl_div_A)
+            kl_div_B = torch.log(kl_div_B)
+            kl_div_AB = torch.log(kl_div_AB)
 
         log_I = kl_div_A + kl_div_B - kl_div_AB
 
@@ -309,7 +335,7 @@ class SuspiciousnessKLDiv(nn.Module):
         if self.return_extras:
             return log_S, torch.log(R), log_I, kl_div_A, kl_div_B, kl_div_AB
         else:
-            return log_S
+            return log_S, log_S
 
     def kl_divergence(self, post_weights, post_bins, X_prior):
         bin_width = post_bins[1] - post_bins[0]
@@ -321,7 +347,7 @@ class SuspiciousnessKLDiv(nn.Module):
         )
 
         # post_div_prior = post_weights / prior_weights
-        # kl_div = post_weights * torch.log(post_div_prior)
+        # kl_div = post_weights * torch.log(post_div_prior) * bin_width
         # kl_div[kl_div != kl_div] = 0
         # kl_div = kl_div.sum()
 
@@ -338,40 +364,6 @@ class SuspiciousnessKLDiv(nn.Module):
             std = self.hist_param * l_bin_width / 2
             return ((torch.exp(-torch.square(x) / (2 * torch.square(std))))
                     / (np.sqrt(2 * np.pi) * std) * l_bin_width)
-
-
-class LogSuspiciousness(nn.Module):
-    def __init__(self, likelihood_cov, hist_type="gaussian", hist_param=1,
-                 n_bins=500):
-        super(LogSuspiciousness, self).__init__()
-        self.likelihood_cov = likelihood_cov.float()
-        self.hist_type = hist_type
-        self.hist_param = hist_param
-        self.n_bins = n_bins
-
-    def forward(self, XA_1d, XB_1d):
-        weights_A, bins_A = binned_weights(XA_1d, self.n_bins,
-                                           self.hist_type, self.hist_param)
-        weights_B, bins_B = binned_weights(XB_1d, self.n_bins,
-                                           self.hist_type, self.hist_param)
-        XAB_1d = torch.cat((XA_1d, XB_1d))
-        weights_AB = (torch.cat((weights_A, weights_B))
-                      / (weights_A.sum() + weights_B.sum()))
-        bins_AB = torch.cat((bins_A, bins_B))
-
-        avg_log_llhd_A = (self.log_likelihood_function(bins_A, XA_1d)
-                          * weights_A).sum()
-        avg_log_llhd_B = (self.log_likelihood_function(bins_B, XB_1d)
-                          * weights_B).sum()
-        avg_log_llhd_AB = (self.log_likelihood_function(bins_AB, XAB_1d)
-                           * weights_AB).sum()
-
-        log_S = avg_log_llhd_AB - avg_log_llhd_A - avg_log_llhd_B
-        return log_S
-
-    def log_likelihood_function(self, bins, X):
-        dist = dists.Normal(bins, self.likelihood_cov)
-        return dist.log_prob(bins.unsqueeze(1)).sum(0)
 
 
 def binned_weights(X, n_bins, hist_type, hist_param, weights=None,

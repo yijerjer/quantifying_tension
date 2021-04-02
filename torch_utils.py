@@ -1,3 +1,4 @@
+import copy
 import numpy as np
 import torch
 import torch.distributions as dists
@@ -10,7 +11,7 @@ from tension_net import TensionNet
 def get_limits(points, pad_div=100):
     min_max = torch.tensor([])
     for row in torch.transpose(points, 0, 1):
-        min_val = torch.min(row) 
+        min_val = torch.min(row)
         max_val = torch.max(row)
         if min_val == max_val:
             padding = 0.1
@@ -65,7 +66,8 @@ class TrainUtil:
             self.coordinates = []
             self.kde_dists = []
 
-    def train(self, XA, XB, X_prior, weights={}, n_iter=500):
+    def train(self, XA, XB, X_prior, weights=None, n_iter=500, no_prior_iter=0,
+              save_every=None, decrease_lr_at=None):
         self.XA = XA
         self.XB = XB
         self.X_prior = X_prior
@@ -74,43 +76,61 @@ class TrainUtil:
         self.XB_tnsr = torch.tensor(XB).to(self.device).float()
         self.X_prior_tnsr = torch.tensor(X_prior).to(self.device).float()
 
-        if weights:
-            weights["XA"] = torch.tensor(weights["XA"]).to(self.device).float()
-            weights["XB"] = torch.tensor(weights["XB"]).to(self.device).float()
-            self.weights = weights
+        if weights is not None:
+            self.weights = {}
+            self.weights["XA"] = (torch.tensor(weights["XA"]).to(self.device)
+                                  .float())
+            self.weights["XB"] = (torch.tensor(weights["XB"]).to(self.device)
+                                  .float())
+            self.weights["X_prior"] = (torch.tensor(weights["X_prior"])
+                                       .to(self.device).float())
         else:
             self.weights = None
 
-        bounds = self.get_bounds()
-
+        self.nets = []
         for i in range(n_iter):
             self.optimizer.zero_grad()
             XA_1d = self.net(self.XA_tnsr)
             XB_1d = self.net(self.XB_tnsr)
             X_prior_1d = self.net(self.X_prior_tnsr)
 
-            loss = self.criterion(XA_1d, XB_1d, X_prior_1d, weights=weights)
+            if save_every is not None:
+                if i % save_every == 0:
+                    self.nets.append(copy.deepcopy(self.net))
+
+            loss = self.criterion(XA_1d, XB_1d, X_prior_1d,
+                                  weights=self.weights)
+
+            if decrease_lr_at:
+                if loss < decrease_lr_at[0]:
+                    for g in self.optimizer.param_groups:
+                        g["lr"] /= 10
+                    decrease_lr_at.pop(0)
+                        
             self.losses.append(loss.item())
             loss.backward()
             self.optimizer.step()
 
-            if self.animation:
-                x, y, z = self.grid_xyz(bounds[0], bounds[1])
-                self.coordinates.append((x.cpu().detach().numpy(),
-                                         y.cpu().detach().numpy(),
-                                         z.cpu().detach().numpy()))
+            # if self.animation:
+            #     x, y, z = self.grid_xyz(bounds[0], bounds[1])
+            #     self.coordinates.append((x.cpu().detach().numpy(),
+            #                              y.cpu().detach().numpy(),
+            #                              z.cpu().detach().numpy()))
 
-                XA_1d = XA_1d.squeeze().cpu().detach().numpy()
-                XB_1d = XB_1d.squeeze().cpu().detach().numpy()
-                X_prior_1d = X_prior_1d.squeeze().cpu().detach().numpy()
-                XA_1d, XB_1d, X_prior_1d = self.flatten_prior(XA_1d, XB_1d,
-                                                              X_prior_1d)
-                kde_A = self.kde_dist_1d(XA_1d)
-                kde_B = self.kde_dist_1d(XB_1d)
-                kde_prior = self.kde_dist_1d(X_prior_1d)
-                self.kde_dists.append((kde_A, kde_B, kde_prior))
+            #     XA_1d = XA_1d.squeeze().cpu().detach().numpy()
+            #     XB_1d = XB_1d.squeeze().cpu().detach().numpy()
+            #     X_prior_1d = X_prior_1d.squeeze().cpu().detach().numpy()
+            #     XA_1d, XB_1d, X_prior_1d = self.flatten_prior(XA_1d, XB_1d,
+            #                                                   X_prior_1d)
+            #     kde_A = self.kde_dist_1d(XA_1d)
+            #     kde_B = self.kde_dist_1d(XB_1d)
+            #     kde_prior = self.kde_dist_1d(X_prior_1d)
+            #     self.kde_dists.append((kde_A, kde_B, kde_prior))
 
-        return self.losses
+        if save_every is not None:
+            return self.losses, self.nets
+        else:
+            return self.losses
 
     def kde_dist_1d(self, X):
         low_lim = np.min(X)
@@ -135,19 +155,24 @@ class TrainUtil:
         axs.plot(np.arange(len(self.losses)), self.losses)
         axs.set_title(f"Loss (final loss = {round(self.losses[-1], 4)})")
 
-    def visualise_tension(self, axs, idxs=(0, 1), default_val=0):
+    def visualise_tension(self, axs, idxs=(0, 1), focus='both', pad_div=100,
+                          swap_order=False, param_means=None,
+                          norm_factors=None):
         XA_1d = self.net(self.XA_tnsr)
         XB_1d = self.net(self.XB_tnsr)
         X_combine = torch.cat((XA_1d, XB_1d))
 
-        low_lims, up_lims = self.get_bounds()
+        low_lims, up_lims = self.get_bounds(focus=focus, pad_div=pad_div)
 
         def likelihood_f(z, X_1d, cov=torch.tensor(1).float().to(self.device)):
             normal = dists.Normal(z.float(), cov)
             return normal.log_prob(X_1d).sum(0)
 
         grid_x, grid_y, grid_z = self.grid_xyz(low_lims, up_lims, idxs=idxs,
-                                               default_val=default_val)
+                                               param_means=param_means)
+        if norm_factors is not None:
+            grid_x = grid_x.clone() * norm_factors[idxs[0]]
+            grid_y = grid_y.clone() * norm_factors[idxs[1]]
 
         z = grid_z.view(-1)
         z_llhd = likelihood_f(z, X_combine)
@@ -158,61 +183,255 @@ class TrainUtil:
         grid_z_llhd = grid_z_llhd.cpu().detach().numpy()
         axs.contour(grid_x, grid_y, grid_z_llhd, levels=30)
 
-        kde_contour_plot_2d(axs, self.XA[:, idxs[0]], self.XA[:, idxs[1]],
-                            weights=(self.weights["XA"].cpu().detach().numpy()
-                                     if self.weights else None))
-        kde_contour_plot_2d(axs, self.XB[:, idxs[0]], self.XB[:, idxs[1]],
-                            weights=(self.weights["XB"].cpu().detach().numpy()
-                                     if self.weights else None))
+        first = self.XB.copy() if swap_order else self.XA.copy()
+        second = self.XA.copy() if swap_order else self.XB.copy()
+        prior = self.X_prior.copy()
+        if norm_factors is not None:
+            np_norm_factors = norm_factors.cpu().detach().numpy()
+            first *= np_norm_factors
+            second *= np_norm_factors
+            prior *= np_norm_factors
+        if swap_order:
+            first_w = (self.weights["XB"].cpu().detach().numpy()
+                       if self.weights else None)
+            second_w = (self.weights["XA"].cpu().detach().numpy()
+                        if self.weights else None)
+        else:
+            first_w = (self.weights["XA"].cpu().detach().numpy()
+                       if self.weights else None)
+            second_w = (self.weights["XB"].cpu().detach().numpy()
+                        if self.weights else None)
+        kde_contour_plot_2d(
+            axs, prior[:, idxs[0]], prior[:, idxs[1]],
+            color='tab:blue', alpha=0.2,
+            weights=(self.weights["X_prior"].cpu().detach().numpy()
+                     if self.weights else None)
+        )
+        kde_contour_plot_2d(axs, first[:, idxs[0]], first[:, idxs[1]],
+                            color='tab:orange', weights=first_w)
+        kde_contour_plot_2d(axs, second[:, idxs[0]], second[:, idxs[1]],
+                            color='tab:green', weights=second_w)
 
         axs.set_xlim([np.min(grid_x), np.max(grid_x)])
         axs.set_ylim([np.min(grid_y), np.max(grid_y)])
         axs.set_title("Likelihood contour")
 
-    def visualise_coordinate(self, axs, idxs=(0, 1), default_val=0):
-        low_lims, up_lims = self.get_bounds()
+    def visualise_coordinate(self, axs, idxs=(0, 1), focus='both', pad_div=100,
+                             swap_order=False, param_means=None,
+                             norm_factors=None):
+        low_lims, up_lims = self.get_bounds(focus=focus, pad_div=pad_div)
 
         grid_x, grid_y, grid_z = self.grid_xyz(low_lims, up_lims, idxs=idxs,
-                                               default_val=default_val)
+                                               param_means=param_means)
+        if norm_factors is not None:
+            grid_x = grid_x.clone() * norm_factors[idxs[0]]
+            grid_y = grid_y.clone() * norm_factors[idxs[1]]
 
         grid_x = grid_x.cpu().detach().numpy()
         grid_y = grid_y.cpu().detach().numpy()
         grid_z = grid_z.cpu().detach().numpy()
         axs.contour(grid_x, grid_y, grid_z, levels=30)
 
-        kde_contour_plot_2d(axs, self.XA[:, idxs[0]], self.XA[:, idxs[1]],
-                            weights=(self.weights["XA"].cpu().detach().numpy()
-                                     if self.weights else None))
-        kde_contour_plot_2d(axs, self.XB[:, idxs[0]], self.XB[:, idxs[1]],
-                            weights=(self.weights["XB"].cpu().detach().numpy()
-                                     if self.weights else None))
+        first = self.XB.copy() if swap_order else self.XA.copy()
+        second = self.XA.copy() if swap_order else self.XB.copy()
+        prior = self.X_prior.copy()
+        if norm_factors is not None:
+            np_norm_factors = norm_factors.cpu().detach().numpy()
+            first *= np_norm_factors
+            second *= np_norm_factors
+            prior *= np_norm_factors
+        if swap_order:
+            first_w = (self.weights["XB"].cpu().detach().numpy()
+                       if self.weights else None)
+            second_w = (self.weights["XA"].cpu().detach().numpy()
+                        if self.weights else None)
+        else:
+            first_w = (self.weights["XA"].cpu().detach().numpy()
+                       if self.weights else None)
+            second_w = (self.weights["XB"].cpu().detach().numpy()
+                        if self.weights else None)
+        kde_contour_plot_2d(
+            axs, prior[:, idxs[0]], prior[:, idxs[1]],
+            color='tab:blue', alpha=0.2,
+            weights=(self.weights["X_prior"].cpu().detach().numpy()
+                     if self.weights else None)
+        )
+        kde_contour_plot_2d(axs, first[:, idxs[0]], first[:, idxs[1]],
+                            color='tab:orange', weights=first_w)
+        kde_contour_plot_2d(axs, second[:, idxs[0]], second[:, idxs[1]],
+                            color='tab:green', weights=second_w)
 
         axs.set_xlim([np.min(grid_x), np.max(grid_x)])
         axs.set_ylim([np.min(grid_y), np.max(grid_y)])
         axs.set_title("Coordinate contour")
 
-    def plot_marginalised_dists(self, axs, flat_prior=False):
+    def visualise_coordinates_all(self, fig, axs, only_idxs=None,
+                                  param_names=None, sync_levels=False,
+                                  tension_as_param=False, focus='both',
+                                  pad_div=100, swap_order=False,
+                                  param_means=None, norm_factors=None):
+        if only_idxs is None:
+            plot_size = self.input_dim
+            only_idxs = np.arange(plot_size)
+        else:
+            plot_size = len(only_idxs)
+
+        first = self.XB.copy() if swap_order else self.XA.copy()
+        second = self.XA.copy() if swap_order else self.XB.copy()
+        prior = self.X_prior.copy()
+        if norm_factors is not None:
+            np_norm_factors = norm_factors.cpu().detach().numpy()
+            first *= np_norm_factors
+            second *= np_norm_factors
+            prior *= np_norm_factors
+        if swap_order:
+            first_w = (self.weights["XB"].cpu().detach().numpy()
+                       if self.weights else None)
+            second_w = (self.weights["XA"].cpu().detach().numpy()
+                        if self.weights else None)
+        else:
+            first_w = (self.weights["XA"].cpu().detach().numpy()
+                       if self.weights else None)
+            second_w = (self.weights["XB"].cpu().detach().numpy()
+                        if self.weights else None)
+
+        all_grids = [[] for i in range(plot_size)]
+        min_z = np.inf
+        max_z = -np.inf
+        for i in range(plot_size - 1):
+            for j in range(plot_size - 1):
+                ieff = i + 1
+                jeff = j
+                if ieff > jeff:
+                    low_lims, up_lims = self.get_bounds(
+                        focus=focus, pad_div=pad_div
+                    )
+
+                    grid_x, grid_y, grid_z = self.grid_xyz(
+                        low_lims, up_lims, (only_idxs[jeff], only_idxs[ieff]),
+                        param_means=param_means
+                    )
+
+                    if norm_factors is not None:
+                        grid_x = grid_x.clone() * norm_factors[only_idxs[jeff]]
+                        grid_y = grid_y.clone() * norm_factors[only_idxs[ieff]]
+
+                    grid_x = grid_x.cpu().detach().numpy()
+                    grid_y = grid_y.cpu().detach().numpy()
+                    grid_z = grid_z.cpu().detach().numpy()
+                    all_grids[ieff].append((grid_x, grid_y, grid_z))
+                    min_z = min(np.min(grid_z), min_z)
+                    max_z = max(np.max(grid_z), max_z)
+
+        levels = np.linspace(min_z, max_z, 30)
+        for i in range(plot_size - 1):
+            for j in range(plot_size - 1):
+                ieff = i + 1
+                jeff = j
+                if i >= j:
+                    grid_x, grid_y, grid_z = all_grids[ieff][jeff]
+                    cntr = axs[i, j].contour(
+                        grid_x, grid_y, grid_z,
+                        levels=(levels if sync_levels else 30)
+                    )
+                    kde_contour_plot_2d(
+                        axs[i, j], prior[:, only_idxs[jeff]],
+                        prior[:, only_idxs[ieff]],
+                        color='tab:blue', alpha=0.2,
+                        weights=(self.weights["X_prior"].cpu().detach().numpy()
+                                 if self.weights else None)
+                    )
+                    kde_contour_plot_2d(
+                        axs[i, j], first[:, only_idxs[jeff]],
+                        first[:, only_idxs[ieff]], color='tab:orange',
+                        weights=first_w
+                    )
+                    kde_contour_plot_2d(
+                        axs[i, j], second[:, only_idxs[jeff]],
+                        second[:, only_idxs[ieff]], color='tab:green',
+                        weights=second_w
+                    )
+
+                    axs[i, j].set_xlim([grid_x.min(), grid_x.max()])
+                    axs[i, j].set_ylim([grid_y.min(), grid_y.max()])
+                    if param_names is not None:
+                        axs[i, j].set_xlabel(param_names[only_idxs[jeff]])
+                        axs[i, j].set_ylabel(param_names[only_idxs[ieff]])
+                    else:
+                        axs[i, j].set_xlabel(only_idxs[jeff])
+                        axs[i, j].set_ylabel(only_idxs[ieff])
+                else:
+                    fig.delaxes(axs[i, j])
+
+        if tension_as_param:
+            XA_1d = self.net(self.XA_tnsr)
+            XB_1d = self.net(self.XB_tnsr)
+            first_1d = XB_1d if swap_order else XA_1d
+            second_1d = XA_1d if swap_order else XB_1d
+
+            for i in range(self.input_dim):
+                final_row = self.input_dim - 1
+
+                kde_contour_plot_2d(
+                    axs[final_row, i], first[:, i],
+                    first_1d.squeeze().cpu().detach().numpy(),
+                    weights=first_w, color='tab:orange'
+                )
+                kde_contour_plot_2d(
+                    axs[final_row, i], second[:, i],
+                    second_1d.squeeze().cpu().detach().numpy(), 
+                    weights=second_w, color='tab:green'
+                )
+
+                if i != (final_row):
+                    fig.delaxes(axs[i, final_row])
+                    grid_x, _, _ = all_grids[-1][i]
+                    axs[final_row, i].set_xlim([grid_x.min(), grid_x.max()])
+
+                axs[final_row, i].set_xlabel(param_names[only_idxs[i]])
+                axs[final_row, i].set_ylabel("tension")
+
+        cbar_ax = fig.add_axes([0.90, 0.65, 0.03, 0.30])
+        fig.colorbar(cntr, cax=cbar_ax)
+        fig.tight_layout()
+
+    def plot_marginalised_dists(self, axs, flat_prior=False, swap_order=False):
         XA_1d = self.net(self.XA_tnsr).squeeze().cpu().detach().numpy()
         XB_1d = self.net(self.XB_tnsr).squeeze().cpu().detach().numpy()
         X_prior_1d = (self.net(self.X_prior_tnsr).squeeze().cpu()
-                                                 .detach().numpy())
+                      .detach().numpy())
 
         if flat_prior:
             XA_1d, XB_1d, X_prior_1d = self.flatten_prior(XA_1d, XB_1d,
                                                           X_prior_1d)
 
-        kde_plot_1d(axs, XA_1d,
-                    weights=(self.weights["XA"].cpu().detach().numpy() 
-                             if self.weights else None))
-        kde_plot_1d(axs, XB_1d,
-                    weights=(self.weights["XB"].cpu().detach().numpy() 
-                             if self.weights else None))
-        kde_plot_1d(axs, X_prior_1d)
+        first = XB_1d if swap_order else XA_1d
+        second = XA_1d if swap_order else XB_1d
+        if swap_order:
+            first_w = (self.weights["XB"].cpu().detach().numpy()
+                       if self.weights else None)
+            second_w = (self.weights["XA"].cpu().detach().numpy()
+                        if self.weights else None)
+        else:
+            first_w = (self.weights["XA"].cpu().detach().numpy()
+                       if self.weights else None)
+            second_w = (self.weights["XB"].cpu().detach().numpy()
+                        if self.weights else None)
+
+        prior_weights = (self.weights["X_prior"].cpu().detach().numpy()
+                         if self.weights else None)
+        kde_plot_1d(axs, X_prior_1d, color='tab:blue', weights=prior_weights)
+        kde_plot_1d(axs, first, color='tab:orange', weights=first_w)
+        kde_plot_1d(axs, second, color='tab:green', weights=second_w)
         axs.set_title("Marginalised 1d distribution"
                       f"{' - flat prior' if flat_prior else ''}")
     
     def flatten_prior(self, XA_1d, XB_1d, X_prior_1d):
-        kde = gaussian_kde(X_prior_1d)
+        kde = gaussian_kde(
+            X_prior_1d,
+            weights=(self.weights["X_prior"].cpu().detach().numpy()
+                     if self.weights else None)
+        )
         X_all = np.concatenate((XA_1d, XB_1d, X_prior_1d))
         pad = (np.max(X_all) - np.min(X_all)) / 100
         x = np.linspace(np.min(X_all) - pad, np.max(X_all) + pad, 1000)
@@ -227,16 +446,26 @@ class TrainUtil:
 
         return XA_1d, XB_1d, X_prior_1d
 
-    def get_bounds(self):
-        bounds_A = get_limits(self.XA_tnsr)
-        bounds_B = get_limits(self.XB_tnsr)
-        bounds = torch.cat((bounds_A, bounds_B), dim=1)
-        low_lims = bounds.min(1).values
-        up_lims = bounds.max(1).values
+    def get_bounds(self, no_prior=True, focus='both', pad_div=100):
+        if focus == 'both':
+            X_combine = torch.cat((self.XA_tnsr, self.XB_tnsr), dim=0)
+        elif focus == "A":
+            X_combine = self.XA_tnsr
+        elif focus == "B":
+            X_combine = self.XB_tnsr
+        else:
+            raise ValueError("focus attribute must be either 'both', 'A', or 'B'.")
+
+        if no_prior:
+            bounds = get_limits(X_combine, pad_div=pad_div)
+        else:
+            bounds = get_limits(self.X_prior_tnsr, pad_div=pad_div)
+        low_lims = bounds[:, 0]
+        up_lims = bounds[:, 1]
 
         return low_lims, up_lims
 
-    def grid_xyz(self, low_lims, up_lims, idxs, default_val=0):
+    def grid_xyz(self, low_lims, up_lims, idxs, param_means=None):
         x = torch.linspace(low_lims[idxs[0]], up_lims[idxs[0]], 100,
                            device=self.device)
         y = torch.linspace(low_lims[idxs[1]], up_lims[idxs[1]], 100,
@@ -246,10 +475,16 @@ class TrainUtil:
         grid_xy = torch.cat((grid_x.unsqueeze(2), grid_y.unsqueeze(2)), dim=2)
         points_xy = grid_xy.view(-1, 2)
 
-        X_prior_mean = self.X_prior_tnsr.mean(0)
-        points = X_prior_mean.unsqueeze(0).repeat(points_xy.shape[0], 1)
-        # points = torch.zeros((points_xy.shape[0], self.input_dim),
-        #                      device=self.device) + default_val
+        if param_means is not None:
+            X_prior_mean = param_means
+        elif self.weights is None:
+            X_prior_mean = self.X_prior_tnsr.mean(0)
+        else:
+            prior_weights = self.weights["X_prior"]
+            X_prior_mean = self.X_prior_tnsr * prior_weights[:, None]
+            X_prior_mean = X_prior_mean.sum(dim=0) / prior_weights.sum()
+
+        points = X_prior_mean.repeat(points_xy.shape[0], 1)
         points[:, idxs[0]] = points_xy[:, 0]
         points[:, idxs[1]] = points_xy[:, 1]
 
