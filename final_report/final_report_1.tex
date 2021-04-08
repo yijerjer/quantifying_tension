@@ -86,13 +86,33 @@ covered at length in the main body of the article.
 
 \section{\label{sec:level1}Introduction}
 
-With cosmological measurements becoming more precise over recent years, discrepancies between different datasets and methods have began to emerge. Cosmological observations of parameters surrounding the $\Lambda \textrm{CDM}$ model have yielded discrepancies, or more commonly referred to as \textit{tensions}, of up to $5\sigma$ -- the indication of a significant result in particle physics \cite{Franklin2013}. 
+With cosmological measurements becoming more precise over recent years, disagreement between different datasets and methods have began to emerge. Observations of parameters surrounding the $\Lambda \textrm{CDM}$ model have yielded discrepancies, or more commonly referred to as \textit{tensions}, of close to $5\sigma$ -- the indication of a significant result in particle physics \cite{Franklin2013}. 
 
-The debate over the Hubble constant's value is one that is hardly new, and in recent years has risen to prominence in cosmology, earning itself an apt label of a cosmological \textit{crisis}. Disagreement over the Hubble constant began between de Vaucouleurs and Sandage in the 1980s \cite{deVaucouleurs1986, Sandage1975}, and it has now developed into an area of contention between early- and late-universe cosmologists. As it stands, measurements between these two factions are at a significant tension of $5\sigma$, as shown in Figure \ref{}. 
+One such tension is the \textit{Hubble tension}. The debate over the Hubble constant's value is one that is hardly new, but in recent years has risen to prominence in cosmology. Disagreement over the Hubble constant began between de Vaucouleurs and Sandage in the 1980s \cite{deVaucouleurs1986, Sandage1975}, and it has now developed into an area of contention between early- and late-universe cosmologists \cite{Planck2020, Abbott2018, Freedman2020, Riess2019, Wong2019}. As it stands, measurements by these two factions are at significant tension of around $5\sigma$ at the most extreme, as shown in Figure \ref{H0_tension}. This has earned the Hubble tension an apt label of a cosmological \textit{crisis}.
 
+
+\begin{figure}
+    \includegraphics[width=0.8\columnwidth]{../plots/H0 tension.png}
+    \centering
+    \label{H0_tension}
+    \caption{A compilation of recent measurements of the Hubble constant $H_0$. The top two measurements are from early-universe datasets using $\Lambda$CDM cosmology \cite{Planck2020, Abbott2018}, while the remaining three are from late-universe datasets based off local distance ladder measurements \cite{Freedman2020, Riess2019, Wong2019}. The tension between the Planck and SH0ES measurements currently stands at $4.7 \sigma$.}
+\end{figure}
+
+
+In addition to the Hubble constant, less severe tensions also exist. Discrepancies of $3\sigma$ have been reported with respect to the matter density $\Omega_m$ and rate of growth of structure $\sigma_8$, between the Cosmic Microwave Background (CMB) data collected by Planck and the weak lensing-based Kilo Degree Survey (KiDS) \cite{Heymans2021}. There has also been arguments made for the existence of a "curvature tension", with inconsistencies of $2.5 \sigma$ to $3 \sigma$ between CMB data alluding to a closed curved universe and the tenet of flat curvature in $\Lambda$CDM cosmology \cite{Handley2021Closed}.
+
+These tensions raise questions surrounding the validity of the well-established, well-tested standard cosmological model -- the $\Lambda$CDM. Are these tensions just an artefact of systematic errors from collecting and analysing datasets? Or do these tensions hint at something more fundamental -- perhaps a modification to the standard model, or more excitingly new physics to take the place of the old one?
+
+However, before we make that leap into the realm of new physics, it is essential for us to examine how tension is quantified. With cosmological datasets being multi-dimensional, the problem of quantifying discrepancies is non-trivial. Datasets that appear to be in mild tension, such as the DES Y1 and Planck datasets, have been reported to be consistent when using the canonical Bayes factor $R$ \cite{Handley2019}. This is troubling, and is a reflection of the difficulty of the problem. With tensions likely to increase as measurement precision increases, a variety of tension metrics have been proposed in recent literature \cite{Charnock2017} to better understand the problem at hand.
+
+This paper aims to develop on the idea of maximum tension. With cosmological datasets, larger tensions often exist across multiple parameters rather than within each parameter on its own. A good example would be the $3 \sigma$ tension between $\Omega_m$ and $\sigma_8$ -- the tension is obvious in a two-dimensional plot between these two parameters, but is non-existent when the parameters are inspected individually. In a high-dimensional parameter space, it is thus likely that there exists a combination of parameters which exacerbates and maximises tension.
+
+In this paper, we explore how a high-dimensional parameter space can be mapped onto a \textit{tension coordinate} -- a lower-dimensional coordinate which maximises the tension between two datasets. A neural network is used to achieve this mapping, since the non-Gaussian nature of certain cosmological parameters renders an analytical approach challenging. This tension coordinate is then applied to the Planck and DES Y1 datasets. Such an approach could allow us to develop a better intuition of the source of tension, and verify the large tensions that currently exist in $H_0$ and the $\Omega_m$-- $\sigma_8$ plane.
 
 
 \section{Background}
+
+Despite certain pitfalls \cite{Handley2019} of the Bayes Factor R \cite{Marshall2006}, 
 
 
 

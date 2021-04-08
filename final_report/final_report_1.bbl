@@ -6,8 +6,7 @@
 %Control: page (0) single
 %Control: year (1) truncated
 %Control: production of eprint (0) enabled
-\providecommand{\noopsort}[1]{}\providecommand{\singleletter}[1]{#1}%
-\begin{thebibliography}{3}%
+\begin{thebibliography}{13}%
 \makeatletter
 \providecommand \@ifxundefined [1]{%
  \@ifx{#1\undefined}
@@ -82,4 +81,162 @@
   {journal} {\apj}\ }\textbf {\bibinfo {volume} {196}},\ \bibinfo {pages} {313}
   (\bibinfo {year} {1975})},\ \bibinfo {note}
   {\url{https://doi.org/10.1086/153413}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Aghanim}\ \emph {et~al.}(2020)\citenamefont
+  {Aghanim}, \citenamefont {Akrami}, \citenamefont {Ashdown}, \citenamefont
+  {Aumont}, \citenamefont {Baccigalupi}, \citenamefont {Ballardini},
+  \citenamefont {Banday}, \citenamefont {Barreiro}, \citenamefont {Bartolo},\
+  and\ \citenamefont {et~al.}}]{Planck2020}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.}~\bibnamefont
+  {Aghanim}}, \bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Akrami}},
+  \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Ashdown}}, \bibinfo
+  {author} {\bibfnamefont {J.}~\bibnamefont {Aumont}}, \bibinfo {author}
+  {\bibfnamefont {C.}~\bibnamefont {Baccigalupi}}, \bibinfo {author}
+  {\bibfnamefont {M.}~\bibnamefont {Ballardini}}, \bibinfo {author}
+  {\bibfnamefont {A.~J.}\ \bibnamefont {Banday}}, \bibinfo {author}
+  {\bibfnamefont {R.~B.}\ \bibnamefont {Barreiro}}, \bibinfo {author}
+  {\bibfnamefont {N.}~\bibnamefont {Bartolo}},\ and\ \bibinfo {author}
+  {\bibnamefont {et~al.}},\ }\bibfield  {title} {\bibinfo {title} {Planck 2018
+  results},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal}
+  {Astronomy and Astrophysics}\ }\textbf {\bibinfo {volume} {641}},\ \bibinfo
+  {pages} {A6} (\bibinfo {year} {2020})},\ \bibinfo {note}
+  {\url{https://doi.org/10.1051/0004-6361/201833910}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Abbott}\ \emph {et~al.}(2018)\citenamefont {Abbott},
+  \citenamefont {Abdalla}, \citenamefont {Annis}, \citenamefont {Bechtol},
+  \citenamefont {Blazek}, \citenamefont {Benson}, \citenamefont {Bernstein},
+  \citenamefont {Bernstein}, \citenamefont {Bertin}, \citenamefont {Brooks},\
+  and\ \citenamefont {et~al.}}]{Abbott2018}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {T.~M.~C.}\
+  \bibnamefont {Abbott}}, \bibinfo {author} {\bibfnamefont {F.~B.}\
+  \bibnamefont {Abdalla}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont
+  {Annis}}, \bibinfo {author} {\bibfnamefont {K.}~\bibnamefont {Bechtol}},
+  \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Blazek}}, \bibinfo
+  {author} {\bibfnamefont {B.~A.}\ \bibnamefont {Benson}}, \bibinfo {author}
+  {\bibfnamefont {R.~A.}\ \bibnamefont {Bernstein}}, \bibinfo {author}
+  {\bibfnamefont {G.~M.}\ \bibnamefont {Bernstein}}, \bibinfo {author}
+  {\bibfnamefont {E.}~\bibnamefont {Bertin}}, \bibinfo {author} {\bibfnamefont
+  {D.}~\bibnamefont {Brooks}},\ and\ \bibinfo {author} {\bibnamefont
+  {et~al.}},\ }\bibfield  {title} {\bibinfo {title} {Dark energy survey year 1
+  results: A precise {H0} estimate from {DES} {Y1}, {BAO}, and {D/H} data},\
+  }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Monthly Notices of
+  the Royal Astronomical Society}\ }\textbf {\bibinfo {volume} {480}},\
+  \bibinfo {pages} {3879} (\bibinfo {year} {2018})},\ \bibinfo {note}
+  {\url{https://doi.org/10.1093/mnras/sty1939}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Freedman}\ \emph {et~al.}(2020)\citenamefont
+  {Freedman}, \citenamefont {Madore}, \citenamefont {Hoyt}, \citenamefont
+  {Jang}, \citenamefont {Beaton}, \citenamefont {Lee}, \citenamefont {Monson},
+  \citenamefont {Neeley},\ and\ \citenamefont {Rich}}]{Freedman2020}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {W.~L.}\ \bibnamefont
+  {Freedman}}, \bibinfo {author} {\bibfnamefont {B.~F.}\ \bibnamefont
+  {Madore}}, \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {Hoyt}},
+  \bibinfo {author} {\bibfnamefont {I.~S.}\ \bibnamefont {Jang}}, \bibinfo
+  {author} {\bibfnamefont {R.}~\bibnamefont {Beaton}}, \bibinfo {author}
+  {\bibfnamefont {M.~G.}\ \bibnamefont {Lee}}, \bibinfo {author} {\bibfnamefont
+  {A.}~\bibnamefont {Monson}}, \bibinfo {author} {\bibfnamefont
+  {J.}~\bibnamefont {Neeley}},\ and\ \bibinfo {author} {\bibfnamefont
+  {J.}~\bibnamefont {Rich}},\ }\bibfield  {title} {\bibinfo {title}
+  {Calibration of the tip of the red giant branch},\ }\href@noop {} {\bibfield
+  {journal} {\bibinfo  {journal} {\apj}\ }\textbf {\bibinfo {volume} {891}},\
+  \bibinfo {pages} {57} (\bibinfo {year} {2020})},\ \bibinfo {note}
+  {\url{https://doi.org/10.3847/1538-4357/ab7339}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Riess}\ \emph {et~al.}(2019)\citenamefont {Riess},
+  \citenamefont {Casertano}, \citenamefont {Yuan}, \citenamefont {Macri},\ and\
+  \citenamefont {Scolnic}}]{Riess2019}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.~G.}\ \bibnamefont
+  {Riess}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Casertano}},
+  \bibinfo {author} {\bibfnamefont {W.}~\bibnamefont {Yuan}}, \bibinfo {author}
+  {\bibfnamefont {L.~M.}\ \bibnamefont {Macri}},\ and\ \bibinfo {author}
+  {\bibfnamefont {D.}~\bibnamefont {Scolnic}},\ }\bibfield  {title} {\bibinfo
+  {title} {Large magellanic cloud cepheid standards provide a 1% foundation for
+  the determination of the {Hubble} constant and stronger evidence for physics
+  beyond {$\Lambda$CDM}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo
+  {journal} {\apj}\ }\textbf {\bibinfo {volume} {876}},\ \bibinfo {pages} {85}
+  (\bibinfo {year} {2019})},\ \bibinfo {note}
+  {\url{https://doi.org/10.3847/1538-4357/ab1422}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Wong}\ \emph {et~al.}(2019)\citenamefont {Wong},
+  \citenamefont {Suyu}, \citenamefont {Chen}, \citenamefont {Rusu},
+  \citenamefont {Millon},\ and\ \citenamefont {et~al.}}]{Wong2019}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {K.~C.}\ \bibnamefont
+  {Wong}}, \bibinfo {author} {\bibfnamefont {S.~H.}\ \bibnamefont {Suyu}},
+  \bibinfo {author} {\bibfnamefont {G.~C.-F.}\ \bibnamefont {Chen}}, \bibinfo
+  {author} {\bibfnamefont {C.~E.}\ \bibnamefont {Rusu}}, \bibinfo {author}
+  {\bibfnamefont {M.}~\bibnamefont {Millon}},\ and\ \bibinfo {author}
+  {\bibnamefont {et~al.}},\ }\bibfield  {title} {\bibinfo {title} {{H0LiCOW –
+  XIII. A 2.4 per cent measurement of H0 from lensed quasars: 5.3$\sigma$
+  tension between early- and late-universe probes}},\ }\href@noop {} {\bibfield
+   {journal} {\bibinfo  {journal} {Monthly Notices of the Royal Astronomical
+  Society}\ }\textbf {\bibinfo {volume} {498}},\ \bibinfo {pages} {1420}
+  (\bibinfo {year} {2019})},\ \bibinfo {note}
+  {\url{https://doi.org/10.1093/mnras/stz3094}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Heymans}\ \emph {et~al.}(2021)\citenamefont
+  {Heymans}, \citenamefont {Tröster}, \citenamefont {Asgari}, \citenamefont
+  {Blake}, \citenamefont {Hildebrandt}, \citenamefont {Joachimi}, \citenamefont
+  {Kuijken}, \citenamefont {Lin}, \citenamefont {Sánchez}, \citenamefont
+  {van~den Busch},\ and\ \citenamefont {et~al.}}]{Heymans2021}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {C.}~\bibnamefont
+  {Heymans}}, \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {Tröster}},
+  \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Asgari}}, \bibinfo
+  {author} {\bibfnamefont {C.}~\bibnamefont {Blake}}, \bibinfo {author}
+  {\bibfnamefont {H.}~\bibnamefont {Hildebrandt}}, \bibinfo {author}
+  {\bibfnamefont {B.}~\bibnamefont {Joachimi}}, \bibinfo {author}
+  {\bibfnamefont {K.}~\bibnamefont {Kuijken}}, \bibinfo {author} {\bibfnamefont
+  {C.-A.}\ \bibnamefont {Lin}}, \bibinfo {author} {\bibfnamefont {A.~G.}\
+  \bibnamefont {Sánchez}}, \bibinfo {author} {\bibfnamefont {J.~L.}\
+  \bibnamefont {van~den Busch}},\ and\ \bibinfo {author} {\bibnamefont
+  {et~al.}},\ }\bibfield  {title} {\bibinfo {title} {Kids-1000 cosmology:
+  Multi-probe weak gravitational lensing and spectroscopic galaxy clustering
+  constraints},\ }\href {https://doi.org/10.1051/0004-6361/202039063}
+  {\bibfield  {journal} {\bibinfo  {journal} {Astronomy and Astrophysics}\
+  }\textbf {\bibinfo {volume} {646}},\ \bibinfo {pages} {A140} (\bibinfo {year}
+  {2021})},\ \bibinfo {note}
+  {\url{https://.doi.org/10.1051/0004-6361/202039063}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Handley}(2021)}]{Handley2021Closed}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {W.}~\bibnamefont
+  {Handley}},\ }\bibfield  {title} {\bibinfo {title} {Curvature tension:
+  Evidence for a closed universe},\ }\bibfield  {journal} {\bibinfo  {journal}
+  {Physical Review D}\ }\textbf {\bibinfo {volume} {103}},\ \href
+  {https://doi.org/10.1103/physrevd.103.l041301} {10.1103/physrevd.103.l041301}
+  (\bibinfo {year} {2021}),\ \bibinfo {note}
+  {\url{https://doi.org/10.1103/PhysRevD.103.L041301}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Handley}\ and\ \citenamefont
+  {Lemos}(2019)}]{Handley2019}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {W.}~\bibnamefont
+  {Handley}}\ and\ \bibinfo {author} {\bibfnamefont {P.}~\bibnamefont
+  {Lemos}},\ }\bibfield  {title} {\bibinfo {title} {Quantifying tensions in
+  cosmological parameters: Interpreting the {DES} evidence ratio},\ }\bibfield
+  {journal} {\bibinfo  {journal} {Physical Review D}\ }\textbf {\bibinfo
+  {volume} {100}},\ \href {https://doi.org/10.1103/physrevd.100.043504}
+  {10.1103/physrevd.100.043504} (\bibinfo {year} {2019})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Charnock}\ \emph {et~al.}(2017)\citenamefont
+  {Charnock}, \citenamefont {Battye},\ and\ \citenamefont
+  {Moss}}]{Charnock2017}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {T.}~\bibnamefont
+  {Charnock}}, \bibinfo {author} {\bibfnamefont {R.~A.}\ \bibnamefont
+  {Battye}},\ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Moss}},\
+  }\bibfield  {title} {\bibinfo {title} {Planck data versus large scale
+  structure: Methods to quantify discordance},\ }\href@noop {} {\bibfield
+  {journal} {\bibinfo  {journal} {Phys. Rev. D}\ }\textbf {\bibinfo {volume}
+  {95}},\ \bibinfo {pages} {123535} (\bibinfo {year} {2017})},\ \bibinfo {note}
+  {\url{https://link.aps.org/doi/10.1103/PhysRevD.95.123535}}\BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Marshall}\ \emph {et~al.}(2006)\citenamefont
+  {Marshall}, \citenamefont {Rajguru},\ and\ \citenamefont
+  {Slosar}}]{Marshall2006}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.}~\bibnamefont
+  {Marshall}}, \bibinfo {author} {\bibfnamefont {N.}~\bibnamefont {Rajguru}},\
+  and\ \bibinfo {author} {\bibfnamefont {A.~c.~v.}\ \bibnamefont {Slosar}},\
+  }\bibfield  {title} {\bibinfo {title} {Bayesian evidence as a tool for
+  comparing datasets},\ }\href {https://doi.org/10.1103/PhysRevD.73.067302}
+  {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. D}\ }\textbf {\bibinfo
+  {volume} {73}},\ \bibinfo {pages} {067302} (\bibinfo {year}
+  {2006})}\BibitemShut {NoStop}%
 \end{thebibliography}%
