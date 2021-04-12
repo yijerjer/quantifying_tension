@@ -6,7 +6,7 @@
 %Control: page (0) single
 %Control: year (1) truncated
 %Control: production of eprint (0) enabled
-\begin{thebibliography}{13}%
+\begin{thebibliography}{27}%
 \makeatletter
 \providecommand \@ifxundefined [1]{%
  \@ifx{#1\undefined}
@@ -213,7 +213,8 @@
   cosmological parameters: Interpreting the {DES} evidence ratio},\ }\bibfield
   {journal} {\bibinfo  {journal} {Physical Review D}\ }\textbf {\bibinfo
   {volume} {100}},\ \href {https://doi.org/10.1103/physrevd.100.043504}
-  {10.1103/physrevd.100.043504} (\bibinfo {year} {2019})\BibitemShut {NoStop}%
+  {10.1103/physrevd.100.043504} (\bibinfo {year} {2019}),\ \bibinfo {note}
+  {\url{https://doi.org/10.1103/PhysRevD.100.043504}}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Charnock}\ \emph {et~al.}(2017)\citenamefont
   {Charnock}, \citenamefont {Battye},\ and\ \citenamefont
   {Moss}}]{Charnock2017}%
@@ -225,8 +226,49 @@
   structure: Methods to quantify discordance},\ }\href@noop {} {\bibfield
   {journal} {\bibinfo  {journal} {Phys. Rev. D}\ }\textbf {\bibinfo {volume}
   {95}},\ \bibinfo {pages} {123535} (\bibinfo {year} {2017})},\ \bibinfo {note}
-  {\url{https://link.aps.org/doi/10.1103/PhysRevD.95.123535}}\BibitemShut
+  {\url{https://doi.org/10.1103/PhysRevD.95.123535}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Trotta}(2008)}]{Trotta2008}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {R.}~\bibnamefont
+  {Trotta}},\ }\bibfield  {title} {\bibinfo {title} {Bayes in the sky:
+  {Bayesian} inference and model selection in cosmology},\ }\href
+  {https://doi.org/10.1080/00107510802066753} {\bibfield  {journal} {\bibinfo
+  {journal} {Contemporary Physics}\ }\textbf {\bibinfo {volume} {49}},\
+  \bibinfo {pages} {71} (\bibinfo {year} {2008})},\ \bibinfo {note}
+  {\url{https://doi.org/10.1080/00107510802066753}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Lartillot}\ and\ \citenamefont
+  {Philippe}(2006)}]{Lartillot2006}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.}~\bibnamefont
+  {Lartillot}}\ and\ \bibinfo {author} {\bibfnamefont {H.}~\bibnamefont
+  {Philippe}},\ }\bibfield  {title} {\bibinfo {title} {{Computing Bayes Factors
+  Using Thermodynamic Integration}},\ }\href
+  {https://doi.org/10.1080/10635150500433722} {\bibfield  {journal} {\bibinfo
+  {journal} {Systematic Biology}\ }\textbf {\bibinfo {volume} {55}},\ \bibinfo
+  {pages} {195} (\bibinfo {year} {2006})},\ \bibinfo {note}
+  {\url{https://doi.org/10.1080/10635150500433722}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Skilling}(2006)}]{Skilling2006}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont
+  {Skilling}},\ }\bibfield  {title} {\bibinfo {title} {{Nested sampling for
+  general Bayesian computation}},\ }\href {https://doi.org/10.1214/06-BA127}
+  {\bibfield  {journal} {\bibinfo  {journal} {Bayesian Analysis}\ }\textbf
+  {\bibinfo {volume} {1}},\ \bibinfo {pages} {833 } (\bibinfo {year} {2006})},\
+  \bibinfo {note} {\url{https://doi.org/10.1214/06-BA127}}\BibitemShut
   {NoStop}%
+\bibitem [{\citenamefont {Handley}\ \emph {et~al.}(2015)\citenamefont
+  {Handley}, \citenamefont {Hobson},\ and\ \citenamefont
+  {Lasenby}}]{Handley2015}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {W.~J.}\ \bibnamefont
+  {Handley}}, \bibinfo {author} {\bibfnamefont {M.~P.}\ \bibnamefont
+  {Hobson}},\ and\ \bibinfo {author} {\bibfnamefont {A.~N.}\ \bibnamefont
+  {Lasenby}},\ }\bibfield  {title} {\bibinfo {title} {{polychord: nested
+  sampling for cosmology}},\ }\href {https://doi.org/10.1093/mnrasl/slv047}
+  {\bibfield  {journal} {\bibinfo  {journal} {Monthly Notices of the Royal
+  Astronomical Society: Letters}\ }\textbf {\bibinfo {volume} {450}},\ \bibinfo
+  {pages} {L61} (\bibinfo {year} {2015})},\ \bibinfo {note}
+  {\url{https://doi.org/10.1093/mnrasl/slv047}}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Marshall}\ \emph {et~al.}(2006)\citenamefont
   {Marshall}, \citenamefont {Rajguru},\ and\ \citenamefont
   {Slosar}}]{Marshall2006}%
@@ -237,6 +279,119 @@
   }\bibfield  {title} {\bibinfo {title} {Bayesian evidence as a tool for
   comparing datasets},\ }\href {https://doi.org/10.1103/PhysRevD.73.067302}
   {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. D}\ }\textbf {\bibinfo
-  {volume} {73}},\ \bibinfo {pages} {067302} (\bibinfo {year}
-  {2006})}\BibitemShut {NoStop}%
+  {volume} {73}},\ \bibinfo {pages} {067302} (\bibinfo {year} {2006})},\
+  \bibinfo {note}
+  {\url{https://doi.org/10.1103/PhysRevD.73.067302}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Hornik}\ \emph {et~al.}(1989)\citenamefont {Hornik},
+  \citenamefont {Stinchcombe},\ and\ \citenamefont {White}}]{Hornik1989}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {K.}~\bibnamefont
+  {Hornik}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {Stinchcombe}},\ and\ \bibinfo {author} {\bibfnamefont {H.}~\bibnamefont
+  {White}},\ }\bibfield  {title} {\bibinfo {title} {Multilayer feedforward
+  networks are universal approximators},\ }\href@noop {} {\bibfield  {journal}
+  {\bibinfo  {journal} {Neural Networks}\ }\textbf {\bibinfo {volume} {2}},\
+  \bibinfo {pages} {359} (\bibinfo {year} {1989})},\ \bibinfo {note}
+  {\url{https://doi.org/10.1016/0893-6080(89)90020-8}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Nwankpa}\ \emph {et~al.}(2018)\citenamefont
+  {Nwankpa}, \citenamefont {Ijomah}, \citenamefont {Gachagan},\ and\
+  \citenamefont {Marshall}}]{Nwankpa2018}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {C.}~\bibnamefont
+  {Nwankpa}}, \bibinfo {author} {\bibfnamefont {W.}~\bibnamefont {Ijomah}},
+  \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Gachagan}},\ and\
+  \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Marshall}},\ }\href@noop
+  {} {\bibinfo {title} {Activation functions: Comparison of trends in practice
+  and research for deep learning}} (\bibinfo {year} {2018}),\ \Eprint
+  {https://arxiv.org/abs/1811.03378} {arXiv:1811.03378 [cs.LG]} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Nair}\ and\ \citenamefont {Hinton}(2010)}]{Nair2010}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {V.}~\bibnamefont
+  {Nair}}\ and\ \bibinfo {author} {\bibfnamefont {G.~E.}\ \bibnamefont
+  {Hinton}},\ }\bibfield  {title} {\bibinfo {title} {Rectified linear units
+  improve restricted boltzmann machines},\ }in\ \href@noop {} {\emph {\bibinfo
+  {booktitle} {Proceedings of the 27th International Conference on
+  International Conference on Machine Learning}}},\ \bibinfo {series and
+  number} {ICML'10}\ (\bibinfo  {publisher} {Omnipress},\ \bibinfo {address}
+  {Madison, WI, USA},\ \bibinfo {year} {2010})\ p.\ \bibinfo {pages}
+  {807–814}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Keskar}\ \emph {et~al.}(2017)\citenamefont {Keskar},
+  \citenamefont {Mudigere}, \citenamefont {Nocedal}, \citenamefont
+  {Smelyanskiy},\ and\ \citenamefont {Tang}}]{Keskar2017}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.~S.}\ \bibnamefont
+  {Keskar}}, \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont {Mudigere}},
+  \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Nocedal}}, \bibinfo
+  {author} {\bibfnamefont {M.}~\bibnamefont {Smelyanskiy}},\ and\ \bibinfo
+  {author} {\bibfnamefont {P.~T.~P.}\ \bibnamefont {Tang}},\ }\href@noop {}
+  {\bibinfo {title} {On large-batch training for deep learning: Generalization
+  gap and sharp minima}} (\bibinfo {year} {2017}),\ \Eprint
+  {https://arxiv.org/abs/1609.04836} {arXiv:1609.04836 [cs.LG]} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Kingma}\ and\ \citenamefont {Ba}(2017)}]{Kingma2017}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.~P.}\ \bibnamefont
+  {Kingma}}\ and\ \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Ba}},\
+  }\href@noop {} {\bibinfo {title} {Adam: A method for stochastic
+  optimization}} (\bibinfo {year} {2017}),\ \Eprint
+  {https://arxiv.org/abs/1412.6980} {arXiv:1412.6980 [cs.LG]} \BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Schütt}\ \emph {et~al.}(2017)\citenamefont
+  {Schütt}, \citenamefont {Arbabzadah}, \citenamefont {Chmiela},\ and\
+  \citenamefont {et~al}}]{Schutt2017}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {K.}~\bibnamefont
+  {Schütt}}, \bibinfo {author} {\bibfnamefont {F.}~\bibnamefont {Arbabzadah}},
+  \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Chmiela}},\ and\ \bibinfo
+  {author} {\bibnamefont {et~al}},\ }\bibfield  {title} {\bibinfo {title}
+  {Quantum-chemical insights from deep tensor neural networks},\ }\href@noop {}
+  {\bibfield  {journal} {\bibinfo  {journal} {Nat Commun}\ }\textbf {\bibinfo
+  {volume} {8}} (\bibinfo {year} {2017})},\ \bibinfo {note}
+  {\url{https://doi.org/10.1038/ncomms13890}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Silverman}(1986)}]{Silverman1986}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+  {Silverman}},\ }\href@noop {} {\emph {\bibinfo {title} {Density Estimation
+  for Statistics and Data Analysis}}},\ Chapman \& Hall/CRC Monographs on
+  Statistics \& Applied Probability\ (\bibinfo  {publisher} {Taylor \&
+  Francis},\ \bibinfo {year} {1986})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Lemos}\ \emph {et~al.}(2020)\citenamefont {Lemos},
+  \citenamefont {Raveri}, \citenamefont {Campos}, \citenamefont {Park},
+  \citenamefont {Chang}, \citenamefont {Weaverdyck}, \citenamefont {Huterer},
+  \citenamefont {Liddle}, \citenamefont {Blazek}, \citenamefont {Cawthon},
+  \citenamefont {Choi},\ and\ \citenamefont {et. al}}]{Lemos2020}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.}~\bibnamefont
+  {Lemos}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Raveri}},
+  \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Campos}}, \bibinfo
+  {author} {\bibfnamefont {Y.}~\bibnamefont {Park}}, \bibinfo {author}
+  {\bibfnamefont {C.}~\bibnamefont {Chang}}, \bibinfo {author} {\bibfnamefont
+  {N.}~\bibnamefont {Weaverdyck}}, \bibinfo {author} {\bibfnamefont
+  {D.}~\bibnamefont {Huterer}}, \bibinfo {author} {\bibfnamefont {A.~R.}\
+  \bibnamefont {Liddle}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont
+  {Blazek}}, \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Cawthon}},
+  \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Choi}},\ and\ \bibinfo
+  {author} {\bibnamefont {et. al}},\ }\href@noop {} {\bibinfo {title}
+  {Assessing tension metrics with {Dark Energy Survey and Planck data}}}
+  (\bibinfo {year} {2020}),\ \Eprint {https://arxiv.org/abs/2012.09554}
+  {arXiv:2012.09554 [astro-ph.CO]} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Handley}\ and\ \citenamefont
+  {Lemos}(2020)}]{Dataset}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {W.}~\bibnamefont
+  {Handley}}\ and\ \bibinfo {author} {\bibfnamefont {P.}~\bibnamefont
+  {Lemos}},\ }\bibfield  {title} {\bibinfo {title} {{Quantifying tensions in
+  cosmological parameters: Interpreting the DES evidence ratio (supplementary
+  inference products)}},\ }\href {https://doi.org/10.5281/zenodo.4116393}
+  {10.5281/zenodo.4116393} (\bibinfo {year} {2020}),\ \bibinfo {note}
+  {\url{https://doi.org/10.5281/zenodo.4116393}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Handley}(2019)}]{anesthetic}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {W.}~\bibnamefont
+  {Handley}},\ }\bibfield  {title} {\bibinfo {title} {anesthetic: nested
+  sampling visualisation},\ }\href {https://doi.org/10.21105/joss.01414}
+  {\bibfield  {journal} {\bibinfo  {journal} {The Journal of Open Source
+  Software}\ }\textbf {\bibinfo {volume} {4}},\ \bibinfo {pages} {1414}
+  (\bibinfo {year} {2019})}\BibitemShut {NoStop}%
 \end{thebibliography}%
