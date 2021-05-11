@@ -54,7 +54,8 @@ def rotation_test(net, criterion, device, XA, XB, X_prior, n_points=100):
 
 
 class TrainUtil:
-    def __init__(self, net, optimizer, criterion, device, animation=False):
+    def __init__(self, net, optimizer, criterion, device, animation=False,
+                 data_labels=["A", "B", "Prior"]):
         self.net = net.to(device)
         self.optimizer = optimizer
         self.criterion = criterion.to(device)
@@ -62,6 +63,7 @@ class TrainUtil:
         self.losses = []
         self.animation = animation
         self.input_dim = self.net.input_size
+        self.data_labels = data_labels
         if self.animation:
             self.coordinates = []
             self.kde_dists = []
@@ -203,14 +205,16 @@ class TrainUtil:
                         if self.weights else None)
         kde_contour_plot_2d(
             axs, prior[:, idxs[0]], prior[:, idxs[1]],
-            color='tab:blue', alpha=0.2,
+            color='tab:blue', alpha=0.2, label=self.data_labels[2],
             weights=(self.weights["X_prior"].cpu().detach().numpy()
                      if self.weights else None)
         )
         kde_contour_plot_2d(axs, first[:, idxs[0]], first[:, idxs[1]],
-                            color='tab:orange', weights=first_w)
+                            color='tab:orange', weights=first_w,
+                            label=self.data_labels[1 if swap_order else 0])
         kde_contour_plot_2d(axs, second[:, idxs[0]], second[:, idxs[1]],
-                            color='tab:green', weights=second_w)
+                            color='tab:green', weights=second_w,
+                            label=self.data_labels[0 if swap_order else 1])
 
         axs.set_xlim([np.min(grid_x), np.max(grid_x)])
         axs.set_ylim([np.min(grid_y), np.max(grid_y)])
@@ -218,7 +222,7 @@ class TrainUtil:
 
     def visualise_coordinate(self, axs, idxs=(0, 1), focus='both', pad_div=100,
                              swap_order=False, param_means=None,
-                             norm_factors=None):
+                             norm_factors=None, norm_tension=False):
         low_lims, up_lims = self.get_bounds(focus=focus, pad_div=pad_div)
 
         grid_x, grid_y, grid_z = self.grid_xyz(low_lims, up_lims, idxs=idxs,
@@ -227,10 +231,20 @@ class TrainUtil:
             grid_x = grid_x.clone() * norm_factors[idxs[0]]
             grid_y = grid_y.clone() * norm_factors[idxs[1]]
 
+        if norm_tension:
+            X_prior_1d = (self.net(self.X_prior_tnsr).squeeze().cpu()
+                          .detach().numpy())
+            abs_range = np.max(X_prior_1d) - np.min(X_prior_1d)
+            t_range = [np.min(X_prior_1d) - abs_range,
+                       np.max(X_prior_1d) + abs_range]
+            norm_tension_f = self.flatten_prior_f(X_prior_1d, t_range)
+
         grid_x = grid_x.cpu().detach().numpy()
         grid_y = grid_y.cpu().detach().numpy()
         grid_z = grid_z.cpu().detach().numpy()
-        axs.contour(grid_x, grid_y, grid_z, levels=30)
+        if norm_tension:
+            grid_z = norm_tension_f(grid_z)
+        axs.contour(grid_x, grid_y, grid_z, linewidths=1, levels=15)
 
         first = self.XB.copy() if swap_order else self.XA.copy()
         second = self.XA.copy() if swap_order else self.XB.copy()
@@ -252,14 +266,16 @@ class TrainUtil:
                         if self.weights else None)
         kde_contour_plot_2d(
             axs, prior[:, idxs[0]], prior[:, idxs[1]],
-            color='tab:blue', alpha=0.2,
+            color='tab:blue', alpha=0.2, label=self.data_labels[2],
             weights=(self.weights["X_prior"].cpu().detach().numpy()
                      if self.weights else None)
         )
         kde_contour_plot_2d(axs, first[:, idxs[0]], first[:, idxs[1]],
-                            color='tab:orange', weights=first_w)
+                            color='tab:orange', weights=first_w,
+                            label=self.data_labels[1 if swap_order else 0])
         kde_contour_plot_2d(axs, second[:, idxs[0]], second[:, idxs[1]],
-                            color='tab:green', weights=second_w)
+                            color='tab:green', weights=second_w,
+                            label=self.data_labels[0 if swap_order else 1])
 
         axs.set_xlim([np.min(grid_x), np.max(grid_x)])
         axs.set_ylim([np.min(grid_y), np.max(grid_y)])
@@ -269,7 +285,9 @@ class TrainUtil:
                                   param_names=None, sync_levels=False,
                                   tension_as_param=False, focus='both',
                                   pad_div=100, swap_order=False,
-                                  param_means=None, norm_factors=None):
+                                  param_means=None, norm_factors=None,
+                                  norm_tension=False, no_contour=False,
+                                  plot_midpoint=False):
         if only_idxs is None:
             plot_size = self.input_dim
             only_idxs = np.arange(plot_size)
@@ -294,6 +312,30 @@ class TrainUtil:
                        if self.weights else None)
             second_w = (self.weights["XB"].cpu().detach().numpy()
                         if self.weights else None)
+        prior_w = (self.weights["X_prior"].cpu().detach().numpy()
+                   if self.weights else None)
+        
+        X_prior_1d = (self.net(self.X_prior_tnsr).squeeze().cpu()
+                      .detach().numpy())
+        
+        XA_1d = self.net(self.XA_tnsr).squeeze().cpu().detach().numpy()
+        XB_1d = self.net(self.XB_tnsr).squeeze().cpu().detach().numpy()
+        first_1d = XB_1d if swap_order else XA_1d
+        second_1d = XA_1d if swap_order else XB_1d
+
+        if norm_tension:
+            abs_range = np.max(X_prior_1d) - np.min(X_prior_1d)
+            t_range = [np.min(X_prior_1d) - abs_range,
+                       np.max(X_prior_1d) + abs_range]
+            norm_tension_f = self.flatten_prior_f(X_prior_1d, t_range)
+            first_1d = norm_tension_f(first_1d)
+            second_1d = norm_tension_f(second_1d)
+            X_prior_1d = norm_tension_f(X_prior_1d)
+
+        if plot_midpoint:
+            first_mean = np.average(first_1d, weights=first_w)
+            second_mean = np.average(second_1d, weights=second_w)
+            mid = (second_mean + first_mean) / 2
 
         all_grids = [[] for i in range(plot_size)]
         min_z = np.inf
@@ -319,37 +361,45 @@ class TrainUtil:
                     grid_x = grid_x.cpu().detach().numpy()
                     grid_y = grid_y.cpu().detach().numpy()
                     grid_z = grid_z.cpu().detach().numpy()
+                    if norm_tension:
+                        grid_z = norm_tension_f(grid_z)
+
                     all_grids[ieff].append((grid_x, grid_y, grid_z))
                     min_z = min(np.min(grid_z), min_z)
                     max_z = max(np.max(grid_z), max_z)
 
-        levels = np.linspace(min_z, max_z, 30)
+        if norm_tension:
+            levels = np.linspace(0, 1, 21)
+        else:
+            levels = np.linspace(min_z, max_z, 20)
         for i in range(plot_size - 1):
             for j in range(plot_size - 1):
                 ieff = i + 1
                 jeff = j
                 if i >= j:
                     grid_x, grid_y, grid_z = all_grids[ieff][jeff]
-                    cntr = axs[i, j].contour(
-                        grid_x, grid_y, grid_z,
-                        levels=(levels if sync_levels else 30)
-                    )
+                    if not no_contour:
+                        cntr = axs[i, j].contour(
+                            grid_x, grid_y, grid_z, linewidths=1,
+                            levels=(levels if sync_levels else 20)
+                        )
+                        axs[i, j].contour(grid_x, grid_y, grid_z, linewidths=1, levels=[mid], color='k', linewidth=2)
                     kde_contour_plot_2d(
                         axs[i, j], prior[:, only_idxs[jeff]],
-                        prior[:, only_idxs[ieff]],
-                        color='tab:blue', alpha=0.2,
-                        weights=(self.weights["X_prior"].cpu().detach().numpy()
-                                 if self.weights else None)
+                        prior[:, only_idxs[ieff]], weights=prior_w,
+                        color='tab:blue', alpha=0.2, label=self.data_labels[2]
                     )
                     kde_contour_plot_2d(
                         axs[i, j], first[:, only_idxs[jeff]],
                         first[:, only_idxs[ieff]], color='tab:orange',
-                        weights=first_w
+                        weights=first_w,
+                        label=self.data_labels[1 if swap_order else 0]
                     )
                     kde_contour_plot_2d(
                         axs[i, j], second[:, only_idxs[jeff]],
                         second[:, only_idxs[ieff]], color='tab:green',
-                        weights=second_w
+                        weights=second_w,
+                        label=self.data_labels[0 if swap_order else 1]
                     )
 
                     axs[i, j].set_xlim([grid_x.min(), grid_x.max()])
@@ -364,23 +414,23 @@ class TrainUtil:
                     fig.delaxes(axs[i, j])
 
         if tension_as_param:
-            XA_1d = self.net(self.XA_tnsr)
-            XB_1d = self.net(self.XB_tnsr)
-            first_1d = XB_1d if swap_order else XA_1d
-            second_1d = XA_1d if swap_order else XB_1d
-
             for i in range(self.input_dim):
                 final_row = self.input_dim - 1
 
                 kde_contour_plot_2d(
+                    axs[final_row, i], prior[:, i],
+                    X_prior_1d, weights=prior_w, color='tab:blue',
+                    alpha=0.2, label=self.data_labels[2]
+                )
+                kde_contour_plot_2d(
                     axs[final_row, i], first[:, i],
-                    first_1d.squeeze().cpu().detach().numpy(),
-                    weights=first_w, color='tab:orange'
+                    first_1d, weights=first_w, color='tab:orange',
+                    label=self.data_labels[1 if swap_order else 0]
                 )
                 kde_contour_plot_2d(
                     axs[final_row, i], second[:, i],
-                    second_1d.squeeze().cpu().detach().numpy(), 
-                    weights=second_w, color='tab:green'
+                    second_1d, weights=second_w, color='tab:green',
+                    label=self.data_labels[0 if swap_order else 1]
                 )
 
                 if i != (final_row):
@@ -391,8 +441,9 @@ class TrainUtil:
                 axs[final_row, i].set_xlabel(param_names[only_idxs[i]])
                 axs[final_row, i].set_ylabel("tension")
 
-        cbar_ax = fig.add_axes([0.90, 0.65, 0.03, 0.30])
-        fig.colorbar(cntr, cax=cbar_ax)
+        if not no_contour:
+            cbar_ax = fig.add_axes([0.90, 0.65, 0.03, 0.30])
+            fig.colorbar(cntr, cax=cbar_ax)
         fig.tight_layout()
 
     def plot_marginalised_dists(self, axs, flat_prior=False, swap_order=False):
@@ -420,12 +471,30 @@ class TrainUtil:
 
         prior_weights = (self.weights["X_prior"].cpu().detach().numpy()
                          if self.weights else None)
-        kde_plot_1d(axs, X_prior_1d, color='tab:blue', weights=prior_weights)
-        kde_plot_1d(axs, first, color='tab:orange', weights=first_w)
-        kde_plot_1d(axs, second, color='tab:green', weights=second_w)
+        kde_plot_1d(axs, X_prior_1d, color='tab:blue', weights=prior_weights,
+                    label=self.data_labels[2])
+        kde_plot_1d(axs, first, color='tab:orange', weights=first_w,
+                    label=self.data_labels[1 if swap_order else 0])
+        kde_plot_1d(axs, second, color='tab:green', weights=second_w,
+                    label=self.data_labels[0 if swap_order else 1])
         axs.set_title("Marginalised 1d distribution"
                       f"{' - flat prior' if flat_prior else ''}")
     
+    def flatten_prior_f(self, X_prior_1d, range):
+        kde = gaussian_kde(
+            X_prior_1d,
+            weights=(self.weights["X_prior"].cpu().detach().numpy()
+                     if self.weights else None)
+        )
+        pad = (range[1] - range[0]) / 100
+        x = np.linspace(range[0] - pad, range[1] + pad, 1000)
+        pdf = kde(x)
+        cdf = np.cumsum(pdf)
+        cdf /= np.max(cdf)
+        cdf_f = interp1d(x, cdf)
+
+        return cdf_f
+
     def flatten_prior(self, XA_1d, XB_1d, X_prior_1d):
         kde = gaussian_kde(
             X_prior_1d,

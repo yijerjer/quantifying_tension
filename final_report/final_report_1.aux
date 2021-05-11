@@ -11,7 +11,7 @@
 \citation{Handley2019}
 \citation{Charnock2017}
 \newlabel{FirstPage}{{}{1}{}{}{}}
-\@writefile{toc}{\contentsline {title}{Constructing a Maximum Tension Coordinate with Neural Networks}{1}{}}
+\@writefile{toc}{\contentsline {title}{Constructing a Maximum Tension Coordinate in Cosmology with Neural Networks}{1}{}}
 \@writefile{toc}{\contentsline {abstract}{Abstract}{1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{}}
 \newlabel{intro}{{I}{1}{}{}{}}
@@ -22,55 +22,72 @@
 \citation{Skilling2006,Handley2015}
 \citation{Marshall2006}
 \citation{Handley2019}
-\citation{Handley2019}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces The main plot shows a two-dimensional marginalised distribution of the \textit  {Planck} and DES datasets in the $\Omega _m$ - $\sigma _8$ plane, where the solid contours contain 68\% and 95\% of the marginalised probability mass. The two smaller plots are the one-dimensional marginalised distributions of both datasets in each parameter.}}{2}{}}
+\newlabel{omegam_sigma8}{{2}{2}{}{}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {II}Background}{2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A}Bayesian Statistics}{2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {B}Bayes Factor $R$}{2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {C}Tension Coordinate}{2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1}Gaussian example}{2}{}}
-\newlabel{gaussian_tension}{{II\,C\,1}{2}{}{}{}}
+\citation{Handley2019}
 \citation{Hornik1989}
 \citation{Nwankpa2018}
 \citation{Nair2010}
-\citation{Keskar2017}
-\citation{Kingma2017}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C}Tension Coordinate}{3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1}Gaussian example}{3}{}}
+\newlabel{gaussian_tension}{{II\,C\,1}{3}{}{}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2}Non-Gaussian case}{3}{}}
 \newlabel{non_gaussian}{{II\,C\,2}{3}{}{}{}}
 \newlabel{margin_R}{{11}{3}{}{}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {III}Method}{3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A}Neural Network and Training}{3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces A fully-connected neural network with 6 nodes in the input layer, an arbitrary number of nodes in the hidden layer, and a single node in the output layer.}}{3}{}}
-\newlabel{fig:NN}{{2}{3}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B}Numerical Calculation of Bayes Factor}{3}{}}
+\citation{Keskar2017}
+\citation{Kingma2017}
+\citation{Rosenblatt1956,Silverman1986}
+\citation{Rosenblatt1956}
+\citation{Turlach1993}
+\citation{Scipy2020}
 \citation{Schutt2017}
-\citation{Silverman1986}
-\newlabel{tophat}{{13}{4}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {C}Toy Examples}{4}{}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Training of Neural Network}}{4}{}}
-\newlabel{algo}{{1}{4}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces A fully-connected neural network with 6 nodes in the input layer, an arbitrary number of nodes in the hidden layer, and a single node in the output layer.}}{4}{}}
+\newlabel{fig:NN}{{3}{4}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B}Numerical Calculation of Bayes Factor}{4}{}}
 \citation{Handley2019,Lemos2020}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The main contour plots illustrate the iso-tension coordinate hypersurfaces shaped by the neural network after training for 500 epochs on our toy examples. a) shows two Gaussian distributions and b) shows a Gaussian distribution accompanied by a 'banana-shaped' distribution. The faded blue distribution in the background is the prior. The smaller plots along the $x$ and $y$ axes show the marginalised distributions of these toy examples in their respective axes.}}{5}{}}
+\newlabel{fig:toy}{{4}{5}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C}Toy Examples}{5}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Training of Neural Network}}{5}{}}
+\newlabel{algo}{{1}{5}{}{}{}}
 \citation{Dataset}
 \citation{anesthetic}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D}Cosmological Dataset}{6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {E}Identifying the Source(s) of Tension}{6}{}}
+\newlabel{section:source}{{III\,E}{6}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Results and Discussion}{6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A}Six Parameters}{6}{}}
+\newlabel{section:six}{{IV\,A}{6}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Density plots of the marginalised posteriors of the DES and Planck datasets, and their prior, in the transformed 1D tension coordinate. (a) uses the Gaussian assumption described in Section II\,C\,1{}{}{}\hbox {} and (b) uses the neural network approach. They give marginalised Bayes factors of $\qopname  \relax o{log}R_t = -0.94$ and $\qopname  \relax o{log}R_t = -16.8 \pm 0.5$ respectively. Note that the prior is uniform across the range of the tension coordinate, and the bend at the edges of the prior is an just artefact of the kernel density estimator method.}}{7}{}}
+\newlabel{fig:six_compare}{{5}{7}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Marginalised Bayes factors from using a dataset containing a single shuffled parameter as input to a trained neural network with six input nodes, as detailed in Section IV\,A{}{}{}\hbox {}. The more positive the $\qopname  \relax o{log}R_t$, the more influential the parameter is to defining the tension coordinate.}}{7}{}}
+\newlabel{table:shuffled}{{I}{7}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B}Pair-wise Comparison}{7}{}}
+\newlabel{section:pair}{{IV\,B}{7}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces The background of these plots shows the two-dimensional marginalised distributions of the DES and \textit  {Planck} datasets, and the prior. These distributions are represented by solid iso-probability contours containing $68\%$ and $95\%$ of the marginalised probability mass. The foreground in these plots, bar the last row, illustrates contour plots of the iso-tension coordinate hypersurfaces. These contour plots are drawn by varying the two relevant cosmological parameters and fixing the other four, then feeding these data points into the trained neural network. The four data points are fixed at the weighted parameter means of the combined DES-\textit  {Planck} dataset. The final row plots the tension coordinate $t$ against the six cosmological parameters, visually emphasising the maximum possible tension found between these two datasets. The marginalised Bayes factor for this particular optimised neural network is computed to be $-16.9$, while we get an estimate of $\qopname  \relax o{log}R_t = -16.8 \pm 0.5$ from 10 separate gradient descent runs on the same neural network setup.}}{8}{}}
+\newlabel{fig:six}{{6}{8}{}{}{}}
 \bibdata{final_report_1Notes,apssamp}
 \bibcite{Franklin2013}{{1}{2013}{{Franklin}}{{}}}
 \bibcite{deVaucouleurs1986}{{2}{1986}{{de~Vaucouleurs}}{{}}}
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces The upper table details the marginalised Bayes factors calculated from trained neural networks with parameter pairs as its input. We rank the pairings by increasing $\qopname  \relax o{log}R_t$, or decreasing tension, in the rightmost column. The lower table gives the mean $\qopname  \relax o{log}R_t$ from the results of parameter pairings containing the respective parameter.}}{9}{}}
+\newlabel{table:pairwise}{{II}{9}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusions}{9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {}Acknowledgments}{9}{}}
+\@writefile{toc}{\appendix }
+\@writefile{toc}{\contentsline {section}{\numberline {A}Appendixes}{9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}A little more on appendixes}{9}{}}
+\newlabel{app:subsec}{{B\,1}{9}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1}A subsection in an appendix}{9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {}References}{9}{}}
 \bibcite{Sandage1975}{{3}{1975}{{Sandage\ and\ Tammann}}{{}}}
 \bibcite{Planck2020}{{4}{2020}{{Aghanim\ \emph  {et~al.}}}{{Aghanim, Akrami, Ashdown, Aumont, Baccigalupi, Ballardini, Banday, Barreiro, Bartolo,\ and\ et~al.}}}
 \bibcite{Abbott2018}{{5}{2018}{{Abbott\ \emph  {et~al.}}}{{Abbott, Abdalla, Annis, Bechtol, Blazek, Benson, Bernstein, Bernstein, Bertin, Brooks,\ and\ et~al.}}}
 \bibcite{Freedman2020}{{6}{2020}{{Freedman\ \emph  {et~al.}}}{{Freedman, Madore, Hoyt, Jang, Beaton, Lee, Monson, Neeley,\ and\ Rich}}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces These contour plots illustrate the hypersurfaces shaped by the neural network after training for 500 epochs. a) shows two Gaussian distributions and b) shows a Gaussian distribution accompanied by a 'banana-shaped' distribution. The faded blue distribution in the background is the prior.}}{5}{}}
-\newlabel{fig:toy}{{3}{5}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {D}Cosmological Dataset}{5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {E}Identifying Source(s) of Tension}{5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Results and Discussion}{5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusions}{5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {}Acknowledgments}{5}{}}
-\@writefile{toc}{\appendix }
-\@writefile{toc}{\contentsline {section}{\numberline {A}Appendixes}{5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B}A little more on appendixes}{5}{}}
-\newlabel{app:subsec}{{B\,1}{5}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1}A subsection in an appendix}{5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {}References}{5}{}}
 \bibcite{Riess2019}{{7}{2019}{{Riess\ \emph  {et~al.}}}{{Riess, Casertano, Yuan, Macri,\ and\ Scolnic}}}
 \bibcite{Wong2019}{{8}{2019}{{Wong\ \emph  {et~al.}}}{{Wong, Suyu, Chen, Rusu, Millon,\ and\ et~al.}}}
 \bibcite{Heymans2021}{{9}{2021}{{Heymans\ \emph  {et~al.}}}{{Heymans, Tröster, Asgari, Blake, Hildebrandt, Joachimi, Kuijken, Lin, Sánchez, van~den Busch,\ and\ et~al.}}}
@@ -87,14 +104,17 @@
 \bibcite{Nair2010}{{20}{2010}{{Nair\ and\ Hinton}}{{}}}
 \bibcite{Keskar2017}{{21}{2017}{{Keskar\ \emph  {et~al.}}}{{Keskar, Mudigere, Nocedal, Smelyanskiy,\ and\ Tang}}}
 \bibcite{Kingma2017}{{22}{2017}{{Kingma\ and\ Ba}}{{}}}
-\bibcite{Schutt2017}{{23}{2017}{{Schütt\ \emph  {et~al.}}}{{Schütt, Arbabzadah, Chmiela,\ and\ et~al}}}
+\bibcite{Rosenblatt1956}{{23}{1956}{{Rosenblatt}}{{}}}
 \bibcite{Silverman1986}{{24}{1986}{{Silverman}}{{}}}
-\bibcite{Lemos2020}{{25}{2020}{{Lemos\ \emph  {et~al.}}}{{Lemos, Raveri, Campos, Park, Chang, Weaverdyck, Huterer, Liddle, Blazek, Cawthon, Choi,\ and\ et. al}}}
-\bibcite{Dataset}{{26}{2020}{{Handley\ and\ Lemos}}{{}}}
-\bibcite{anesthetic}{{27}{2019}{{Handley}}{{}}}
+\bibcite{Turlach1993}{{25}{1993}{{Turlach}}{{}}}
+\bibcite{Scipy2020}{{26}{2020}{{Virtanen\ \emph  {et~al.}}}{{Virtanen, Gommers, Oliphant, Haberland, Reddy, Cournapeau, Burovski, Peterson, Weckesser, Bright, {van der Walt}, Brett, Wilson, Millman, Mayorov, Nelson, Jones, Kern, Larson, Carey, Polat, Feng, Moore, {VanderPlas}, Laxalde, Perktold, Cimrman, Henriksen, Quintero, Harris, Archibald, Ribeiro, Pedregosa, {van Mulbregt},\ and\ {SciPy 1.0 Contributors}}}}
+\bibcite{Schutt2017}{{27}{2017}{{Schütt\ \emph  {et~al.}}}{{Schütt, Arbabzadah, Chmiela,\ and\ et~al}}}
+\bibcite{Lemos2020}{{28}{2020}{{Lemos\ \emph  {et~al.}}}{{Lemos, Raveri, Campos, Park, Chang, Weaverdyck, Huterer, Liddle, Blazek, Cawthon, Choi,\ and\ et. al}}}
+\bibcite{Dataset}{{29}{2020}{{Handley\ and\ Lemos}}{{}}}
+\bibcite{anesthetic}{{30}{2019}{{Handley}}{{}}}
 \bibstyle{apsrev4-2}
 \citation{REVTEX42Control}
 \citation{apsrev42Control}
-\newlabel{LastBibItem}{{27}{6}{}{}{}}
-\newlabel{LastPage}{{}{6}{}{}{}}
-\gdef \@abspage@last{6}
+\newlabel{LastBibItem}{{30}{11}{}{}{}}
+\newlabel{LastPage}{{}{11}{}{}{}}
+\gdef \@abspage@last{11}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.4.12)  12 APR 2021 22:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.4.29)  10 MAY 2021 23:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -273,44 +273,72 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 85.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 79.
  (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 85.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 79.
  (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 <../plots/H0 tension.png, id=1, 289.08pt x 252.945pt>
 File: ../plots/H0 tension.png Graphic file (type png)
 <use ../plots/H0 tension.png>
-Package pdftex.def Info: ../plots/H0 tension.png  used on input line 98.
+Package pdftex.def Info: ../plots/H0 tension.png  used on input line 97.
 (pdftex.def)             Requested size: 196.80075pt x 172.20102pt.
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} </home/yijerloh/Documents/part_iii_project/project/final_report/../plots/H0 tension.png>] [2]
-Underfull \hbox (badness 1769) in paragraph at lines 185--186
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} </home/yijerloh/Documents/part_iii_project/project/final_report/../plots/H0 tension.png>]
+<../plots/omegam_sigma8.png, id=25, 289.08pt x 252.945pt>
+File: ../plots/omegam_sigma8.png Graphic file (type png)
+<use ../plots/omegam_sigma8.png>
+Package pdftex.def Info: ../plots/omegam_sigma8.png  used on input line 113.
+(pdftex.def)             Requested size: 221.3985pt x 193.72229pt.
+ [2 </home/yijerloh/Documents/part_iii_project/project/final_report/../plots/omegam_sigma8.png>]
+Underfull \hbox (badness 1769) in paragraph at lines 192--193
 \OT1/cmr/m/n/10 com-plex-ity to the ten-sion co-or-di-nate. In-stead of
  []
 
-<images/nn.png, id=28, 2007.5pt x 1550.79375pt>
+<images/nn.png, id=32, 2007.5pt x 1550.79375pt>
 File: images/nn.png Graphic file (type png)
 <use images/nn.png>
-Package pdftex.def Info: images/nn.png  used on input line 201.
+Package pdftex.def Info: images/nn.png  used on input line 208.
 (pdftex.def)             Requested size: 196.80075pt x 152.01224pt.
-[3 </home/yijerloh/Documents/part_iii_project/project/final_report/images/nn.png
+[3]
 
-pdfTeX warning: pdflatex (file /home/yijerloh/Documents/part_iii_project/project/final_report/images/nn.png): large interlaced PNG might cause out of memory (use non-interlaced PNG to fix this)
->]
-Underfull \hbox (badness 5862) in paragraph at lines 258--259
+LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 219.
+
+<../plots/toy_wide.png, id=36, 722.7pt x 325.215pt>
+File: ../plots/toy_wide.png Graphic file (type png)
+<use ../plots/toy_wide.png>
+Package pdftex.def Info: ../plots/toy_wide.png  used on input line 278.
+(pdftex.def)             Requested size: 458.99689pt x 206.54892pt.
+
+Underfull \hbox (badness 5862) in paragraph at lines 294--295
  []$\OML/cmm/m/it/9 optim \OMS/cmsy/m/n/9  $ \OT1/cmr/m/n/9 AdamOptimizer($\OML/cmm/m/it/9 net:parameters\OT1/cmr/m/n/9 ()$, learn-
  []
 
-[4]
-<../plots/toy.png, id=41, 289.08pt x 433.62pt>
-File: ../plots/toy.png Graphic file (type png)
-<use ../plots/toy.png>
-Package pdftex.def Info: ../plots/toy.png  used on input line 283.
+[4 </home/yijerloh/Documents/part_iii_project/project/final_report/images/nn.png
+
+pdfTeX warning: pdflatex (file /home/yijerloh/Documents/part_iii_project/project/final_report/images/nn.png): large interlaced PNG might cause out of memory (use non-interlaced PNG to fix this)
+>] [5 </home/yijerloh/Documents/part_iii_project/project/final_report/../plots/toy_wide.png>]
+<../plots/six_1d_compare.png, id=48, 289.08pt x 433.62pt>
+File: ../plots/six_1d_compare.png Graphic file (type png)
+<use ../plots/six_1d_compare.png>
+Package pdftex.def Info: ../plots/six_1d_compare.png  used on input line 348.
 (pdftex.def)             Requested size: 196.80075pt x 295.20175pt.
- (/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.bbl [5 </home/yijerloh/Documents/part_iii_project/project/final_report/../plots/toy.png>]
+<../plots/six.png, id=49, 722.7pt x 722.7pt>
+File: ../plots/six.png Graphic file (type png)
+<use ../plots/six.png>
+Package pdftex.def Info: ../plots/six.png  used on input line 357.
+(pdftex.def)             Requested size: 510.0pt x 509.9998pt.
+ [6]
+
+LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 364.
+
+[7 </home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six_1d_compare.png>] [8 </home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six.png>]
+
+LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 434.
+
+(/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.bbl [9]
 Underfull \hbox (badness 3849) in paragraph at lines 201--208
  []\OT1/cmr/m/n/9 W. Han-d-ley, Cur-va-ture ten-sion: Ev-i-dence for a
  []
@@ -366,34 +394,34 @@ Underfull \hbox (badness 2653) in paragraph at lines 279--286
  []
 
 
-Underfull \hbox (badness 4001) in paragraph at lines 384--389
+Underfull \hbox (badness 4001) in paragraph at lines 453--458
  []\OT1/cmr/m/n/9 W. Han-d-ley and P. Lemos, Quan-ti-fy-ing ten-sions
  []
 
 
-Underfull \hbox (badness 2205) in paragraph at lines 384--389
+Underfull \hbox (badness 2205) in paragraph at lines 453--458
  \OT1/cmr/m/n/9 in cos-mo-log-i-cal pa-ram-e-ters: In-ter-pret-ing the DES
  []
 
 
-Underfull \hbox (badness 4595) in paragraph at lines 384--389
+Underfull \hbox (badness 4595) in paragraph at lines 453--458
  \OT1/cmr/m/n/9 ev-i-dence ra-tio (sup-ple-men-tary in-fer-ence prod-ucts),
  []
 
-) [6] (/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.aux) ) 
+[10]) [11] (/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.aux) ) 
 Here is how much of TeX's memory you used:
- 5260 strings out of 479383
- 70186 string characters out of 5875830
- 394777 words of memory out of 5000000
- 22292 multiletter control sequences out of 15000+600000
+ 5300 strings out of 479383
+ 71003 string characters out of 5875830
+ 399037 words of memory out of 5000000
+ 22329 multiletter control sequences out of 15000+600000
  416932 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,13n,85p,1003b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on /home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.pdf (6 pages, 1056642 bytes).
+ 79i,13n,85p,1452b,415s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on /home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.pdf (11 pages, 3094211 bytes).
 PDF statistics:
- 122 PDF objects out of 1000 (max. 8388607)
- 84 compressed objects within 1 object stream
+ 145 PDF objects out of 1000 (max. 8388607)
+ 96 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

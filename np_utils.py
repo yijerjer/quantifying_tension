@@ -25,14 +25,20 @@ def simple_data(size=10000, dims=2, distance=5, fixed=False):
     return X0, X1, X_prior
 
 
-def curved_data(size=10000, radius=8, dims=2):
+def curved_data(size=10000, radius=8, dims=2, banana="default"):
     mu0 = np.concatenate((np.full(2, 5), np.random.uniform(size=dims-2, low=5, high=6)))
     Sigma0 = np.identity(dims)
     X0 = np.random.multivariate_normal(mu0, Sigma0, size=(size))
 
     mu1 = np.concatenate((np.full(2, 5), np.full(dims - 2, 6)))
     Sigma1 = np.identity(dims)
-    thetas = np.random.uniform(low=0, high=np.pi / 2, size=size)
+    if banana == "default":
+        thetas = np.random.uniform(low=0, high=np.pi / 2, size=size)
+    elif banana == "more":
+        thetas = np.random.uniform(low=-np.pi/6, high=2 * np.pi / 3, size=size)
+    elif banana == "circle":
+        thetas = np.random.uniform(low=0, high=2 * np.pi, size=size)
+
     thetas_xy = np.transpose(np.vstack((np.cos(thetas), np.sin(thetas))))
     thetas_xy *= radius
     X1 = np.random.multivariate_normal(mu1, Sigma1, size=(size))
@@ -46,7 +52,7 @@ def curved_data(size=10000, radius=8, dims=2):
 
 
 def planck_des_data(size=10000, params=None, only_lcdm=True, div_max=False,
-                    mean="DES_planck"):
+                    mean="DES_planck", std=False):
     planck_root = os.path.join("runs_default", "chains", "planck")
     planck_samples = NestedSamples(root=planck_root, label="Planck")
     DES_root = os.path.join("runs_default", "chains", "DES")
@@ -72,15 +78,17 @@ def planck_des_data(size=10000, params=None, only_lcdm=True, div_max=False,
     X1_weights = np.array(DES_samples["weight"])
     X_prior = np.array(prior_samples[params])
     X_prior_weights = np.array(prior_samples["weight"])
+    X_Dp = np.array(Dp_samples[params])
+    X_Dp_weights = np.array(Dp_samples["weight"])
 
     if mean == "DES_planck":
-        X_Dp = np.array(Dp_samples[params])
-        X_Dp_weights = np.array(Dp_samples["weight"])
-        param_means = X_Dp * X_Dp_weights[:, None]
-        param_means = param_means.sum(axis=0) / X_Dp_weights.sum()
+        param_means = np.average(X_Dp, weights=X_Dp_weights, axis=0)
     elif mean == "planck":
-        param_means = X0 * X0_weights[:, None]
-        param_means = param_means.sum(axis=0) / X0_weights.sum()
+        param_means = np.average(X0, weights=X0_weights, axis=0)
+    
+    if std:
+        param_stds = np.average((X_Dp - param_means)**2, weights=X_Dp_weights, axis=0)
+        param_stds = np.sqrt(param_stds)
 
     norm_factors = np.ones(X0.shape[1])
     if div_max:
@@ -90,9 +98,15 @@ def planck_des_data(size=10000, params=None, only_lcdm=True, div_max=False,
         X1 /= norm_factors
         X_prior /= norm_factors
         param_means /= norm_factors
+        if std:
+            param_stds /= norm_factors
 
-    return (X0, X0_weights, X1, X1_weights, X_prior, X_prior_weights,
-            params, param_means, norm_factors)
+    if std:
+        return (X0, X0_weights, X1, X1_weights, X_prior, X_prior_weights,
+                params, param_means, norm_factors, param_stds)
+    else:
+        return (X0, X0_weights, X1, X1_weights, X_prior, X_prior_weights,
+                params, param_means, norm_factors)
 
 
 def get_limits(points):

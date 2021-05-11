@@ -1,4 +1,6 @@
 import numpy as np
+import scipy.integrate as integrate
+import scipy.special as special
 import torch
 import torch.nn as nn
 import torch.distributions as dists
@@ -203,7 +205,7 @@ class SuspiciousnessKDE(nn.Module):
         logI = torch.log(kldiv_A * kldiv_B / kldiv_AB)
 
         logS = logR - logI
-        return logS, logS
+        return logS
 
     def kl_divergence(self, log_dist_post, log_dist_prior, interval):
         # return F.kl_div(log_dist_prior, log_dist_post, log_target=True)
@@ -378,3 +380,32 @@ def binned_weights(X, n_bins, hist_type, hist_param, weights=None,
     weights = counts / len(X)
 
     return weights, bins
+
+
+def sigma_from_logS(d, logS):
+    def chi2_pdf(x, d):
+        return ((np.power(x, d/2 - 1) * np.exp(-x/2)) 
+                / (np.power(2, d/2) * special.gamma(d/2)))
+
+    lim = d[0] - 2 * logS[0]
+    lim_err = d[1] + 2 * logS[1]
+    p = integrate.quad(chi2_pdf, lim, 1000, args=(d[0]))
+    sigma = np.sqrt(2) * special.erfinv(1 - p[0])
+
+    d_low = d[0] - d[1]
+    d_high = d[0] + d[1]
+    lim_low = lim - lim_err
+    lim_high = lim + lim_err
+
+    p_ll = integrate.quad(chi2_pdf, lim_low, 1000, args=(d_low))[0]
+    p_lh = integrate.quad(chi2_pdf, lim_low, 1000, args=(d_high))[0]
+    p_hl = integrate.quad(chi2_pdf, lim_high, 1000, args=(d_low))[0]
+    p_hh = integrate.quad(chi2_pdf, lim_high, 1000, args=(d_high))[0]
+    p_vals = [p_ll, p_lh, p_hl, p_hh]
+    p_err = (max(p_vals) - min(p_vals)) / 2
+
+    sigma_low = np.sqrt(2) * special.erfinv(1 - (min(p_vals)))
+    sigma_high = np.sqrt(2) * special.erfinv(1 - (max(p_vals)))
+    sigma_err = abs(sigma_low - sigma_high) / 2
+
+    return (sigma, sigma_err), (p[0], p_err)

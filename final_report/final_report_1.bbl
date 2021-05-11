@@ -6,7 +6,7 @@
 %Control: page (0) single
 %Control: year (1) truncated
 %Control: production of eprint (0) enabled
-\begin{thebibliography}{27}%
+\begin{thebibliography}{30}%
 \makeatletter
 \providecommand \@ifxundefined [1]{%
  \@ifx{#1\undefined}
@@ -337,6 +337,82 @@
   optimization}} (\bibinfo {year} {2017}),\ \Eprint
   {https://arxiv.org/abs/1412.6980} {arXiv:1412.6980 [cs.LG]} \BibitemShut
   {NoStop}%
+\bibitem [{\citenamefont {Rosenblatt}(1956)}]{Rosenblatt1956}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {Rosenblatt}},\ }\bibfield  {title} {\bibinfo {title} {{Remarks on Some
+  Nonparametric Estimates of a Density Function}},\ }\href
+  {https://doi.org/10.1214/aoms/1177728190} {\bibfield  {journal} {\bibinfo
+  {journal} {The Annals of Mathematical Statistics}\ }\textbf {\bibinfo
+  {volume} {27}},\ \bibinfo {pages} {832 } (\bibinfo {year} {1956})},\ \bibinfo
+  {note} {\url{https://doi.org/10.1214/aoms/1177728190}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Silverman}(1986)}]{Silverman1986}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+  {Silverman}},\ }\href@noop {} {\emph {\bibinfo {title} {Density Estimation
+  for Statistics and Data Analysis}}},\ Chapman \& Hall/CRC Monographs on
+  Statistics \& Applied Probability\ (\bibinfo  {publisher} {Taylor \&
+  Francis},\ \bibinfo {year} {1986})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Turlach}(1993)}]{Turlach1993}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.~A.}\ \bibnamefont
+  {Turlach}},\ }\bibfield  {title} {\bibinfo {title} {Bandwidth selection in
+  kernel density estimation: A review},\ }in\ \href@noop {} {\emph {\bibinfo
+  {booktitle} {CORE and Institut de Statistique}}}\ (\bibinfo {year}
+  {1993})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Virtanen}\ \emph {et~al.}(2020)\citenamefont
+  {Virtanen}, \citenamefont {Gommers}, \citenamefont {Oliphant}, \citenamefont
+  {Haberland}, \citenamefont {Reddy}, \citenamefont {Cournapeau}, \citenamefont
+  {Burovski}, \citenamefont {Peterson}, \citenamefont {Weckesser},
+  \citenamefont {Bright}, \citenamefont {{van der Walt}}, \citenamefont
+  {Brett}, \citenamefont {Wilson}, \citenamefont {Millman}, \citenamefont
+  {Mayorov}, \citenamefont {Nelson}, \citenamefont {Jones}, \citenamefont
+  {Kern}, \citenamefont {Larson}, \citenamefont {Carey}, \citenamefont {Polat},
+  \citenamefont {Feng}, \citenamefont {Moore}, \citenamefont {{VanderPlas}},
+  \citenamefont {Laxalde}, \citenamefont {Perktold}, \citenamefont {Cimrman},
+  \citenamefont {Henriksen}, \citenamefont {Quintero}, \citenamefont {Harris},
+  \citenamefont {Archibald}, \citenamefont {Ribeiro}, \citenamefont
+  {Pedregosa}, \citenamefont {{van Mulbregt}},\ and\ \citenamefont {{SciPy 1.0
+  Contributors}}}]{Scipy2020}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.}~\bibnamefont
+  {Virtanen}}, \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Gommers}},
+  \bibinfo {author} {\bibfnamefont {T.~E.}\ \bibnamefont {Oliphant}}, \bibinfo
+  {author} {\bibfnamefont {M.}~\bibnamefont {Haberland}}, \bibinfo {author}
+  {\bibfnamefont {T.}~\bibnamefont {Reddy}}, \bibinfo {author} {\bibfnamefont
+  {D.}~\bibnamefont {Cournapeau}}, \bibinfo {author} {\bibfnamefont
+  {E.}~\bibnamefont {Burovski}}, \bibinfo {author} {\bibfnamefont
+  {P.}~\bibnamefont {Peterson}}, \bibinfo {author} {\bibfnamefont
+  {W.}~\bibnamefont {Weckesser}}, \bibinfo {author} {\bibfnamefont
+  {J.}~\bibnamefont {Bright}}, \bibinfo {author} {\bibfnamefont {S.~J.}\
+  \bibnamefont {{van der Walt}}}, \bibinfo {author} {\bibfnamefont
+  {M.}~\bibnamefont {Brett}}, \bibinfo {author} {\bibfnamefont
+  {J.}~\bibnamefont {Wilson}}, \bibinfo {author} {\bibfnamefont {K.~J.}\
+  \bibnamefont {Millman}}, \bibinfo {author} {\bibfnamefont {N.}~\bibnamefont
+  {Mayorov}}, \bibinfo {author} {\bibfnamefont {A.~R.~J.}\ \bibnamefont
+  {Nelson}}, \bibinfo {author} {\bibfnamefont {E.}~\bibnamefont {Jones}},
+  \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Kern}}, \bibinfo {author}
+  {\bibfnamefont {E.}~\bibnamefont {Larson}}, \bibinfo {author} {\bibfnamefont
+  {C.~J.}\ \bibnamefont {Carey}}, \bibinfo {author} {\bibfnamefont
+  {{\.I}.}~\bibnamefont {Polat}}, \bibinfo {author} {\bibfnamefont
+  {Y.}~\bibnamefont {Feng}}, \bibinfo {author} {\bibfnamefont {E.~W.}\
+  \bibnamefont {Moore}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont
+  {{VanderPlas}}}, \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont
+  {Laxalde}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Perktold}},
+  \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Cimrman}}, \bibinfo
+  {author} {\bibfnamefont {I.}~\bibnamefont {Henriksen}}, \bibinfo {author}
+  {\bibfnamefont {E.~A.}\ \bibnamefont {Quintero}}, \bibinfo {author}
+  {\bibfnamefont {C.~R.}\ \bibnamefont {Harris}}, \bibinfo {author}
+  {\bibfnamefont {A.~M.}\ \bibnamefont {Archibald}}, \bibinfo {author}
+  {\bibfnamefont {A.~H.}\ \bibnamefont {Ribeiro}}, \bibinfo {author}
+  {\bibfnamefont {F.}~\bibnamefont {Pedregosa}}, \bibinfo {author}
+  {\bibfnamefont {P.}~\bibnamefont {{van Mulbregt}}},\ and\ \bibinfo {author}
+  {\bibnamefont {{SciPy 1.0 Contributors}}},\ }\bibfield  {title} {\bibinfo
+  {title} {{{SciPy} 1.0: Fundamental Algorithms for Scientific Computing in
+  Python}},\ }\href {https://doi.org/10.1038/s41592-019-0686-2} {\bibfield
+  {journal} {\bibinfo  {journal} {Nature Methods}\ }\textbf {\bibinfo {volume}
+  {17}},\ \bibinfo {pages} {261} (\bibinfo {year} {2020})}\BibitemShut
+  {NoStop}%
 \bibitem [{\citenamefont {Schütt}\ \emph {et~al.}(2017)\citenamefont
   {Schütt}, \citenamefont {Arbabzadah}, \citenamefont {Chmiela},\ and\
   \citenamefont {et~al}}]{Schutt2017}%
@@ -349,13 +425,6 @@
   {\bibfield  {journal} {\bibinfo  {journal} {Nat Commun}\ }\textbf {\bibinfo
   {volume} {8}} (\bibinfo {year} {2017})},\ \bibinfo {note}
   {\url{https://doi.org/10.1038/ncomms13890}}\BibitemShut {NoStop}%
-\bibitem [{\citenamefont {Silverman}(1986)}]{Silverman1986}%
-  \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
-  {Silverman}},\ }\href@noop {} {\emph {\bibinfo {title} {Density Estimation
-  for Statistics and Data Analysis}}},\ Chapman \& Hall/CRC Monographs on
-  Statistics \& Applied Probability\ (\bibinfo  {publisher} {Taylor \&
-  Francis},\ \bibinfo {year} {1986})\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Lemos}\ \emph {et~al.}(2020)\citenamefont {Lemos},
   \citenamefont {Raveri}, \citenamefont {Campos}, \citenamefont {Park},
   \citenamefont {Chang}, \citenamefont {Weaverdyck}, \citenamefont {Huterer},
