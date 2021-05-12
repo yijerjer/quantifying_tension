@@ -6,7 +6,7 @@
 %Control: page (0) single
 %Control: year (1) truncated
 %Control: production of eprint (0) enabled
-\begin{thebibliography}{30}%
+\begin{thebibliography}{31}%
 \makeatletter
 \providecommand \@ifxundefined [1]{%
  \@ifx{#1\undefined}
@@ -462,5 +462,17 @@
   sampling visualisation},\ }\href {https://doi.org/10.21105/joss.01414}
   {\bibfield  {journal} {\bibinfo  {journal} {The Journal of Open Source
   Software}\ }\textbf {\bibinfo {volume} {4}},\ \bibinfo {pages} {1414}
-  (\bibinfo {year} {2019})}\BibitemShut {NoStop}%
+  (\bibinfo {year} {2019})},\ \bibinfo {note}
+  {\url{https://doi.org/10.21105/joss.01414}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Handley}\ and\ \citenamefont
+  {Lemos}(2021)}]{Handley2021}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {W.}~\bibnamefont
+  {Handley}}\ and\ \bibinfo {author} {\bibfnamefont {P.}~\bibnamefont
+  {Lemos}},\ }\bibfield  {title} {\bibinfo {title} {Quantifying the global
+  parameter tensions between act, spt, and planck},\ }\bibfield  {journal}
+  {\bibinfo  {journal} {Physical Review D}\ }\textbf {\bibinfo {volume}
+  {103}},\ \href {https://doi.org/10.1103/physrevd.103.063529}
+  {10.1103/physrevd.103.063529} (\bibinfo {year} {2021}),\ \bibinfo {note}
+  {\url{http://dx.doi.org/10.1103/PhysRevD.103.063529}}\BibitemShut {NoStop}%
 \end{thebibliography}%

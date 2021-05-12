@@ -383,7 +383,11 @@ class TrainUtil:
                             grid_x, grid_y, grid_z, linewidths=1,
                             levels=(levels if sync_levels else 20)
                         )
-                        axs[i, j].contour(grid_x, grid_y, grid_z, linewidths=1, levels=[mid], color='k', linewidth=2)
+                        if plot_midpoint:
+                            axs[i, j].contour(
+                                grid_x, grid_y, grid_z, linewidths=1, 
+                                levels=[mid], color='k', linewidth=2
+                            )
                     kde_contour_plot_2d(
                         axs[i, j], prior[:, only_idxs[jeff]],
                         prior[:, only_idxs[ieff]], weights=prior_w,

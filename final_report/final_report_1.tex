@@ -130,12 +130,20 @@ We use the following notation of Bayesian statistics, with Bayes' theorem writte
 \end{equation}
 The posterior is denoted as $\mathcal{P}_D$, likelihood as $\mathcal{L}_D$, prior as $\pi$, and evidence as $\mathcal{Z}_D$. Note that the subscript here represents the dataset-dependence of these distributions. 
 
+\subsubsection{Bayesian Evidence}
 The Bayesian evidence $\mathcal{Z}_D$ is defined as 
 \begin{equation}
     \mathcal{Z}_D = \int \mathcal{L}_D \pi \ \rm{d} \theta.
 \end{equation}
 Also known as the marginal likelihood in statistical literature \cite{Trotta2008}, the evidence is often deemed to be a natural value for model and dataset comparisons within the Bayesian framework. However, the calculation of the evidence was historically computationally prohibitive, as it involves a multi-dimensional integral over the entire parameter space. Fortunately, there are now several tried-and-tested numerical methods that can reliably estimate the evidence, including thermodynamic integration \cite{Lartillot2006} and nested sampling \cite{Skilling2006, Handley2015}.
 
+\subsubsection{Kullback-Leibler Divergence}
+
+The Kullback-Leibler (KL) divergence $\mathcal{D}_D$ between the prior and posterior is given by
+\begin{equation}
+    \mathcal{D}_D = \int \mathcal{P}_D (\theta) \log \frac{\mathcal{P}_D (\theta)}{\pi_(\theta)} \ \textrm{d}\theta.
+\end{equation}
+It describes the information compression between the prior and posterior, and can be interpreted as the average information provided by the posterior. The KL divergence is used later in defining the Suspiciousness statistic, which itself is used to compute a more interpretable tension.
 
 \subsection{Bayes Factor $R$}
 
@@ -217,10 +225,10 @@ The inputs to this neural network are the samples from two discrepant datasets w
 \end{equation}
 where we have cosmological parameters $\theta_{j}$, neural network weights $w^{(l)}_{ij}$, and bias $b_i$. As mentioned in Section \ref{non_gaussian}, the loss function is the Bayes Factor calculated in the 1D tension coordinate.
 
-Training this neural network is different from training one for a classification problem. Unlike the 'traditional' method of approximating the gradient using small batches of training data \cite{Keskar2017}, we use all the data points of the two datasets to compute our gradient, and hence calculate the loss function. We do this to provide the Bayes factor, which is our loss function, with a substantial amount of data points to better quantify tension. However, we note that no attempts were made in this paper to experiment with a smaller batch size, e.g. half the data points, thus we cannot confirm that an optimal method was employed here. We use the recently popularised Adam optimisation algorithm \cite{Kingma2017} as our stochastic gradient descent method, with an initial learning rate of $10^{-4}$.
+Training this neural network is different from training one for a classification problem. Unlike the 'traditional' method of approximating the gradient using small batches of training data \cite{Keskar2017}, we use all the data points of the two datasets to compute our gradient, and hence calculate the loss function. We do this to provide the Bayes factor, which is our loss function, with a substantial amount of data points to better quantify tension. However, we note that no attempts were made in this paper to experiment with a smaller batch size, e.g. half the data points, thus we cannot confirm that an optimal method was used here. We use the recently popularised Adam optimisation algorithm \cite{Kingma2017} as our stochastic gradient descent method, with an initial learning rate of $10^{-4}$.
 
 
-\subsection{Numerical Calculation of Bayes Factor}
+\subsection{Numerical Calculation of Bayes Factor} \label{section:numerical_bf}
 
 The calculation of the marginalised Bayes factor $R_t$ forms part of the neural network's optimisation loop. This requires the speed of the numerical computation of $R_t$ to be as rapid and efficient as possible. More importantly, the gradient-based optimisation method chosen necessitates the calculation of $R_t$ to be smooth and differentiable. This rules out the use of binning methods that rely on square top-hat functions. Thus to numerically calculate $R_t$, we rely on a non-parametric smoothing method known as the \textit{kernel density estimator} \cite{Rosenblatt1956, Silverman1986} to estimate the marginalised posteriors and prior in Equation \ref{margin_R}. This method uses (weighted) samples of distributions to makes these approximations.
 
@@ -245,47 +253,12 @@ In practice, we find it more effective to use $\log R_t$ instead of $R_t$ as our
 An alternative method to calculating $R_t$ that might be viable is using a histogram density estimator with a Gaussian envelope rather than a top-hat function \cite{Schutt2017}. However, we find that this method suffers from underflow problems, which undesirably results in $\log R_t \to - \infty$. Hence, we stuck with the Gaussian kernel density estimator.
 
 
-
-% Let us begin by defining a typical histogram as a probability density estimator. For an arbitrary weighted dataset $\{(X^{(i)}, w^{(i)}), \, i = 1, \dots , N, \, \sum_i^N w^{(i)} = 1\}$ of range $[x_0, x_1]$, we form histogram bins $b^{(j)}$ with constant bin width $\Delta$ and a centre $c^{(j)}$. The interval of $b^{(j)}$ is defined as $[x_0 + j\Delta, x_0 + (j+1)\Delta]$. The probability estimate of values in the $j$th bin is then given by
-% \begin{equation} \label{tophat}
-%     \hat{p}^{(j)}(x) = \frac{1}{\Delta} \sum_{i=1}^{N} w^{(i)} F(X^{(i)} - c^{(j)})
-% \end{equation}
-% where $x \in b^{(j)}$, and  $F$ is a top-hat function of width $\Delta$ centred at zero.
-
-% With this definition of a histogram, the marginalised Bayes factor $R_t$ can be approximated as
-% \begin{equation}
-%     R_t \approx \sum_{i}^{N_\pi} \frac{\Big(\sum_{c_A^{(j)} \in b_\pi^{(i)}} \Delta_A \hat{p}_A^{(j)}\Big) \Big(\sum_{c_B^{(j)} \in b_\pi^{(i)}} \Delta_B \hat{p}_B^{(j)}\Big)}{\Delta_\pi \hat{p}_\pi^{(i)}},
-% \end{equation}
-% where we have two datasets $A$ and $B$ with a shared prior $\pi$.
-
-% However, we have a big problem. The optimisation of the neural network uses a gradient-based method, which requires our computation of $R_t$ to be smooth and differentiable everywhere. The top-hat function $F$ in Equation \ref{tophat} is not smooth. Fortunately, we can replace $F$ with a smooth function with non-extreme derivatives to approximate a histogram. We choose a Gaussian to be the replacement of $F$ \cite{Schutt2017}, such that
-% \begin{equation}
-%     F(x) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \bigg( {-\frac{x^2}{2 \sigma^2}} \bigg)
-% \end{equation}
-% with $\sigma = \Delta / 2$. We find using such a Gaussian envelope is able to approximate a top-hat histogram quite well. [Give chi-squared?]
-
-% In practice, we find it more effective to use $\log R_t$ instead of $R_t$ as our loss function for the neural network. If we were to use $R_t$, the optimisation steps taken by the neural network becomes increasing small and ineffective as $R_t \to 0$. On the other hand, $\log R_t$ with its range of $(-\infty, \infty)$ allows gradient descent to make more confident steps towards the local minimum.
-
-% Note that instead of using a histogram as a probability density estimator, an alternative method is to use a Gaussian kernel density estimator (KDE) \cite{Silverman1986}. However, we find that the histogram method provides more stability and computational efficiency during gradient descent, hence the decision to stick with histograms with a Gaussian envelope function.
-
-
-
-% https://stats.stackexchange.com/questions/143284/density-estimation-and-histograms
-
 \subsection{Toy Examples}
 
-\begin{figure*}
-    \includegraphics[width=0.9\textwidth]{../plots/toy_wide.png}
-    \centering
-    \caption{The main contour plots illustrate the iso-tension coordinate hypersurfaces shaped by the neural network after training for 500 epochs on our toy examples. a) shows two Gaussian distributions and b) shows a Gaussian distribution accompanied by a 'banana-shaped' distribution. The faded blue distribution in the background is the prior. The smaller plots along the $x$ and $y$ axes show the marginalised distributions of these toy examples in their respective axes.}
-    \label{fig:toy}
-\end{figure*}
-
-Algorithm \ref{algo} takes us through the training of our neural network using \texttt{PyTorch}-esque language. Note that the learning rate of the optimisation method and number of epochs can be adjusted in order to reach a stable local minimum of the Bayes Factor $R_t$.
+We use \texttt{PyTorch} to construct our neural network, and hence also use it to numerical calculate the Bayes factor. Algorithm \ref{algo} takes us through the training of our neural network using \texttt{PyTorch}-esque language. Note that the learning rate of the optimisation method and number of epochs can be adjusted in order to reach a stable local minimum of the Bayes Factor $R_t$.
 \begin{algorithm}[H]
 \caption{Training of Neural Network}\label{algo}
     \begin{algorithmic}[1]
-    % \Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
     \State $X_A \gets $ Dataset A; $w_A \gets $ Weights A 
     \State $X_B \gets $ Dataset B; $w_B \gets $ Weights B
     \State $X_\pi \gets $ Prior; $w_\pi \gets $ Prior Weights
@@ -293,7 +266,7 @@ Algorithm \ref{algo} takes us through the training of our neural network using \
     \State $net \gets $ NeuralNetwork(in=6, hidden=4096, out=1)
     \State $optim \gets $ AdamOptimizer($net.parameters()$, learning\_rate=$10^{-4}$)
     \State $loss \gets $ LogBayesFactor()
-    \State $epochs \gets 1000$
+    \State $epochs \gets 500$
     \State
     \For{$i \gets 0$ to $epochs$}
         \State $X_A^t \gets net(X_A)$ \Comment{Tension coordinates}
@@ -311,6 +284,13 @@ Algorithm \ref{algo} takes us through the training of our neural network using \
 
 Before applying the neural network onto cosmological datasets, we first verify our method using toy datasets. We generate 10000 samples from each of the distributions described below to create our toy datasets.
 
+\begin{figure*}
+    \includegraphics[width=0.9\textwidth]{../plots/toy_wide.png}
+    \centering
+    \caption{The main contour plots illustrate the iso-tension coordinate hypersurfaces shaped by the neural network after training for 500 epochs on our toy examples. a) shows two Gaussian distributions and b) shows a Gaussian distribution accompanied by a 'banana-shaped' distribution. The faded blue distribution in the background is the prior. The smaller plots along the $x$ and $y$ axes show the marginalised distributions of these toy examples in their respective axes.}
+    \label{fig:toy}
+\end{figure*}
+
 The very simplest case to begin with would be two discrepant 2D Gaussian distributions, that are also discrepant in each dimension individually. In our example, we place these two distributions around $5\sigma$ apart, and encase them in a square prior, as seen in Figure \ref{fig:toy}(a).  Our neural network is able to fit rough hyperplanes perpendicular to a line connecting the two distributions. This is a result that agrees with the analytical tension coordinate for the Gaussian case derived in Section \ref{gaussian_tension}.
 
 The next example can be seen in Figure \ref{fig:toy}(b). We are still working in two dimensions, but now we have a Gaussian distribution accompanied by a concave quarter-circle distribution. These two distributions are discrepant in two dimensions, but have a considerable overlap in their 1D marginalised distributions. We use this example, albeit an exaggerated example, to reinforce the idea that multi-dimensionality is able to hide non-linear tensions. With this setup, we expect the hypersurfaces, or more simply the contour lines, to be shaped around the 'banana-like' distribution, with directions of maximum tension radiating outwards from the central Gaussian distribution. This is exactly what we see from our results, as illustrated in Figure \ref{fig:toy}(b).
@@ -322,117 +302,185 @@ It is crucially important to note that the statistical power of our neural netwo
 
 In this paper, we work solely with the cosmological datasets collected by the DES and the \textit{Planck} satellite. We choose these two datasets because of the well reported tensions between them in recent years \cite{Handley2019, Lemos2020}. The tensions mentioned in Section \ref{intro} of this paper, such as the $3\sigma$ tension in the $\Omega_m$ and $\sigma_8$ plane, also exist between these two datasets.
 
-We use the following six cosmological parameters -- baryon density $\Omega_b h^2$, matter density parameter $\Omega_m$, Hubble constant $H_0$, optical depth to reionisation $\tau$, matter fluctuation amplitude $\sigma_8$, and scalar spectral index $n_s$. The derived parameters of $\Omega_m$, $H_0$ and $\sigma_8$ are chosen over the three other independent cosmological parameters of dark matter density $\Omega_c h^2$, angular acoustic scale $100 \theta_*$ and log of primordial fluctuation amplitude $\log A_s$,  because tensions in these parameters are well-known. Applying our neural network to these parameters with established discrepancies allows us to verify and reinforce the existing tension in them.
+We use the following six cosmological parameters -- baryon density $\Omega_b h^2$, matter density parameter $\Omega_m$, Hubble constant $H_0$, optical depth to reionisation $\tau$, matter fluctuation amplitude $\sigma_8$, and scalar spectral index $n_s$. The derived parameters of $\Omega_m$, $H_0$ and $\sigma_8$ are chosen over the three other independent cosmological parameters of dark matter density $\Omega_c h^2$, angular acoustic scale $100 \theta_*$ and log of primordial fluctuation amplitude $\log A_s$,  because tensions in these derived parameters are well-known. Applying our neural network to these parameters with established discrepancies allows us to verify and reinforce the existing tension in them.
 
-We obtain the DES Y1 and \textit{Planck} datasets from \cite{Dataset}, and use the prior from the DES dataset as the prior for calculating the Bayes factor. This source provides nested sampling chains for all of the relevant independent, derived and nuisance parameters of both datasets. We use the \texttt{anesthetic} \texttt{Python} library \cite{anesthetic} to extract weighted samples from the nested sampling chains. 
+We obtain the DES Y1 and \textit{Planck} datasets from \cite{Dataset}, and use the prior from the DES dataset as the prior for calculating the Bayes factor. This source provides nested sampling chains for all of the independent, derived and nuisance parameters of both datasets. We use the \texttt{anesthetic} \texttt{Python} library \cite{anesthetic} to extract weighted samples from the nested sampling chains. We normalise the datasets such that the DES and \textit{Planck} distributions lie in the range of $[0, 1]$ for the six parameters. This normalisation allows our neural network to learn and converge faster to a minimum.
 
 
 \subsection{Identifying the Source(s) of Tension} \label{section:source}
 
-We first train our neural network on all six cosmological parameters to produce a 1D tension coordinate. This gives us an initial intuition of the maximum tension that can be formed between the DES Y1 and \textit{Planck} datasets. To evaluate the contribution of each parameter to the tension, we replace a single parameter with noise and feed this into the trained neural network, effectively eliminating its influence on the tension. We accomplish this by randomly permuting the values of the single parameter across all samples, while maintaining the order of the other parameters. By removing the effects of a more influential parameter, we would expect the two datasets to be in much less tension when compared to removing a less significant parameter.
+\subsubsection{Six Parameters}
 
-To verify our results from training our neural network on all six parameters, we make pair-wise comparisons between the six parameters. We construct separate neural networks with two input nodes for each of the fifteen combinations of parameter pairs. This allows us to identify pairs of parameters that contribute most to the discrepancy between the two datasets. This hopefully will also allow us to rank the importance of each parameter, and compare the results obtained here against those from the above paragraph.
+We first train our neural network on all six cosmological parameters to produce a 1D tension coordinate. This gives us an initial intuition of the maximum tension that can be formed between the DES Y1 and \textit{Planck} datasets in these six parameters. To evaluate the contribution of each parameter to the tension, we calculate the gradient of the 1D tension coordinate $t$ with respect to the six parameters. Performing a Taylor expansion on $t$
+\begin{equation}
+    t = t_0 + \Delta \theta \nabla t + \mathcal{O}((\Delta \theta)^2),
+\end{equation}
+we would expect a parameter with a larger absolute gradient to be more influential in defining the tension coordinate, hence contributing more to the tension. It is important to remind ourselves that our DES and \textit{Planck} datasets have been normalised to a range of [0, 1], hence such a comparison of gradients is fair.
+
+\subsubsection{Pair-wise Comparison}
+
+To verify our results from training our neural network on all six parameters, we make pair-wise comparisons between the six cosmological parameters. We construct separate neural networks with two input nodes for each of the fifteen combinations of parameter pairs. This allows us to rank parameter pairings in terms of their contribution to the discrepancy between the two datasets. This will also enable us to identify parameters containing the most/least tension, and compare the results obtained via this method with the method of calculating gradients from the six-parameter tension.
+
+
+\subsection{Standardising the Tension Coordinate}
+
+Different training repetitions of the same neural network architecture using identical data samples yields 1D tension coordinates with a multitude of ranges. This renders comparison between training runs difficult. It is thus important to transform the tension coordinate to one that is standardised between different repetitions.
+
+We transform the coordinate to one where the prior is uniform and flat. To perform this transformation, we use the cumulative distribution function of the marginalised prior distribution, which we denote as $\Pi^t(t) = \pi^t(X_\pi^t < t)$, to transform the posteriors and priors such that $\hat{\pi}^{t'}_P = \Pi(X_\pi^t)$, $\hat{\mathcal{P}}_A^{t'} = \Pi(X_A^t)$ and $\mathcal{P}_B^{t'} = \Pi(X_B^t)$. This gives a consistent range of $[0, 1]$ for the transformed 1D tension coordinate $t'$. We will drop the prime from here on, and let $t$ refer to the transformed coordinate. Note that this transformation does not affect the marginalised Bayes Factor $R_t$ or the calculation of tensions.
+
+
+\subsection{Computing a More Interpretable Tension}
+
+The marginalised Bayes factor is a good method to identify tension. However, it is arguably less interpretable compared to using $\sigma$. To get from the output of the neural network to a $\sigma$ value, we follow the steps detailed in \cite{Handley2021}.
+
+We first compute the Suspiciousness statistic $S_t$ of the two distributions, which is expressed as
+\begin{equation}
+    S_t = \frac{R_t}{I_t}, \quad \textrm{where } I_t = \frac{\mathcal{D}_A \mathcal{D}_B}{\mathcal{D}_{AB}}.
+\end{equation} 
+The subscript $t$ reiterates that we are working in the 1D tension coordinate. The numerical calculation of $S_t$ can be done in a very similar manner to the marginalised Bayes factor $R_t$ using kernel density estimators, as described in Section \ref{section:numerical_bf}. We may then approximate our two distributions in the 1D tension coordinate with a Gaussian (which is a reasonable assumption, given Figure \ref{fig:six_compare}), and arrive at an expression of 
+\begin{align}
+    \log S &= \frac{d}{2} - \frac{\chi^2}{2}, \\
+    \chi^2 &= (\mu_A - \mu_B)(\Sigma_A + \Sigma_B)^{-1}(\mu_A - \mu_B),
+\end{align}
+where $d$ is the Bayesian combined model dimensionality \cite{Handley2019} of the two datasets, and  $\mu_D$\ and $\Sigma_D$ are the means and covariances of the two datasets. $\chi^2$ here follows a chi-squared distribution. This is all derived in \cite{Handley2019}.
+
+We can obtain a $p$ value via the probability density function of the chi-squared distribution
+\begin{equation}
+    p = \int_{d - 2 \log S}^{\infty} \frac{x^{d/2 - 1} e^{-x/2}}{s^{d/2} \Gamma(d/2)} \ \textrm{d} x
+\end{equation}
+and convert this to a $\sigma$ value using the inverse error function
+\begin{equation}
+    \sigma (p) = \sqrt{2} \textrm{erf}^{-1} (1 - p).
+\end{equation}
+The final conversion is possible because we approximate the distributions as Gaussians.
+
+We choose to use a value of $d \approx 4$ for the DES and \textit{Planck} datasets, as calculated in \cite{Handley2019}, since we source our data from the same paper \cite{Dataset}.
+
 
 
 \section{Results and Discussion}
-
-In this section, instead of expressing the 1D tension coordinate in its 'raw' form, we transform the coordinate to one where the prior is uniform and flat. To perform this transformation, we use the cumulative distribution function of the marginalised prior distribution, which we denote as $\Pi^t(t) = \pi^t(X_\pi^t < t)$, to transform the posteriors and priors such that $\hat{\pi}^{t'}_P = \Pi(X_\pi^t)$, $\hat{\mathcal{P}}_A^{t'} = \Pi(X_A^t)$ and $\mathcal{P}_B^{t'} = \Pi(X_B^t)$. This gives a range of $[0, 1]$ for the transformed 1D tension coordinate $t'$. We will drop the prime from here on, and let $t$ refer to the transformed coordinate. Note that this transformation does not affect the marginalised Bayes Factor $R_t$.
 
 \subsection{Six Parameters} \label{section:six}
 
 We train our neural network for 500 epochs, starting off with a learning rate of $10^{-4}$ for our Adam optimiser and dropping to $10^{-5}$ as we approach $\log R_t \approx -8$. We find that this setup gives a quick and somewhat stable gradient descent. Knowing that neural networks are only able to optimise to a local minimum rather than the global minimum, we perform 10 training repetitions to give a rough estimate of the lowest possible marginalised Bayes factor. 
 
-From the 10 training runs, we obtain a marginalised Bayes factor of $\log R_t = -16.8 \pm 0.5$. If we use the tension coordinate derived from the Gaussian assumption detailed in Section \ref{gaussian_tension}, we get a marginalised Bayes Factor of only $\log R_t = -0.94$. The significant difference between theses two values gives an initial impression of the neural network's ability to identify a tension coordinate that maximises tension. The density plots of the marginalised posteriors drawn in Figure \ref{fig:six_compare} further demonstrates how the neural network is able to significantly amplify the distance and discrepancy between the two datasets.
+The results from the 10 training runs are detailed in Table \ref{table:six_params}, and accompanied by the tension calculated from the coordinate derived from the Gaussian assumption from Section \ref{gaussian_tension}. The significant difference between theses two values gives an initial impression of the neural network's ability to identify a tension coordinate which maximises tension. The density plots of the marginalised posteriors drawn in Figure \ref{fig:six_compare} further demonstrates how the neural network is able to uncover the discrepancy between the two datasets, bringing the tension to beyond $5\sigma$.
+
+\begin{table}
+    \begin{ruledtabular}
+    \begin{tabular}{lrr}
+         & Gaussian assumption & Neural network \\
+        \colrule
+        $\log R_t$ & $-0.9$ & $-16.8 \pm 0.5$ \\
+        $\log S_t$ & $-2.4$ & $-17.9 \pm 0.5$ \\
+        $p$ value & $6.6\%$ & $(4.6 \pm 2.2) \times 10^{-6}\% $ \\
+        tension & $1.84\sigma$ & $(5.47 \pm 0.08)\sigma$ \\
+    \end{tabular}
+    \end{ruledtabular}
+    \caption{The quantities related to the six-parameter tension calculated in a 1D tension coordinate obtained using two different methods -- the Gaussian assumption detailed in Section \ref{gaussian_tension}, and our neural network with six input nodes. No errors are given for the Gaussian assumption case because the tension coordinate can be constructed analytically.}
+    \label{table:six_params}
+\end{table}
 
 \begin{figure}
     \includegraphics[width=0.8\columnwidth]{../plots/six_1d_compare.png}
     \centering
-    \caption{Density plots of the marginalised posteriors of the DES and Planck datasets, and their prior, in the transformed 1D tension coordinate. (a) uses the Gaussian assumption described in Section \ref{gaussian_tension} and (b) uses the neural network approach. They give marginalised Bayes factors of $\log R_t = -0.94$ and $\log R_t = -16.8 \pm 0.5$ respectively. Note that the prior is uniform across the range of the tension coordinate, and the bend at the edges of the prior is an just artefact of the kernel density estimator method.}
+    \caption{Density plots of the marginalised posteriors of the DES and Planck datasets, and the prior, in the 1D tension coordinate. (a) uses the Gaussian assumption described in Section \ref{gaussian_tension} and (b) uses the neural network approach. Note that the prior is uniform across the range of the tension coordinate, and the bend at the edges of the prior is an just artefact of the kernel density estimator method.}
     \label{fig:six_compare}
 \end{figure}
 
-The neural network's effectiveness in capturing the non-linearity of the tension between the two datasets is illustrated in Figure \ref{fig:six}. In these 2D plots, we observe how our method is able to carve out hypersurface contours isolating the narrower distribution of the \textit{Planck} dataset. For some of the plots, including the $\Omega_b h^2$ - $\tau$ and $\sigma_8$ - $\tau$ plots, the contours even encircle around the \textit{Planck} dataset. The plots between the tension coordinate and cosmological parameters in the final row of the same figure also begin to describe how each parameter contributes to the tension. However, the wide constraints of the DES dataset renders an analysis via correlation coefficients inconclusive. 
+The neural network's effectiveness in capturing the non-linearity of the tension between the two datasets is illustrated in Figure \ref{fig:six}. In these 2D marginalised plots, we observe how our method is able to carve out hypersurface contours isolating the narrower distribution of the \textit{Planck} dataset. For some of the plots, including the $\Omega_b h^2$ - $\tau$ and $\sigma_8$ - $\tau$ plots, the contours go to the extent of encircling the \textit{Planck} posterior. The plots between the tension coordinate and cosmological parameters in the final row of the same figure also begin to describe the contribution of each parameter to the six-parameter tension. However, the wide constraints of the DES dataset renders an analysis via correlation coefficients inconclusive.
 
 \begin{figure*}
     \includegraphics[width=\textwidth]{../plots/six.png}
     \centering
-    \caption{The background of these plots shows the two-dimensional marginalised distributions of the DES and \textit{Planck} datasets, and the prior. These distributions are represented by solid iso-probability contours containing $68\%$ and $95\%$ of the marginalised probability mass. The foreground in these plots, bar the last row, illustrates contour plots of the iso-tension coordinate hypersurfaces. These contour plots are drawn by varying the two relevant cosmological parameters and fixing the other four, then feeding these data points into the trained neural network. The four data points are fixed at the weighted parameter means of the combined DES-\textit{Planck} dataset. The final row plots the tension coordinate $t$ against the six cosmological parameters, visually emphasising the maximum possible tension found between these two datasets. The marginalised Bayes factor for this particular optimised neural network is computed to be $-16.9$, while we get an estimate of $\log R_t = -16.8 \pm 0.5$ from 10 separate gradient descent runs on the same neural network setup.}
+    \caption{The background of these plots shows the two-dimensional marginalised distributions of the DES and \textit{Planck} datasets, and the prior. These distributions are represented by solid iso-probability contours containing $68\%$ and $95\%$ of the marginalised probability mass. The foreground in these plots, bar the last row, illustrates contour plots of the iso-tension coordinate hypersurfaces. The bolded contour line is the midpoint between the two datasets in the tension coordinate. These contour plots are drawn by varying the two relevant cosmological parameters and fixing the other four, then feeding these data points into the trained neural network. The four other parameters are fixed at their respective means of the combined DES-\textit{Planck} dataset. The final row plots the tension coordinate $t$ against the six cosmological parameters, visually emphasising the maximum possible tension found between these two datasets. The marginalised Bayes factor for this particular optimised neural network is computed to be $-16.9$, while we get an estimate of $\log R_t = -16.8 \pm 0.5$ from 10 separate gradient descent runs on the same neural network setup.}
     \label{fig:six}
 \end{figure*}
 
-Before we go further, it is immensely important to reiterate the fact that many local minima exist in our loss function landscape. The many possibilities of a maximum tension coordinate implies that there are a multitude of forms in which the iso-tension coordinate hypersurfaces can be drawn. Figure \ref{fig:six} is only one example out of the many configurations, thus drawing conclusions from solely this figure is not a particularly good course of action.
+Before we go further, it is important to reiterate the fact that many local minima exist in our loss function landscape. The many possibilities of a maximum tension coordinate implies that there are potentially a multitude of forms in which the iso-tension coordinate hypersurfaces can be drawn. Fortunately, upon further inspection, we note that the contour plots across all 10 training runs look similar, particularly in the region between the two posteriors. Figure \ref{fig:six} can be said to be representative of all the training repeats, however one should still be hesistant in drawing conclusion solely from this figure.
 
-To identify the parameters which contribute most to the tension, we introduce noise to a single parameter by randomly shuffling the values of the parameter across all samples of the dataset, while leaving the order of the other parameters undisturbed. This 'new' dataset is then fed into the trained neural network from before, and a marginalised Bayes factor is calculated from the output. We do this for each of the six parameters. The outcome from this procedure is detailed in Table \ref{table:shuffled}.
+\begin{figure}
+    \includegraphics[width=0.9\columnwidth]{../plots/grads.png}
+    \centering
+    \caption{Measured absolute gradient of the tension coordinate $t$ with respect to each parameter across all data points of both datasets, provided alongside the standard deviation of the measurements}
+    \label{fig:grad}
+\end{figure}
 
-\begin{table}
-\begin{ruledtabular}
-\begin{tabular}{lr}
-    Shuffled Parameter & $\log R_t$ \\
-    \colrule
-    $H_0$           & $-1.9 \pm 0.3$ \\
-    $\Omega_b h^2$  & $-2.0 \pm 0.3$ \\
-    $\Omega_m$      & $-2.6 \pm 0.3$ \\
-    $n_s$           & $-3.1 \pm 0.4$ \\
-    $\sigma_8$      & $-6.4 \pm 0.8$ \\
-    $\tau$          & $-7.3 \pm 0.9$ \\
-    \colrule
-    None            & $-16.8 \pm 0.5$ \\
-\end{tabular}
-\end{ruledtabular}
-\caption{Marginalised Bayes factors from using a dataset containing a single shuffled parameter as input to a trained neural network with six input nodes, as detailed in Section \ref{section:six}. The more positive the $\log R_t$, the more influential the parameter is to defining the tension coordinate.}
-\label{table:shuffled}
-\end{table}
+To identify the parameters which contribute most to the six-parameter tension, we calculate the gradient of the tension coordinate with respect to the input parameters. We use \texttt{PyTorch}'s \texttt{torch.autograd} differentiation engine to help us do this, where we obtained the gradient for each parameter at each data point. The mean and standard deviation of the absolute gradients of each parameter across the DES and \texttt{Planck} datasets are plotted in Figure \ref{fig:grad}.
 
-A more positive $\log R_t$ (less tension) here indicates a more important parameter in defining the tension coordinate, since shuffling its values effectively removes the influence of the parameter. One can think of the absolute difference between the unadulterated dataset and the shuffled dataset to be a value quantifying the contribution to the tension of a particular parameter. The larger the difference, the larger the contribution. 
+Starting from the top, we find $H_0$ to have the largest gradient, and by extension contribute most to the six-parameter tension. This lends support to the well-established tension of $H_0$ within the cosmology community. It is surprising to see $n_s$ coming in at a close second after the Hubble constant. With the \textit{Planck} posterior falling squarely within the unconstrained DES posterior in the $n_s$ parameter (as inferred from the bottom-rightmost 2D plot in Figure \ref{fig:six}), we would have expected $n_s$ to be one of the least influential parameters. However, the apparent importance of $n_s$ does put a spotlight on the aim of the neural network -- to search for non-linear tensions. This result could potentially point to $n_s$ being a contributor to non-linear tension. 
 
-The result here points to $H_0$ and $\Omega_b h^2$ being the largest contributor to the tension, with $\Omega_m$ coming in at a close third. This result supports the examples of cosmological tensions mentioned in Section \ref{intro}, particularly for $H_0$ and $\Omega_m$. The result also indicates that $\tau$ and $\sigma_8$ are the least significant influencers of the tension. It is not unexpected for the former since the DES dataset doesn't constrain $\tau$. However, it is curious that the latter is considered to be of low significance given the existence of the $\Omega_m$ - $\sigma_8$ tension in the community. Finally, we notice a considerable contribution to tension from the $n_s$ parameter. This is somewhat unanticipated as DES does not set any constraints on $n_s$. A density plot from the perspective of the $n_s$ parameter (can be inferred from the bottom-right plot in Figure \ref{fig:six}) also does not reveal any obvious tensions. The neural network appears to have picked out a non-trivial source of tension, but further exploration is needed to better understand this behaviour.
+The parameters of $\Omega_b h^2$ and $\Omega_m$ have almost identical absolute gradients, where they both contribute moderately to the six-parameter tension. $\sigma_8$ and $\tau$ bring up the rear, contributing the least to the tension. It is slightly unexpected for the former to be considered less influential, given this parameter is part of the $\Omega_m$ - $\sigma_8$ tension, as discussed in Section \ref{intro}. The apparent insignificance of $\tau$ is more in line with what we would expect, unlike $n_s$, since the DES dataset does not put any constraints on this parameter. 
+
+
+
+
+% \begin{table*}
+% \begin{ruledtabular}
+% \begin{tabular}{lrrrr}
+%     Parameter & $\log R_t$ & $\log S$ & $p$ value & Tension \\
+%     \colrule
+%     $\Omega_b h^2$  & $1.45 \pm 0.33$ & $1.37 \pm 0.26$ & $(87 \pm 9)\%$ & $(0.17 \pm 0.11)\sigma$ \\
+%     $\tau$          & $1.55 \pm 0.15$ & $1.15 \pm 0.06$ & $(79 \pm 2)\%$ & $(0.26 \pm 0.03)\sigma$ \\
+%     $\Omega_m$      & $0.43 \pm 0.18$ & $0.47 \pm 0.21$ & $(55 \pm 7)\%$ & $(0.60 \pm 0.10)\sigma$ \\
+%     $n_s$           & $-0.18 \pm 0.19$ & $-0.56 \pm 0.26$ & $(27 \pm 5)\%$ & $(1.09 \pm 0.12)\sigma$ \\
+%     $\sigma_8$      & $-0.70 \pm 0.29$ & $-1.41 \pm 0.34$ & $(15 \pm 4)\%$ & $(1.45 \pm 0.14)\sigma$ \\
+%     $H_0$           & $-0.98 \pm 0.26$ & $-1.56 \pm 0.28$ & $(13 \pm 3)\%$ & $(1.51 \pm 0.11)\sigma$ \\
+% \end{tabular}
+% \end{ruledtabular}
+% \caption{Marginalised Bayes factors from using a dataset containing a single shuffled parameter as input to a trained neural network with six input nodes, as detailed in Section \ref{section:six}. The more positive the $\log R_t$, the more influential the parameter is to defining the tension coordinate.}
+% \label{*:shuffled}
+% \end{table*}
+
 
 
 \subsection{Pair-wise Comparison} \label{section:pair}
 
-We train our neural network for 500 epochs with parameter pairs as the input, and maintain a learning rate of $10^{-4}$ with the Adam optimiser. We perform 5 training repetitions for each parameter pair. The results are given in Table \ref{table:pairwise}. It is important to note here that there is a nuanced distinction between the results of this section and the previous section. Here, we seek for parameters \textit{containing} the most tension via parameter pairs, whilst in the previous section we attempted to identify parameters which \textit{contributed} most to the tension in the six-dimensional parameter space.
+We train our neural network for 500 epochs with parameter pairs as the input, and maintain a learning rate of $10^{-4}$ with the Adam optimiser. We perform 10 training repetitions for each parameter pair. The results are given in Table \ref{table:pairwise}. It is important to note here that there is a nuanced distinction between the results of this section and the previous section. Here, we seek for parameters \textit{containing} the most tension via parameter pairs, whilst in the previous section we attempted to identify parameters which \textit{contributed} most to the tension in the six-dimensional parameter space.
 
-\begin{table}
+\begin{table*}
 \begin{ruledtabular}
-\begin{tabular}{l r r}
-    Parameter Pair & $\log R_t$ & Rank \\
+\begin{tabular}{l r r r r}
+    Parameter pair & $\log R_t$ & $\log S$ & $p$ value & tension \\
     \colrule
-    $\Omega_b h^2$ - $\Omega_m$ &	$-3.66 \pm 0.16$ & $1$  \\
-    $\Omega_b h^2$ - $H_0$      &	$-3.26 \pm 0.11$ & $4$  \\
-    $\Omega_b h^2$ - $\tau$     &	$-2.17 \pm 0.44$ & $10$ \\
-    $\Omega_b h^2$ - $\sigma_8$ &	$-3.40 \pm 0.17$ & $3$  \\
-    $\Omega_b h^2$ - $n_s$      &	$-1.95 \pm 0.22$ & $12$ \\
-    $\Omega_m$ - $H_0$          &	$-3.02 \pm 0.21$ & $7$  \\
-    $\Omega_m$ - $\tau$         &	$-3.23 \pm 0.22$ & $6$  \\
-    $\Omega_m$ - $\sigma_8$     &	$-2.73 \pm 0.25$ & $8$  \\
-    $\Omega_m$ - $n_s$          &	$-2.62 \pm 0.41$ & $9$  \\
-    $H_0$ - $\tau$              &	$-3.57 \pm 0.04$ & $2$  \\
-    $H_0$ - $\sigma_8$          &	$-3.25 \pm 0.06$ & $5$  \\
-    $H_0$ - $n_s$               &	$-1.94 \pm 0.47$ & $13$ \\
-    $\tau$ - $\sigma_8$         &	$-2.13 \pm 0.17$ & $11$ \\
-    $\tau$ - $n_s$              &	$-0.73 \pm 0.01$ & $15$ \\
-    $\sigma_8$ - $n_s$          &	$-1.86 \pm 0.06$ & $14$ \\
-    \hline \hline
-    Parameter & Mean $\log R_t$ & Rank \\
+    $H_0$ - $n_s$               &	$-3.18 \pm 0.28$ & $-4.42 \pm 0.31$ & $(0.90 \pm 0.21)\%$ & $(2.61 \pm 0.08)\sigma$ \\
+    $H_0$ - $\tau$              &	$-3.54 \pm 0.04$ & $-4.80 \pm 0.07$ & $(0.95 \pm 0.10)\%$ & $(2.59 \pm 0.03)\sigma$ \\
+    $\Omega_b h^2$ - $\sigma_8$ &	$-3.04 \pm 0.16$ & $-4.49 \pm 0.21$ & $(1.06 \pm 0.24)\%$ & $(2.56 \pm 0.08)\sigma$ \\
+    $\Omega_b h^2$ - $H_0$      &	$-3.25 \pm 0.12$ & $-4.65 \pm 0.10$ & $(1.09 \pm 0.15)\%$ & $(2.55 \pm 0.05)\sigma$ \\
+    $\Omega_b h^2$ - $\Omega_m$ &	$-3.35 \pm 0.22$ & $-4.30 \pm 0.14$ & $(1.21 \pm 0.15)\%$ & $(2.51 \pm 0.04)\sigma$ \\
+    $\Omega_m$ - $\tau$         &	$-3.16 \pm 0.13$ & $-4.06 \pm 0.06$ & $(1.66 \pm 0.08)\%$ & $(2.40 \pm 0.02)\sigma$ \\
+    $H_0$ - $\sigma_8$          &	$-3.09 \pm 0.13$ & $-4.01 \pm 0.04$ & $(1.73 \pm 0.11)\%$ & $(2.38 \pm 0.02)\sigma$ \\
+    $\Omega_m$ - $n_s$          &	$-2.17 \pm 0.43$ & $-3.24 \pm 0.45$ & $(1.85 \pm 0.82)\%$ & $(2.36 \pm 0.16)\sigma$ \\
+    $\Omega_m$ - $H_0$          &	$-2.79 \pm 0.23$ & $-3.61 \pm 0.13$ & $(2.53 \pm 0.38)\%$ & $(2.24 \pm 0.06)\sigma$ \\
+    $\tau$ - $\sigma_8$         &	$-1.82 \pm 0.26$ & $-3.25 \pm 0.28$ & $(2.81 \pm 0.32)\%$ & $(2.20 \pm 0.05)\sigma$ \\
+    $\sigma_8$ - $n_s$          &	$-1.82 \pm 0.05$ & $-3.22 \pm 0.13$ & $(3.62 \pm 0.62)\%$ & $(2.09 \pm 0.07)\sigma$ \\
+    $\Omega_b h^2$ - $\tau$     &	$-2.41 \pm 0.25$ & $-2.86 \pm 0.19$ & $(3.95 \pm 0.47)\%$ & $(2.06 \pm 0.05)\sigma$ \\
+    $\Omega_m$ - $\sigma_8$     &	$-2.25 \pm 0.21$ & $-2.93 \pm 0.31$ & $(4.46 \pm 1.48)\%$ & $(2.01 \pm 0.14)\sigma$ \\
+    $\Omega_b h^2$ - $n_s$      &	$-1.85 \pm 0.22$ & $-2.21 \pm 0.35$ & $(5.00 \pm 0.94)\%$ & $(1.96 \pm 0.08)\sigma$ \\
+    $\tau$ - $n_s$              &	$-0.67 \pm 0.03$ & $1.57 \pm 0.05$ & $(92.09 \pm 2.84)\%$ & $(0.10 \pm 0.04)\sigma$ \\
+    % \hline \hline
+\end{tabular}
+\rule{0pt}{5pt}
+\begin{tabular}{l r r r r}
+    Parameter & Mean $\log R_t$ & Mean $\log S$ & Mean $p$ value & Mean tension \\
     \colrule
-    $\Omega_m$      & $-3.05 \pm 0.25$ & 1 \\
-    $H_0$           & $-3.01 \pm 0.18$ & 2 \\
-    $\Omega_b h^2$  & $-2.89 \pm 0.22$ & 3 \\
-    $\sigma_8$      & $-2.68 \pm 0.14$ & 4 \\
-    $\tau$          & $-2.37 \pm 0.17$ & 5 \\
-    $n_s$           & $-1.82 \pm 0.24$ & 6 \\
+    $H_0$           & $-3.17 \pm 0.16$ & $-4.30 \pm 0.13$ & $(1.44 \pm 0.19)\%$ & $(2.47 \pm 0.05)\sigma$ \\
+    $\Omega_b h^2$  & $-2.78 \pm 0.19$ & $-3.70 \pm 0.20$ & $(2.46 \pm 0.39)\%$ & $(2.33 \pm 0.06)\sigma$ \\
+    $\Omega_m$      & $-2.74 \pm 0.24$ & $-3.63 \pm 0.22$ & $(2.34 \pm 0.58)\%$ & $(2.30 \pm 0.08)\sigma$ \\
+    $\sigma_8$      & $-2.40 \pm 0.16$ & $-3.58 \pm 0.19$ & $(2.74 \pm 0.55)\%$ & $(2.25 \pm 0.07)\sigma$ \\
+    $\tau$          & $-2.32 \pm 0.14$ & $-2.68 \pm 0.13$ & $(20.29 \pm 0.76)\%$ & $(1.87 \pm 0.04)\sigma$ \\
+    $n_s$           & $-1.94 \pm 0.20$ & $-2.30 \pm 0.26$ & $(20.69 \pm 1.09)\%$ & $(1.82 \pm 0.09)\sigma$ \\
+
 \end{tabular}
 \end{ruledtabular}
     
-\caption{The upper table details the marginalised Bayes factors calculated from trained neural networks with parameter pairs as its input. We rank the pairings by increasing $\log R_t$, or decreasing tension, in the rightmost column. The lower table gives the mean $\log R_t$ from the results of parameter pairings containing the respective parameter.}
+\caption{The upper table details the quantities of tension calculated from trained neural networks with parameter pairs as its input. The pairs are ordered in decreasing tension. The lower table gives the mean of the quantities of tension from the upper table for each parameter, where the mean is over the pairs which contain the respective parameter. The parameters are also ordered in decreasing tension.}
 \label{table:pairwise}
-\end{table}
+\end{table*}
 
-The results here generally correlate well with the results from the previous section. We still find that $\Omega_m$, $H_0$ and $\Omega_b h^2$ are the top three parameters containing the most tension, albeit permuted in a slightly different order. The largest differences compared to the previous section's results is the increase of tension found in $\sigma_8$ and the drop in rank to last for $n_s$.
+The outcome here generally correlates well with the results from the previous section in terms of the parameter importance. We find $H_0$ to again contain the most tension by a considerable margin. We now have three parameters -- $\Omega_b h^2$, $\Omega_m$ and $\sigma_8$, rather than two, containing similar moderate tension. However, the largest difference with our previous result is the ranking of $n_s$, where the parameter has dropped from second place to last and is now considered to contain the least tension. This contrast in results could potentially point to $n_s$ being a more significant contributor to non-linear tensions in higher dimensions, but less able to influence the tension coordnate in lower dimensions.
 
-The rank of parameters containing the most tension here is more in line with what we would expect. The unconstrained parameters of the DES dataset -- $\tau$ and $n_s$, are now considered as the least discrepant. On the opposite end of the scale, the results are able to reinforce known cosmological tensions found in $H_0$ and the $\Omega_m$ - $\sigma_8$ plane. However, it is interesting to note that our neural networks do not consider the pairing of $\Omega_m$ - $\sigma_8$ to contain the most tension, but find pairings such as $\Omega_b h^2$ - $\Omega_m$ and $H_0$ - $\tau$ to have the largest discrepancies. A possible reason for these large tensions could be the significant difference between the widths of the \textit{Planck} and DES datasets for these parameters. For example, one could argue that the wide constraint favouring a larger value of $H_0$ or $\Omega_b h^2$ (or disfavouring a lower value) is a key contributor to the tension. 
-
-It is important to highlight that despite $n_s$ ranking as the parameter containing the least tension, a mean marginalised Bayes factor of $\log R_t = -1.82 \pm 0.24$ is by no means an indication of a concordant parameter. This value of $R_t = 0.162$ is definitely considered to be in tension, but care needs to be taken here. Is the source of discrepancy from the other parameters paired to $n_s$, or does $n_s$ itself contain some tension? These results do not reveal such information, and more work needs to be done to isolate each individual parameter.
+Looking at the ranking of parameter pairs, it is interesting to note that $\Omega_m$ - $\sigma_8$ is ranked as the 3rd least discrepant pair. Despite this pairing's well-known tension in the community, by allowing non-linear tension coordinates we are able to find more tension in the other parameter pairs.
 
 
 \section{Conclusions}

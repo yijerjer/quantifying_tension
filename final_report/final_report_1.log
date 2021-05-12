@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.4.29)  10 MAY 2021 23:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.4.29)  13 MAY 2021 00:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -293,52 +293,54 @@ File: ../plots/omegam_sigma8.png Graphic file (type png)
 Package pdftex.def Info: ../plots/omegam_sigma8.png  used on input line 113.
 (pdftex.def)             Requested size: 221.3985pt x 193.72229pt.
  [2 </home/yijerloh/Documents/part_iii_project/project/final_report/../plots/omegam_sigma8.png>]
-Underfull \hbox (badness 1769) in paragraph at lines 192--193
+Underfull \hbox (badness 1769) in paragraph at lines 200--201
 \OT1/cmr/m/n/10 com-plex-ity to the ten-sion co-or-di-nate. In-stead of
  []
 
-<images/nn.png, id=32, 2007.5pt x 1550.79375pt>
+[3]
+<images/nn.png, id=35, 2007.5pt x 1550.79375pt>
 File: images/nn.png Graphic file (type png)
 <use images/nn.png>
-Package pdftex.def Info: images/nn.png  used on input line 208.
+Package pdftex.def Info: images/nn.png  used on input line 216.
 (pdftex.def)             Requested size: 196.80075pt x 152.01224pt.
-[3]
+ [4 </home/yijerloh/Documents/part_iii_project/project/final_report/images/nn.png
 
-LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 219.
-
-<../plots/toy_wide.png, id=36, 722.7pt x 325.215pt>
-File: ../plots/toy_wide.png Graphic file (type png)
-<use ../plots/toy_wide.png>
-Package pdftex.def Info: ../plots/toy_wide.png  used on input line 278.
-(pdftex.def)             Requested size: 458.99689pt x 206.54892pt.
-
-Underfull \hbox (badness 5862) in paragraph at lines 294--295
+pdfTeX warning: pdflatex (file /home/yijerloh/Documents/part_iii_project/project/final_report/images/nn.png): large interlaced PNG might cause out of memory (use non-interlaced PNG to fix this)
+>]
+Underfull \hbox (badness 5862) in paragraph at lines 267--268
  []$\OML/cmm/m/it/9 optim \OMS/cmsy/m/n/9  $ \OT1/cmr/m/n/9 AdamOptimizer($\OML/cmm/m/it/9 net:parameters\OT1/cmr/m/n/9 ()$, learn-
  []
 
-[4 </home/yijerloh/Documents/part_iii_project/project/final_report/images/nn.png
-
-pdfTeX warning: pdflatex (file /home/yijerloh/Documents/part_iii_project/project/final_report/images/nn.png): large interlaced PNG might cause out of memory (use non-interlaced PNG to fix this)
->] [5 </home/yijerloh/Documents/part_iii_project/project/final_report/../plots/toy_wide.png>]
-<../plots/six_1d_compare.png, id=48, 289.08pt x 433.62pt>
+<../plots/toy_wide.png, id=41, 722.7pt x 325.215pt>
+File: ../plots/toy_wide.png Graphic file (type png)
+<use ../plots/toy_wide.png>
+Package pdftex.def Info: ../plots/toy_wide.png  used on input line 288.
+(pdftex.def)             Requested size: 458.99689pt x 206.54892pt.
+[5] [6 </home/yijerloh/Documents/part_iii_project/project/final_report/../plots/toy_wide.png>]
+<../plots/six_1d_compare.png, id=51, 289.08pt x 433.62pt>
 File: ../plots/six_1d_compare.png Graphic file (type png)
 <use ../plots/six_1d_compare.png>
-Package pdftex.def Info: ../plots/six_1d_compare.png  used on input line 348.
+Package pdftex.def Info: ../plots/six_1d_compare.png  used on input line 385.
 (pdftex.def)             Requested size: 196.80075pt x 295.20175pt.
-<../plots/six.png, id=49, 722.7pt x 722.7pt>
+ [7]
+
+LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 392.
+
+<../plots/six.png, id=57, 722.7pt x 722.7pt>
 File: ../plots/six.png Graphic file (type png)
 <use ../plots/six.png>
-Package pdftex.def Info: ../plots/six.png  used on input line 357.
+Package pdftex.def Info: ../plots/six.png  used on input line 394.
 (pdftex.def)             Requested size: 510.0pt x 509.9998pt.
- [6]
+<../plots/grads.png, id=58, 289.08pt x 252.945pt>
+File: ../plots/grads.png Graphic file (type png)
+<use ../plots/grads.png>
+Package pdftex.def Info: ../plots/grads.png  used on input line 403.
+(pdftex.def)             Requested size: 221.3985pt x 193.72229pt.
+[8 </home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six_1d_compare.png>] [9 </home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six.png>]
 
-LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 364.
+LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 482.
 
-[7 </home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six_1d_compare.png>] [8 </home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six.png>]
-
-LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 434.
-
-(/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.bbl [9]
+[10 </home/yijerloh/Documents/part_iii_project/project/final_report/../plots/grads.png>] (/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.bbl
 Underfull \hbox (badness 3849) in paragraph at lines 201--208
  []\OT1/cmr/m/n/9 W. Han-d-ley, Cur-va-ture ten-sion: Ev-i-dence for a
  []
@@ -393,7 +395,7 @@ Underfull \hbox (badness 2653) in paragraph at lines 279--286
  \OT1/cmr/m/n/9 ev-i-dence as a tool for com-par-ing datasets, Phys.
  []
 
-
+[11]
 Underfull \hbox (badness 4001) in paragraph at lines 453--458
  []\OT1/cmr/m/n/9 W. Han-d-ley and P. Lemos, Quan-ti-fy-ing ten-sions
  []
@@ -408,20 +410,20 @@ Underfull \hbox (badness 4595) in paragraph at lines 453--458
  \OT1/cmr/m/n/9 ev-i-dence ra-tio (sup-ple-men-tary in-fer-ence prod-ucts),
  []
 
-[10]) [11] (/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.aux) ) 
+) [12] (/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.aux) ) 
 Here is how much of TeX's memory you used:
- 5300 strings out of 479383
- 71003 string characters out of 5875830
- 399037 words of memory out of 5000000
- 22329 multiletter control sequences out of 15000+600000
+ 5312 strings out of 479383
+ 71221 string characters out of 5875830
+ 390949 words of memory out of 5000000
+ 22340 multiletter control sequences out of 15000+600000
  416932 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,13n,85p,1452b,415s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 79i,13n,85p,1452b,419s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on /home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.pdf (11 pages, 3094211 bytes).
+Output written on /home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.pdf (12 pages, 3123689 bytes).
 PDF statistics:
- 145 PDF objects out of 1000 (max. 8388607)
- 96 compressed objects within 1 object stream
+ 150 PDF objects out of 1000 (max. 8388607)
+ 98 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
