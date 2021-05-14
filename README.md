@@ -4,7 +4,8 @@
 ```
 .
 +-- final_report/           # contains tex files of final report 
-+-- notebooks/              # contains all the jupyter notebooks
++-- notebooks/              # contains all the jupyter notebooks 
+                              (unlikely to run out of the box)
 |   +-- *.ipynb
 +-- plots/                  # contains all the plots in the final report
 |   +-- pair/               # trained PyTorch model state_dicts for 
@@ -16,6 +17,8 @@
                               examples
 +-- runs_default/           # nested sampling chains from 
                               [https://zenodo.org/record/4116393#.YJ5BIl3TUVk]
++-- getting_started.py      # Starter script to train six parameter neural 
+                              network
 +-- plot_*.py               # scripts to produce *.png in plots/
 +-- np_utils.py             # util methods to create data points
 +-- tension_net.py          # Pytorch neural network classes
@@ -25,3 +28,5 @@
 
 ```
 
+## Getting Started
+Use the `getting_started.py` script to get going with traning a neural network for six parameters
