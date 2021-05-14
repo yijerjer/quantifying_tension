@@ -8,7 +8,7 @@ from scipy.interpolate import interp1d
 from np_utils import simple_data, curved_data, planck_des_data
 from torch_utils import rotation_test, get_limits, TrainUtil
 from tension_net import TensionNet, TensionNet1, TensionNet2, TensionNet3
-from tension_quantify import GaussianKDE, BayesFactorKDE, BayesFactor
+from tension_quantify import GaussianKDE, BayesFactorKDE, BayesFactor, SuspiciousnessKDE, sigma_from_logS
 from anesthetic.plot import kde_plot_1d
 
 
@@ -52,13 +52,15 @@ param_means = torch.tensor(param_means).float().to(device)
 norm_factors = torch.tensor(norm_factors).float().to(device)
 
 train_utils = []
+# suss = SuspiciousnessKDE(device, n_points=500)
+# d = (4, 0)
 for pair in param_pairs:
     net = TensionNet1(2, hidden_size=4096)
     net.load_state_dict(torch.load(f"plots/pair/{pair[0]}{pair[1]}_net.pt", map_location=device))
     criterion = BayesFactorKDE(device, n_points=500)
     optimizer = optim.Adam(net.parameters(), lr=0.001)
     util = TrainUtil(net, optimizer, criterion, device, 
-                     data_labels=[r"$Planck$", r"\rm{DES}", r"\rm{Prior}"])
+                     data_labels=[r"$Planck$", r"\rm{DES}", r"\rm{Prior}"]) 
 
     util.XA = X0[:, pair]
     util.XB = X1[:, pair]
@@ -72,6 +74,13 @@ for pair in param_pairs:
     util.XB_tnsr = torch.tensor(util.XB).to(device).float()
     util.X_prior_tnsr = torch.tensor(util.X_prior).to(device).float()
 
+    XA_1d = util.net(util.XA_tnsr)
+    XB_1d = util.net(util.XB_tnsr)
+    X_prior_1d = util.net(util.X_prior_tnsr)
+    # logS = suss(XA_1d, XB_1d, X_prior_1d, weights=util.weights)
+    # sigma, _ = sigma_from_logS(d, (logS, 0))
+    # util.sigma = sigma[0]
+    
     train_utils.append(util)
 
 
@@ -109,4 +118,5 @@ fig.legend(handles, labels, loc="upper center", ncol=3, bbox_to_anchor=(0.5, 1))
 fig.tight_layout(rect=[0, 0, 1, 0.97])
 
 plt.subplots_adjust(hspace=0.15, wspace=0.15)
-fig.savefig("plots/pairs.png", dpi=300)
+plt.show()
+# fig.savefig("plots/pairs.png", dpi=300)

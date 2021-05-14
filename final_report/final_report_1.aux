@@ -11,7 +11,7 @@
 \citation{Handley2019}
 \citation{Charnock2017}
 \newlabel{FirstPage}{{}{1}{}{}{}}
-\@writefile{toc}{\contentsline {title}{Constructing a Maximum Tension Coordinate in Cosmology with Neural Networks}{1}{}}
+\@writefile{toc}{\contentsline {title}{Constructing Non-Linear Cosmological Tension Coordinate with Neural Networks}{1}{}}
 \@writefile{toc}{\contentsline {abstract}{Abstract}{1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{}}
 \newlabel{intro}{{I}{1}{}{}{}}
@@ -21,6 +21,7 @@
 \citation{Lartillot2006}
 \citation{Skilling2006,Handley2015}
 \citation{Marshall2006}
+\citation{Handley2019}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces The main plot shows a two-dimensional marginalised distribution of the \textit  {Planck} and DES datasets in the $\Omega _m$ - $\sigma _8$ plane, where the solid contours contain 68\% and 95\% of the marginalised probability mass. The two smaller plots are the one-dimensional marginalised distributions of both datasets in each parameter.}}{2}{}}
 \newlabel{omegam_sigma8}{{2}{2}{}{}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {II}Background}{2}{}}
@@ -29,7 +30,6 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2}Kullback-Leibler Divergence}{2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {B}Bayes Factor $R$}{2}{}}
 \citation{Handley2019}
-\citation{Handley2019}
 \citation{Hornik1989}
 \@writefile{toc}{\contentsline {subsection}{\numberline {C}Tension Coordinate}{3}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {1}Gaussian example}{3}{}}
@@ -37,6 +37,8 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2}Non-Gaussian case}{3}{}}
 \newlabel{non_gaussian}{{II\,C\,2}{3}{}{}{}}
 \newlabel{margin_R}{{12}{3}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Method}{3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A}Neural Network and Training}{3}{}}
 \citation{Nwankpa2018}
 \citation{Nair2010}
 \citation{Keskar2017}
@@ -44,55 +46,57 @@
 \citation{Rosenblatt1956,Silverman1986}
 \citation{Rosenblatt1956}
 \citation{Turlach1993}
+\citation{Scipy2020}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces A fully-connected neural network with 6 nodes in the input layer, an arbitrary number of nodes in the hidden layer, and a single node in the output layer.}}{4}{}}
 \newlabel{fig:NN}{{3}{4}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {III}Method}{4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A}Neural Network and Training}{4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {B}Numerical Calculation of Bayes Factor}{4}{}}
 \newlabel{section:numerical_bf}{{III\,B}{4}{}{}{}}
-\citation{Scipy2020}
 \citation{Schutt2017}
-\@writefile{toc}{\contentsline {subsection}{\numberline {C}Toy Examples}{5}{}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Training of Neural Network}}{5}{}}
-\newlabel{algo}{{1}{5}{}{}{}}
 \citation{Handley2019,Lemos2020}
 \citation{Dataset}
 \citation{anesthetic}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C}Toy Examples}{5}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Training of Neural Network}}{5}{}}
+\newlabel{algo}{{1}{5}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D}Cosmological Dataset}{5}{}}
+\citation{Handley2021}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The main contour plots illustrate the iso-tension coordinate hypersurfaces shaped by the neural network after training for 500 epochs on our toy examples. a) shows two Gaussian distributions and b) shows a Gaussian distribution accompanied by a 'banana-shaped' distribution. The faded blue distribution in the background is the prior. The smaller plots along the $x$ and $y$ axes show the marginalised distributions of these toy examples in their respective axes.}}{6}{}}
 \newlabel{fig:toy}{{4}{6}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {D}Cosmological Dataset}{6}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {E}Identifying the Source(s) of Tension}{6}{}}
 \newlabel{section:source}{{III\,E}{6}{}{}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {1}Six Parameters}{6}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2}Pair-wise Comparison}{6}{}}
-\citation{Handley2021}
+\@writefile{toc}{\contentsline {subsection}{\numberline {F}Standardising the Tension Coordinate}{6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {G}Computing a More Interpretable Tension}{6}{}}
 \citation{Handley2019}
 \citation{Handley2019}
 \citation{Handley2019}
 \citation{Dataset}
-\@writefile{toc}{\contentsline {subsection}{\numberline {F}Standardising the Tension Coordinate}{7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {G}Computing a More Interpretable Tension}{7}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces The quantities related to the six-parameter tension calculated in a 1D tension coordinate obtained using two different methods -- the Gaussian assumption detailed in Section II\,C\,1{}{}{}\hbox {}, and our neural network with six input nodes. No errors are given for the Gaussian assumption case because the tension coordinate can be constructed analytically.}}{7}{}}
-\newlabel{table:six_params}{{I}{7}{}{}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {IV}Results and Discussion}{7}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A}Six Parameters}{7}{}}
 \newlabel{section:six}{{IV\,A}{7}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Density plots of the marginalised posteriors of the DES and Planck datasets, and the prior, in the 1D tension coordinate. (a) uses the Gaussian assumption described in Section II\,C\,1{}{}{}\hbox {} and (b) uses the neural network approach. Note that the prior is uniform across the range of the tension coordinate, and the bend at the edges of the prior is an just artefact of the kernel density estimator method.}}{8}{}}
-\newlabel{fig:six_compare}{{5}{8}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces The quantities related to the six-parameter tension calculated in a 1D tension coordinate obtained using two different methods -- the Gaussian assumption detailed in Section II\,C\,1{}{}{}\hbox {}, and our neural network with six input nodes. No errors are given for the Gaussian assumption case because the tension coordinate can be constructed analytically.}}{7}{}}
+\newlabel{table:six_params}{{I}{7}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Density plots of the marginalised posteriors of the DES and Planck datasets, and the prior, in the 1D tension coordinate. (a) uses the Gaussian assumption described in Section II\,C\,1{}{}{}\hbox {} and (b) uses the neural network approach. Note that the prior is uniform across the range of the tension coordinate, and the bend at the edges of the prior is an just artefact of the kernel density estimator method.}}{7}{}}
+\newlabel{fig:six_compare}{{5}{7}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Measured absolute gradient of the tension coordinate $t$ with respect to each parameter across all data points of both datasets, provided alongside the standard deviation of the measurements}}{8}{}}
+\newlabel{fig:grad}{{6}{8}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {B}Pair-wise Comparison}{8}{}}
 \newlabel{section:pair}{{IV\,B}{8}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces The background of these plots shows the two-dimensional marginalised distributions of the DES and \textit  {Planck} datasets, and the prior. These distributions are represented by solid iso-probability contours containing $68\%$ and $95\%$ of the marginalised probability mass. The foreground in these plots, bar the last row, illustrates contour plots of the iso-tension coordinate hypersurfaces. The bolded contour line is the midpoint between the two datasets in the tension coordinate. These contour plots are drawn by varying the two relevant cosmological parameters and fixing the other four, then feeding these data points into the trained neural network. The four other parameters are fixed at their respective means of the combined DES-\textit  {Planck} dataset. The final row plots the tension coordinate $t$ against the six cosmological parameters, visually emphasising the maximum possible tension found between these two datasets. The marginalised Bayes factor for this particular optimised neural network is computed to be $-16.9$, while we get an estimate of $\qopname  \relax o{log}R_t = -16.8 \pm 0.5$ from 10 separate gradient descent runs on the same neural network setup.}}{9}{}}
-\newlabel{fig:six}{{6}{9}{}{}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces The upper table details the quantities of tension calculated from trained neural networks with parameter pairs as its input. The pairs are ordered in decreasing tension. The lower table gives the mean of the quantities of tension from the upper table for each parameter, where the mean is over the pairs which contain the respective parameter. The parameters are also ordered in decreasing tension.}}{10}{}}
-\newlabel{table:pairwise}{{II}{10}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Measured absolute gradient of the tension coordinate $t$ with respect to each parameter across all data points of both datasets, provided alongside the standard deviation of the measurements}}{10}{}}
-\newlabel{fig:grad}{{7}{10}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusions}{10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces The background of these plots shows the two-dimensional marginalised posteriors of the DES and \textit  {Planck} datasets, and their shared prior. These posteriors are represented by solid iso-probability contours containing $68\%$ and $95\%$ of the marginalised probability mass. The foreground in these plots, bar the last row, illustrates contour plots of the iso-tension coordinate hypersurfaces. The bold contour line is the midpoint between the two datasets in the 1D tension coordinate. These contour plots are drawn by varying the two relevant cosmological parameters and fixing the other four, then feeding these data points into the trained neural network. The four other parameters are fixed at their respective means in the joint DES-\textit  {Planck} dataset. The final row plots the tension coordinate $t$ against the six cosmological parameters, visually emphasising the maximum tension found between these two datasets. The marginalised Bayes factor for this particular optimised neural network is computed to be $-16.9$, while we get an estimate of $\qopname  \relax o{log}R_t = -16.8 \pm 0.5$ from 10 separate gradient descent runs on the same neural network setup.}}{9}{}}
+\newlabel{fig:six}{{7}{9}{}{}{}}
 \bibdata{final_report_1Notes,apssamp}
 \bibcite{Franklin2013}{{1}{2013}{{Franklin}}{{}}}
 \bibcite{deVaucouleurs1986}{{2}{1986}{{de~Vaucouleurs}}{{}}}
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces The upper table details the quantities of tension calculated from trained neural networks with parameter pairs as its input. The pairs are ordered in decreasing tension. The lower table gives the mean of the quantities of tension from the upper table for each parameter, where the mean is over the pairs which contain the respective parameter. The parameters are also ordered in decreasing tension.}}{10}{}}
+\newlabel{table:pairwise}{{II}{10}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusions}{10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {}Acknowledgments}{10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {}References}{10}{}}
 \bibcite{Sandage1975}{{3}{1975}{{Sandage\ and\ Tammann}}{{}}}
 \bibcite{Planck2020}{{4}{2020}{{Aghanim\ \emph  {et~al.}}}{{Aghanim, Akrami, Ashdown, Aumont, Baccigalupi, Ballardini, Banday, Barreiro, Bartolo,\ and\ et~al.}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Similar to Figure 7{}{}{}\hbox {}, the background shows 2D marginalised distributions of the two datasets and the prior, and the foreground illustrates iso-tension coordinate contour plots. The key difference in this figure is that each plot represents an independent neural network with the respective parameter pair as its input. It is unlike Figure 7{}{}{}\hbox {}, where all the plots collectively represent a single neural network which takes in all six parameters as its input. Note that the contour plots here are much noisier, particularly in regions that are further away from the two datasets. This likely points to an oversized hidden layer of the neural network, where it begins to over-fit to the statistical noise of the two datasets.}}{11}{}}
+\newlabel{fig:pairs}{{8}{11}{}{}{}}
 \bibcite{Abbott2018}{{5}{2018}{{Abbott\ \emph  {et~al.}}}{{Abbott, Abdalla, Annis, Bechtol, Blazek, Benson, Bernstein, Bernstein, Bertin, Brooks,\ and\ et~al.}}}
 \bibcite{Freedman2020}{{6}{2020}{{Freedman\ \emph  {et~al.}}}{{Freedman, Madore, Hoyt, Jang, Beaton, Lee, Monson, Neeley,\ and\ Rich}}}
 \bibcite{Riess2019}{{7}{2019}{{Riess\ \emph  {et~al.}}}{{Riess, Casertano, Yuan, Macri,\ and\ Scolnic}}}
@@ -108,13 +112,6 @@
 \bibcite{Marshall2006}{{17}{2006}{{Marshall\ \emph  {et~al.}}}{{Marshall, Rajguru,\ and\ Slosar}}}
 \bibcite{Hornik1989}{{18}{1989}{{Hornik\ \emph  {et~al.}}}{{Hornik, Stinchcombe,\ and\ White}}}
 \bibcite{Nwankpa2018}{{19}{2018}{{Nwankpa\ \emph  {et~al.}}}{{Nwankpa, Ijomah, Gachagan,\ and\ Marshall}}}
-\@writefile{toc}{\contentsline {section}{\numberline {}Acknowledgments}{11}{}}
-\@writefile{toc}{\appendix }
-\@writefile{toc}{\contentsline {section}{\numberline {A}Appendixes}{11}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B}A little more on appendixes}{11}{}}
-\newlabel{app:subsec}{{B\,1}{11}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1}A subsection in an appendix}{11}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {}References}{11}{}}
 \bibcite{Nair2010}{{20}{2010}{{Nair\ and\ Hinton}}{{}}}
 \bibcite{Keskar2017}{{21}{2017}{{Keskar\ \emph  {et~al.}}}{{Keskar, Mudigere, Nocedal, Smelyanskiy,\ and\ Tang}}}
 \bibcite{Kingma2017}{{22}{2017}{{Kingma\ and\ Ba}}{{}}}

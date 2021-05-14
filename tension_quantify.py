@@ -193,6 +193,8 @@ class SuspiciousnessKDE(nn.Module):
         log_dist_prior = kde_prior.log_prob(y)
         del kdeA, kdeB, kdeAB, kde_prior
 
+        normA = 
+
         log_to_sum_prior = log_dist_A + log_dist_B - log_dist_prior
         logR = torch.logsumexp(
             log_to_sum_prior + torch.log(interval), dim=0

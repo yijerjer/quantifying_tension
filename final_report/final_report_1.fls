@@ -343,15 +343,6 @@ INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmmib10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib7.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmbx8.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib8.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy8.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/H0 tension.png
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/H0 tension.png
@@ -371,6 +362,7 @@ INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/images/nn.p
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/images/nn.png
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/images/nn.png
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/toy_wide.png
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/toy_wide.png
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/toy_wide.png
@@ -381,16 +373,21 @@ INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/si
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six_1d_compare.png
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six_1d_compare.png
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six_1d_compare.png
-INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six.png
-INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six.png
-INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six.png
-INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six.png
-INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six.png
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/grads.png
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/grads.png
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/grads.png
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/grads.png
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/grads.png
+INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six.png
+INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six.png
+INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six.png
+INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six.png
+INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/six.png
+INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/pairs.png
+INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/pairs.png
+INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/pairs.png
+INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/pairs.png
+INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/../plots/pairs.png
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.bbl
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.bbl
 INPUT /home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.bbl

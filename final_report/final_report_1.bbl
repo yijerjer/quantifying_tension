@@ -469,8 +469,8 @@
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {W.}~\bibnamefont
   {Handley}}\ and\ \bibinfo {author} {\bibfnamefont {P.}~\bibnamefont
-  {Lemos}},\ }\bibfield  {title} {\bibinfo {title} {Quantifying the global
-  parameter tensions between act, spt, and planck},\ }\bibfield  {journal}
+  {Lemos}},\ }\bibfield  {title} {\bibinfo {title} {{Quantifying the global
+  parameter tensions between ACT, SPT, and Planck}},\ }\bibfield  {journal}
   {\bibinfo  {journal} {Physical Review D}\ }\textbf {\bibinfo {volume}
   {103}},\ \href {https://doi.org/10.1103/physrevd.103.063529}
   {10.1103/physrevd.103.063529} (\bibinfo {year} {2021}),\ \bibinfo {note}
