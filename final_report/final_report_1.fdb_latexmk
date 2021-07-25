@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex final_report_1"] 1620916795 "final_report_1.aux" "final_report_1.bbl" "final_report_1" 1620916800
+["bibtex final_report_1"] 1621201043 "final_report_1.aux" "final_report_1.bbl" "final_report_1" 1621201048
   "/usr/share/texmf-dist/bibtex/bst/revtex/apsrev4-2.bst" 1617199737 69609 e9dea59f0e753ccda3ddc8f5806d846d ""
-  "apssamp.bib" 1620905199 17078 d67265eff9075184555cc1952684f2e5 ""
-  "final_report_1.aux" 1620916800 12902 207072b02299ed5fc8add15a6fb86552 "pdflatex"
-  "final_report_1Notes.bib" 1620916800 104 4d8bb863c86f3d7b03a471e9d4707f34 "pdflatex"
+  "apssamp.bib" 1621199406 18198 6fdb6abf61a16964686be2d030f6bd0b ""
+  "final_report_1.aux" 1621201047 12274 b8004debe726a4c67c29d22345e26a4b "pdflatex"
+  "final_report_1Notes.bib" 1621201047 104 4d8bb863c86f3d7b03a471e9d4707f34 "pdflatex"
   (generated)
-  "final_report_1.blg"
   "final_report_1.bbl"
-["pdflatex"] 1620916795 "/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.tex" "/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.pdf" "final_report_1" 1620916800
+  "final_report_1.blg"
+["pdflatex"] 1621201043 "/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.tex" "/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.pdf" "final_report_1" 1621201048
   "../plots/H0 tension.png" 1617446515 51262 7d516229a0f54e4caa5bcd9c36b354d5 ""
   "../plots/grads.png" 1620862370 26883 2a6e593d03ee98dffd1ce9e76980cfbf ""
   "../plots/omegam_sigma8.png" 1620684860 86226 85c2e0c501f5667185cc1f13479d23f7 ""
@@ -15,8 +15,8 @@
   "../plots/six.png" 1620476730 2139013 d88df2d86085fc79043d21dbb47d6403 ""
   "../plots/six_1d_compare.png" 1620225224 102827 4745ac44916afec68436d2f2976ed1bb ""
   "../plots/toy_wide.png" 1620685402 706443 747cf73039eb367d8ea23992ca351324 ""
-  "/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.aux" 1620916800 12902 207072b02299ed5fc8add15a6fb86552 ""
-  "/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.tex" 1620916790 51660 bd3892a2061549fd9e4cb29f835dbfdb ""
+  "/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.aux" 1621201047 12274 b8004debe726a4c67c29d22345e26a4b ""
+  "/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.tex" 1621201037 54112 54c294bdb6134461f21b7fbdd1ca53af ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1616952564 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1616952564 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1616952564 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
@@ -114,14 +114,14 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1616952564 33301 a3134070eacafb10b1f371612ce2650d ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1619688868 334625 4b142f77edfe92dd22429a0318fc6886 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1619688866 2635856 c814343a8fd5b24f815634648a7d4067 ""
-  "final_report_1.aux" 1620916800 12902 207072b02299ed5fc8add15a6fb86552 "pdflatex"
-  "final_report_1.bbl" 1620916795 30006 57f1d570d92a7998e34500bc2faa7d9a "bibtex final_report_1"
-  "final_report_1.tex" 1620916790 51660 bd3892a2061549fd9e4cb29f835dbfdb ""
+  "final_report_1.aux" 1621201047 12274 b8004debe726a4c67c29d22345e26a4b "pdflatex"
+  "final_report_1.bbl" 1621201043 27904 e283c06fc63bd13a7ada528c0de35429 "bibtex final_report_1"
+  "final_report_1.tex" 1621201037 54112 54c294bdb6134461f21b7fbdd1ca53af ""
   "images/nn.png" 1618138477 397247 9dd13a44cb0ce961e288dc694a4051d2 ""
   (generated)
   "final_report_1.log"
-  "/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.log"
   "final_report_1.pdf"
   "final_report_1Notes.bib"
+  "/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.log"
   "final_report_1.aux"
   "/home/yijerloh/Documents/part_iii_project/project/final_report/final_report_1.pdf"

@@ -68,7 +68,7 @@ class TrainUtil:
             self.coordinates = []
             self.kde_dists = []
 
-    def train(self, XA, XB, X_prior, weights=None, n_iter=500, no_prior_iter=0,
+    def train(self, XA, XB, X_prior, weights=None, n_iter=500,
               save_every=None, decrease_lr_at=None):
         self.XA = XA
         self.XB = XB
@@ -112,22 +112,6 @@ class TrainUtil:
             self.losses.append(loss.item())
             loss.backward()
             self.optimizer.step()
-
-            # if self.animation:
-            #     x, y, z = self.grid_xyz(bounds[0], bounds[1])
-            #     self.coordinates.append((x.cpu().detach().numpy(),
-            #                              y.cpu().detach().numpy(),
-            #                              z.cpu().detach().numpy()))
-
-            #     XA_1d = XA_1d.squeeze().cpu().detach().numpy()
-            #     XB_1d = XB_1d.squeeze().cpu().detach().numpy()
-            #     X_prior_1d = X_prior_1d.squeeze().cpu().detach().numpy()
-            #     XA_1d, XB_1d, X_prior_1d = self.flatten_prior(XA_1d, XB_1d,
-            #                                                   X_prior_1d)
-            #     kde_A = self.kde_dist_1d(XA_1d)
-            #     kde_B = self.kde_dist_1d(XB_1d)
-            #     kde_prior = self.kde_dist_1d(X_prior_1d)
-            #     self.kde_dists.append((kde_A, kde_B, kde_prior))
 
         if save_every is not None:
             return self.losses, self.nets

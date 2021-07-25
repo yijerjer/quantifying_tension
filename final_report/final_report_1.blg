@@ -28,43 +28,43 @@ Control: year (1) truncated
 Control: production of eprint (0) enabled
 You've used 33 entries,
             6079 wiz_defined-function locations,
-            1907 strings with 23280 characters,
-and the built_in function-call counts, 39365 in all, are:
-= -- 2544
-> -- 1206
-< -- 238
-+ -- 366
-- -- 316
-* -- 6400
-:= -- 3559
+            1900 strings with 22729 characters,
+and the built_in function-call counts, 37022 in all, are:
+= -- 2506
+> -- 1045
+< -- 215
++ -- 321
+- -- 270
+* -- 5898
+:= -- 3411
 add.period$ -- 31
 call.type$ -- 33
 change.case$ -- 178
-chr.to.int$ -- 43
+chr.to.int$ -- 42
 cite$ -- 33
-duplicate$ -- 3701
-empty$ -- 2745
-format.name$ -- 684
-if$ -- 7961
-int.to.chr$ -- 1
+duplicate$ -- 3504
+empty$ -- 2597
+format.name$ -- 596
+if$ -- 7467
+int.to.chr$ -- 2
 int.to.str$ -- 40
-missing$ -- 538
+missing$ -- 506
 newline$ -- 145
 num.names$ -- 94
-pop$ -- 1343
+pop$ -- 1289
 preamble$ -- 1
 purify$ -- 155
 quote$ -- 0
-skip$ -- 1558
+skip$ -- 1493
 stack$ -- 0
-substring$ -- 701
-swap$ -- 3651
-text.length$ -- 146
+substring$ -- 706
+swap$ -- 3390
+text.length$ -- 125
 text.prefix$ -- 0
 top$ -- 10
-type$ -- 499
+type$ -- 476
 warning$ -- 1
-while$ -- 96
+while$ -- 95
 width$ -- 0
-write$ -- 348
+write$ -- 347
 (There was 1 warning)

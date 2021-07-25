@@ -1,20 +1,18 @@
 from anesthetic.plot import kde_plot_1d
-from scipy.stats import gaussian_kde
-import numpy as np
 import torch
 import torch.optim as optim
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from matplotlib import rc
-import torch.optim as optim
-from np_utils import simple_data, curved_data, planck_des_data
-from torch_utils import rotation_test, get_limits, TrainUtil
-from tension_net import TensionNet, TensionNet1, TensionNet2, TensionNet3
-from tension_quantify import GaussianKDE, BayesFactorKDE, BayesFactor
+from np_utils import simple_data, curved_data
+from torch_utils import TrainUtil
+from tension_net import TensionNet1
+from tension_quantify import BayesFactorKDE, SuspiciousnessKDE, sigma_from_logS
 
 
 rc('text', usetex=True)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+suss = SuspiciousnessKDE(device, n_points=500)
 
 X0, X1, X_prior = simple_data(dims=2)
 simple_t = TensionNet1(2, hidden_size=4096)
@@ -31,6 +29,25 @@ simple_tu.weights = None
 simple_tu.XA_tnsr = torch.tensor(X0).to(device).float()
 simple_tu.XB_tnsr = torch.tensor(X1).to(device).float()
 simple_tu.X_prior_tnsr = torch.tensor(X_prior).to(device).float()
+
+# XA_1d = simple_tu.net(simple_tu.XA_tnsr)
+# XB_1d = simple_tu.net(simple_tu.XB_tnsr)
+# X_prior_1d = simple_tu.net(simple_tu.X_prior_tnsr)
+# logR = criterion(XA_1d, XB_1d, X_prior_1d)
+# logS = suss(XA_1d, XB_1d, X_prior_1d)
+# sigma, p = sigma_from_logS((2, 0), (logS, 0))
+# logR_1d = criterion(simple_tu.XA_tnsr[:, 0][None], simple_tu.XB_tnsr[:, 0][None], simple_tu.X_prior_tnsr[:, 0][None])
+# logS_1d = suss(simple_tu.XA_tnsr[:, 0][None], simple_tu.XB_tnsr[:, 0][None], simple_tu.X_prior_tnsr[:, 0][None])
+# sigma_1d, p_1d = sigma_from_logS((1, 0), (logS_1d, 0))
+# print("".ljust(10), "1D".ljust(10), "2D".ljust(10))
+# print("logR".ljust(10), str(round(logR, 2)).ljust(10),
+#       str(round(logR_1d, 2)).ljust(10))
+# print("logS".ljust(10), str(round(logS, 2)).ljust(10),
+#       str(round(logS_1d, 2)).ljust(10))
+# print("p".ljust(10), str(round(p[0], 2)).ljust(10),
+#       str(round(p_1d[0], 2)).ljust(10))
+# print("sgma".ljust(10), str(round(sigma[0], 2)).ljust(10),
+#       str(round(sigma_1d[0], 2)).ljust(10))
 
 
 X0_c, X1_c, X_prior_c = curved_data(dims=2, banana="more")
@@ -153,4 +170,4 @@ cy_ax.text(0, 1.05, r"$\rm{b)}$", transform=cy_ax.transAxes, size=16)
 # plt.subplots_adjust(hspace=0.15)
 # plt.show()
 fig.tight_layout()
-plt.savefig("plots/toy_wide.png", dpi=300)
+# plt.savefig("plots/toy_wide.png", dpi=300)

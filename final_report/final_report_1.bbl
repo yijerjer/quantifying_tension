@@ -172,6 +172,23 @@
   Society}\ }\textbf {\bibinfo {volume} {498}},\ \bibinfo {pages} {1420}
   (\bibinfo {year} {2019})},\ \bibinfo {note}
   {\url{https://doi.org/10.1093/mnras/stz3094}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Valentino}\ \emph {et~al.}(2021)\citenamefont
+  {Valentino}, \citenamefont {Mena}, \citenamefont {Pan}, \citenamefont
+  {Visinelli}, \citenamefont {Yang}, \citenamefont {Melchiorri}, \citenamefont
+  {Mota}, \citenamefont {Riess},\ and\ \citenamefont {Silk}}]{DiValentino2021}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {E.~D.}\ \bibnamefont
+  {Valentino}}, \bibinfo {author} {\bibfnamefont {O.}~\bibnamefont {Mena}},
+  \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Pan}}, \bibinfo {author}
+  {\bibfnamefont {L.}~\bibnamefont {Visinelli}}, \bibinfo {author}
+  {\bibfnamefont {W.}~\bibnamefont {Yang}}, \bibinfo {author} {\bibfnamefont
+  {A.}~\bibnamefont {Melchiorri}}, \bibinfo {author} {\bibfnamefont {D.~F.}\
+  \bibnamefont {Mota}}, \bibinfo {author} {\bibfnamefont {A.~G.}\ \bibnamefont
+  {Riess}},\ and\ \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Silk}},\
+  }\href@noop {} {\bibinfo {title} {In the realm of the hubble tension $-$ a
+  review of solutions}} (\bibinfo {year} {2021}),\ \Eprint
+  {https://arxiv.org/abs/2103.01183} {arXiv:2103.01183 [astro-ph.CO]}
+  \BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Heymans}\ \emph {et~al.}(2021)\citenamefont
   {Heymans}, \citenamefont {Tröster}, \citenamefont {Asgari}, \citenamefont
   {Blake}, \citenamefont {Hildebrandt}, \citenamefont {Joachimi}, \citenamefont
@@ -236,39 +253,6 @@
   {journal} {Contemporary Physics}\ }\textbf {\bibinfo {volume} {49}},\
   \bibinfo {pages} {71} (\bibinfo {year} {2008})},\ \bibinfo {note}
   {\url{https://doi.org/10.1080/00107510802066753}}\BibitemShut {NoStop}%
-\bibitem [{\citenamefont {Lartillot}\ and\ \citenamefont
-  {Philippe}(2006)}]{Lartillot2006}%
-  \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.}~\bibnamefont
-  {Lartillot}}\ and\ \bibinfo {author} {\bibfnamefont {H.}~\bibnamefont
-  {Philippe}},\ }\bibfield  {title} {\bibinfo {title} {{Computing Bayes Factors
-  Using Thermodynamic Integration}},\ }\href
-  {https://doi.org/10.1080/10635150500433722} {\bibfield  {journal} {\bibinfo
-  {journal} {Systematic Biology}\ }\textbf {\bibinfo {volume} {55}},\ \bibinfo
-  {pages} {195} (\bibinfo {year} {2006})},\ \bibinfo {note}
-  {\url{https://doi.org/10.1080/10635150500433722}}\BibitemShut {NoStop}%
-\bibitem [{\citenamefont {Skilling}(2006)}]{Skilling2006}%
-  \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont
-  {Skilling}},\ }\bibfield  {title} {\bibinfo {title} {{Nested sampling for
-  general Bayesian computation}},\ }\href {https://doi.org/10.1214/06-BA127}
-  {\bibfield  {journal} {\bibinfo  {journal} {Bayesian Analysis}\ }\textbf
-  {\bibinfo {volume} {1}},\ \bibinfo {pages} {833 } (\bibinfo {year} {2006})},\
-  \bibinfo {note} {\url{https://doi.org/10.1214/06-BA127}}\BibitemShut
-  {NoStop}%
-\bibitem [{\citenamefont {Handley}\ \emph {et~al.}(2015)\citenamefont
-  {Handley}, \citenamefont {Hobson},\ and\ \citenamefont
-  {Lasenby}}]{Handley2015}%
-  \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {W.~J.}\ \bibnamefont
-  {Handley}}, \bibinfo {author} {\bibfnamefont {M.~P.}\ \bibnamefont
-  {Hobson}},\ and\ \bibinfo {author} {\bibfnamefont {A.~N.}\ \bibnamefont
-  {Lasenby}},\ }\bibfield  {title} {\bibinfo {title} {{polychord: nested
-  sampling for cosmology}},\ }\href {https://doi.org/10.1093/mnrasl/slv047}
-  {\bibfield  {journal} {\bibinfo  {journal} {Monthly Notices of the Royal
-  Astronomical Society: Letters}\ }\textbf {\bibinfo {volume} {450}},\ \bibinfo
-  {pages} {L61} (\bibinfo {year} {2015})},\ \bibinfo {note}
-  {\url{https://doi.org/10.1093/mnrasl/slv047}}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Marshall}\ \emph {et~al.}(2006)\citenamefont
   {Marshall}, \citenamefont {Rajguru},\ and\ \citenamefont
   {Slosar}}]{Marshall2006}%
@@ -282,6 +266,22 @@
   {volume} {73}},\ \bibinfo {pages} {067302} (\bibinfo {year} {2006})},\
   \bibinfo {note}
   {\url{https://doi.org/10.1103/PhysRevD.73.067302}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Lemos}\ \emph
+  {et~al.}(2020{\natexlab{a}})\citenamefont {Lemos}, \citenamefont
+  {Köhlinger}, \citenamefont {Handley}, \citenamefont {Joachimi},
+  \citenamefont {Whiteway},\ and\ \citenamefont {Lahav}}]{Lemos2020_1}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.}~\bibnamefont
+  {Lemos}}, \bibinfo {author} {\bibfnamefont {F.}~\bibnamefont {Köhlinger}},
+  \bibinfo {author} {\bibfnamefont {W.}~\bibnamefont {Handley}}, \bibinfo
+  {author} {\bibfnamefont {B.}~\bibnamefont {Joachimi}}, \bibinfo {author}
+  {\bibfnamefont {L.}~\bibnamefont {Whiteway}},\ and\ \bibinfo {author}
+  {\bibfnamefont {O.}~\bibnamefont {Lahav}},\ }\bibfield  {title} {\bibinfo
+  {title} {Quantifying suspiciousness within correlated data sets},\ }\href
+  {https://doi.org/10.1093/mnras/staa1836} {\bibfield  {journal} {\bibinfo
+  {journal} {Monthly Notices of the Royal Astronomical Society}\ }\textbf
+  {\bibinfo {volume} {496}},\ \bibinfo {pages} {4647–4653} (\bibinfo {year}
+  {2020}{\natexlab{a}})}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Hornik}\ \emph {et~al.}(1989)\citenamefont {Hornik},
   \citenamefont {Stinchcombe},\ and\ \citenamefont {White}}]{Hornik1989}%
   \BibitemOpen
@@ -315,7 +315,8 @@
   International Conference on Machine Learning}}},\ \bibinfo {series and
   number} {ICML'10}\ (\bibinfo  {publisher} {Omnipress},\ \bibinfo {address}
   {Madison, WI, USA},\ \bibinfo {year} {2010})\ p.\ \bibinfo {pages}
-  {807–814}\BibitemShut {NoStop}%
+  {807–814},\ \bibinfo {note}
+  {\url{https://dl.acm.org/doi/10.5555/3104322.3104425}}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Keskar}\ \emph {et~al.}(2017)\citenamefont {Keskar},
   \citenamefont {Mudigere}, \citenamefont {Nocedal}, \citenamefont
   {Smelyanskiy},\ and\ \citenamefont {Tang}}]{Keskar2017}%
@@ -360,76 +361,12 @@
   kernel density estimation: A review},\ }in\ \href@noop {} {\emph {\bibinfo
   {booktitle} {CORE and Institut de Statistique}}}\ (\bibinfo {year}
   {1993})\BibitemShut {NoStop}%
-\bibitem [{\citenamefont {Virtanen}\ \emph {et~al.}(2020)\citenamefont
-  {Virtanen}, \citenamefont {Gommers}, \citenamefont {Oliphant}, \citenamefont
-  {Haberland}, \citenamefont {Reddy}, \citenamefont {Cournapeau}, \citenamefont
-  {Burovski}, \citenamefont {Peterson}, \citenamefont {Weckesser},
-  \citenamefont {Bright}, \citenamefont {{van der Walt}}, \citenamefont
-  {Brett}, \citenamefont {Wilson}, \citenamefont {Millman}, \citenamefont
-  {Mayorov}, \citenamefont {Nelson}, \citenamefont {Jones}, \citenamefont
-  {Kern}, \citenamefont {Larson}, \citenamefont {Carey}, \citenamefont {Polat},
-  \citenamefont {Feng}, \citenamefont {Moore}, \citenamefont {{VanderPlas}},
-  \citenamefont {Laxalde}, \citenamefont {Perktold}, \citenamefont {Cimrman},
-  \citenamefont {Henriksen}, \citenamefont {Quintero}, \citenamefont {Harris},
-  \citenamefont {Archibald}, \citenamefont {Ribeiro}, \citenamefont
-  {Pedregosa}, \citenamefont {{van Mulbregt}},\ and\ \citenamefont {{SciPy 1.0
-  Contributors}}}]{Scipy2020}%
-  \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.}~\bibnamefont
-  {Virtanen}}, \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Gommers}},
-  \bibinfo {author} {\bibfnamefont {T.~E.}\ \bibnamefont {Oliphant}}, \bibinfo
-  {author} {\bibfnamefont {M.}~\bibnamefont {Haberland}}, \bibinfo {author}
-  {\bibfnamefont {T.}~\bibnamefont {Reddy}}, \bibinfo {author} {\bibfnamefont
-  {D.}~\bibnamefont {Cournapeau}}, \bibinfo {author} {\bibfnamefont
-  {E.}~\bibnamefont {Burovski}}, \bibinfo {author} {\bibfnamefont
-  {P.}~\bibnamefont {Peterson}}, \bibinfo {author} {\bibfnamefont
-  {W.}~\bibnamefont {Weckesser}}, \bibinfo {author} {\bibfnamefont
-  {J.}~\bibnamefont {Bright}}, \bibinfo {author} {\bibfnamefont {S.~J.}\
-  \bibnamefont {{van der Walt}}}, \bibinfo {author} {\bibfnamefont
-  {M.}~\bibnamefont {Brett}}, \bibinfo {author} {\bibfnamefont
-  {J.}~\bibnamefont {Wilson}}, \bibinfo {author} {\bibfnamefont {K.~J.}\
-  \bibnamefont {Millman}}, \bibinfo {author} {\bibfnamefont {N.}~\bibnamefont
-  {Mayorov}}, \bibinfo {author} {\bibfnamefont {A.~R.~J.}\ \bibnamefont
-  {Nelson}}, \bibinfo {author} {\bibfnamefont {E.}~\bibnamefont {Jones}},
-  \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Kern}}, \bibinfo {author}
-  {\bibfnamefont {E.}~\bibnamefont {Larson}}, \bibinfo {author} {\bibfnamefont
-  {C.~J.}\ \bibnamefont {Carey}}, \bibinfo {author} {\bibfnamefont
-  {{\.I}.}~\bibnamefont {Polat}}, \bibinfo {author} {\bibfnamefont
-  {Y.}~\bibnamefont {Feng}}, \bibinfo {author} {\bibfnamefont {E.~W.}\
-  \bibnamefont {Moore}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont
-  {{VanderPlas}}}, \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont
-  {Laxalde}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Perktold}},
-  \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Cimrman}}, \bibinfo
-  {author} {\bibfnamefont {I.}~\bibnamefont {Henriksen}}, \bibinfo {author}
-  {\bibfnamefont {E.~A.}\ \bibnamefont {Quintero}}, \bibinfo {author}
-  {\bibfnamefont {C.~R.}\ \bibnamefont {Harris}}, \bibinfo {author}
-  {\bibfnamefont {A.~M.}\ \bibnamefont {Archibald}}, \bibinfo {author}
-  {\bibfnamefont {A.~H.}\ \bibnamefont {Ribeiro}}, \bibinfo {author}
-  {\bibfnamefont {F.}~\bibnamefont {Pedregosa}}, \bibinfo {author}
-  {\bibfnamefont {P.}~\bibnamefont {{van Mulbregt}}},\ and\ \bibinfo {author}
-  {\bibnamefont {{SciPy 1.0 Contributors}}},\ }\bibfield  {title} {\bibinfo
-  {title} {{{SciPy} 1.0: Fundamental Algorithms for Scientific Computing in
-  Python}},\ }\href {https://doi.org/10.1038/s41592-019-0686-2} {\bibfield
-  {journal} {\bibinfo  {journal} {Nature Methods}\ }\textbf {\bibinfo {volume}
-  {17}},\ \bibinfo {pages} {261} (\bibinfo {year} {2020})}\BibitemShut
-  {NoStop}%
-\bibitem [{\citenamefont {Schütt}\ \emph {et~al.}(2017)\citenamefont
-  {Schütt}, \citenamefont {Arbabzadah}, \citenamefont {Chmiela},\ and\
-  \citenamefont {et~al}}]{Schutt2017}%
-  \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {K.}~\bibnamefont
-  {Schütt}}, \bibinfo {author} {\bibfnamefont {F.}~\bibnamefont {Arbabzadah}},
-  \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Chmiela}},\ and\ \bibinfo
-  {author} {\bibnamefont {et~al}},\ }\bibfield  {title} {\bibinfo {title}
-  {Quantum-chemical insights from deep tensor neural networks},\ }\href@noop {}
-  {\bibfield  {journal} {\bibinfo  {journal} {Nat Commun}\ }\textbf {\bibinfo
-  {volume} {8}} (\bibinfo {year} {2017})},\ \bibinfo {note}
-  {\url{https://doi.org/10.1038/ncomms13890}}\BibitemShut {NoStop}%
-\bibitem [{\citenamefont {Lemos}\ \emph {et~al.}(2020)\citenamefont {Lemos},
-  \citenamefont {Raveri}, \citenamefont {Campos}, \citenamefont {Park},
-  \citenamefont {Chang}, \citenamefont {Weaverdyck}, \citenamefont {Huterer},
-  \citenamefont {Liddle}, \citenamefont {Blazek}, \citenamefont {Cawthon},
-  \citenamefont {Choi},\ and\ \citenamefont {et. al}}]{Lemos2020}%
+\bibitem [{\citenamefont {Lemos}\ \emph
+  {et~al.}(2020{\natexlab{b}})\citenamefont {Lemos}, \citenamefont {Raveri},
+  \citenamefont {Campos}, \citenamefont {Park}, \citenamefont {Chang},
+  \citenamefont {Weaverdyck}, \citenamefont {Huterer}, \citenamefont {Liddle},
+  \citenamefont {Blazek}, \citenamefont {Cawthon}, \citenamefont {Choi},\ and\
+  \citenamefont {et. al}}]{Lemos2020}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.}~\bibnamefont
   {Lemos}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Raveri}},
@@ -443,8 +380,9 @@
   \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Choi}},\ and\ \bibinfo
   {author} {\bibnamefont {et. al}},\ }\href@noop {} {\bibinfo {title}
   {Assessing tension metrics with {Dark Energy Survey and Planck data}}}
-  (\bibinfo {year} {2020}),\ \Eprint {https://arxiv.org/abs/2012.09554}
-  {arXiv:2012.09554 [astro-ph.CO]} \BibitemShut {NoStop}%
+  (\bibinfo {year} {2020}{\natexlab{b}}),\ \Eprint
+  {https://arxiv.org/abs/2012.09554} {arXiv:2012.09554 [astro-ph.CO]}
+  \BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Handley}\ and\ \citenamefont
   {Lemos}(2020)}]{Dataset}%
   \BibitemOpen
@@ -475,4 +413,40 @@
   {103}},\ \href {https://doi.org/10.1103/physrevd.103.063529}
   {10.1103/physrevd.103.063529} (\bibinfo {year} {2021}),\ \bibinfo {note}
   {\url{http://dx.doi.org/10.1103/PhysRevD.103.063529}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Udrescu}\ and\ \citenamefont
+  {Tegmark}(2020)}]{Udrescu2020}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.-M.}\ \bibnamefont
+  {Udrescu}}\ and\ \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {Tegmark}},\ }\bibfield  {title} {\bibinfo {title} {Ai feynman: A
+  physics-inspired method for symbolic regression},\ }\href@noop {} {\bibfield
+  {journal} {\bibinfo  {journal} {Science Advances}\ }\textbf {\bibinfo
+  {volume} {6}} (\bibinfo {year} {2020})},\ \bibinfo {note}
+  {\url{https://pubmed.ncbi.nlm.nih.gov/32426452}}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Montavon}\ \emph {et~al.}(2018)\citenamefont
+  {Montavon}, \citenamefont {Samek},\ and\ \citenamefont
+  {Müller}}]{Montavon2018}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.}~\bibnamefont
+  {Montavon}}, \bibinfo {author} {\bibfnamefont {W.}~\bibnamefont {Samek}},\
+  and\ \bibinfo {author} {\bibfnamefont {K.-R.}\ \bibnamefont {Müller}},\
+  }\bibfield  {title} {\bibinfo {title} {Methods for interpreting and
+  understanding deep neural networks},\ }\href
+  {https://doi.org/https://doi.org/10.1016/j.dsp.2017.10.011} {\bibfield
+  {journal} {\bibinfo  {journal} {Digital Signal Processing}\ }\textbf
+  {\bibinfo {volume} {73}},\ \bibinfo {pages} {1} (\bibinfo {year} {2018})},\
+  \bibinfo {note}
+  {\url{https://www.sciencedirect.com/science/article/pii/S1051200417302385}}\BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Kullback}\ and\ \citenamefont
+  {Leibler}(1951)}]{Kullback1951}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+  {Kullback}}\ and\ \bibinfo {author} {\bibfnamefont {R.~A.}\ \bibnamefont
+  {Leibler}},\ }\bibfield  {title} {\bibinfo {title} {{On Information and
+  Sufficiency}},\ }\href {https://doi.org/10.1214/aoms/1177729694} {\bibfield
+  {journal} {\bibinfo  {journal} {The Annals of Mathematical Statistics}\
+  }\textbf {\bibinfo {volume} {22}},\ \bibinfo {pages} {79 } (\bibinfo {year}
+  {1951})},\ \bibinfo {note}
+  {\url{https://doi.org/10.1214/aoms/1177729694}}\BibitemShut {NoStop}%
 \end{thebibliography}%
