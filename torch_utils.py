@@ -311,6 +311,7 @@ class TrainUtil:
             abs_range = np.max(X_prior_1d) - np.min(X_prior_1d)
             t_range = [np.min(X_prior_1d) - abs_range,
                        np.max(X_prior_1d) + abs_range]
+
             norm_tension_f = self.flatten_prior_f(X_prior_1d, t_range)
             first_1d = norm_tension_f(first_1d)
             second_1d = norm_tension_f(second_1d)
@@ -346,6 +347,7 @@ class TrainUtil:
                     grid_y = grid_y.cpu().detach().numpy()
                     grid_z = grid_z.cpu().detach().numpy()
                     if norm_tension:
+                        print(ieff, jeff, np.max(grid_z), np.min(grid_z))
                         grid_z = norm_tension_f(grid_z)
 
                     all_grids[ieff].append((grid_x, grid_y, grid_z))

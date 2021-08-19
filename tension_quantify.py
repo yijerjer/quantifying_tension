@@ -89,7 +89,7 @@ class GaussianKDE(Distribution):
 
         self.covar = torch.atleast_2d(cov(X, weights=self.weights)) * self.bw**2
         self.inv_cov = torch.inverse(self.covar)
-        L = torch.cholesky(self.covar * 2 * np.pi)
+        L = torch.linalg.cholesky(self.covar * 2 * np.pi)
         self.log_det = 2 * torch.log(torch.diag(L)).sum()
 
     def prob(self, y):
